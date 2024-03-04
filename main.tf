@@ -26,11 +26,12 @@ module "powervs1" {
   }
   this_service_instance_name = "powervs1"
   this_zone = var.zone1
-  this_network_cidr = var.powervs_region1.network_cidr
-  this_network_gw   = var.powervs_region1.network_gw
-  this_net_start_ip = var.powervs_region1.net_start_ip
-  this_net_end_ip   = var.powervs_region1.net_end_ip
-  ocp_instances_region = var.ocp_instances_region1
+  this_network_cidr = var.powervs_zone1.network_cidr
+  this_network_gw   = var.powervs_zone1.network_gw
+  this_net_start_ip = var.powervs_zone1.net_start_ip
+  this_net_end_ip   = var.powervs_zone1.net_end_ip
+  ocp_instances_zone = var.ocp_instances_zone1
+  lnx_instances_zone = var.lnx_instances_zone1
   internal_vpc_dns1     = var.internal_vpc_dns1
   internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key
@@ -52,11 +53,12 @@ module "powervs2" {
   }
   this_service_instance_name = "powervs2"
   this_zone = var.zone2
-  this_network_cidr = var.powervs_region2.network_cidr
-  this_network_gw   = var.powervs_region2.network_gw
-  this_net_start_ip = var.powervs_region2.net_start_ip
-  this_net_end_ip   = var.powervs_region2.net_end_ip
-  ocp_instances_region = var.ocp_instances_region2
+  this_network_cidr = var.powervs_zone2.network_cidr
+  this_network_gw   = var.powervs_zone2.network_gw
+  this_net_start_ip = var.powervs_zone2.net_start_ip
+  this_net_end_ip   = var.powervs_zone2.net_end_ip
+  ocp_instances_zone = var.ocp_instances_zone2
+  lnx_instances_zone = var.lnx_instances_zone2
   internal_vpc_dns1     = var.internal_vpc_dns1
   internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key
@@ -79,11 +81,12 @@ module "powervs3" {
   }
   this_service_instance_name = "powervs3"
   this_zone = var.zone3
-  this_network_cidr = var.powervs_region3.network_cidr
-  this_network_gw   = var.powervs_region3.network_gw
-  this_net_start_ip = var.powervs_region3.net_start_ip
-  this_net_end_ip   = var.powervs_region3.net_end_ip
-  ocp_instances_region = var.ocp_instances_region2
+  this_network_cidr = var.powervs_zone3.network_cidr
+  this_network_gw   = var.powervs_zone3.network_gw
+  this_net_start_ip = var.powervs_zone3.net_start_ip
+  this_net_end_ip   = var.powervs_zone3.net_end_ip
+  ocp_instances_zone = var.ocp_instances_zone3
+  lnx_instances_zone = var.lnx_instances_zone3
   internal_vpc_dns1     = var.internal_vpc_dns1
   internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key

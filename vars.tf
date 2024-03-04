@@ -50,7 +50,7 @@ variable "ocp_pi_image_storage_type" {
   default = "tier3"
 }
 
-variable "powervs_region1" {
+variable "powervs_zone1" {
   type = map(any)
   default = {
     ibm_provider = "ibm.powervs1",
@@ -60,7 +60,7 @@ variable "powervs_region1" {
     net_end_ip   = "192.168.101.254"
   }
 }
-variable "ocp_instances_region1" {
+variable "ocp_instances_zone1" {
   type    = map(any)
   default = {
     ocp_instances = {
@@ -97,6 +97,14 @@ variable "ocp_instances_region1" {
         pi_user_data     = {},
         pi_image_name    = "OCP412",
       },
+    },
+  }
+}
+
+variable "lnx_instances_zone1" {
+  type    = map(any)
+  default = {
+    lnx_instances = {
       linux = {
         pi_instance_name = "linux1",
         pi_memory = "32",
@@ -107,12 +115,12 @@ variable "ocp_instances_region1" {
         pi_health_status = "WARNING",
         pi_user_data = {},
         pi_image_name = "RHEL8-SP8",
-      } ,
-    },
+      }
+    }
   }
 }
 
-variable "powervs_region2" {
+variable "powervs_zone2" {
   type = map(any)
   default = {
     ibm_provider = "ibm.powervs1",
@@ -124,7 +132,7 @@ variable "powervs_region2" {
 }
 
 
-variable "ocp_instances_region2" {
+variable "ocp_instances_zone2" {
   type    = map(any)
   default = {
     ocp_instances = {
@@ -149,7 +157,15 @@ variable "ocp_instances_region2" {
         pi_health_status = "WARNING",
         pi_user_data     = {},
         pi_image_name    = "OCP412",
-      },
+      }
+    }
+  }
+}
+
+variable "lnx_instances_zone2" {
+  type    = map(any)
+  default = {
+    lnx_instances = {
       linux = {
         pi_instance_name = "linux2",
         pi_memory = "32",
@@ -160,13 +176,12 @@ variable "ocp_instances_region2" {
         pi_health_status = "WARNING",
         pi_user_data = {},
         pi_image_name = "RHEL8-SP8",
-      } ,
-    },
+      }
+    }
   }
 }
 
-
-variable "powervs_region3" {
+variable "powervs_zone3" {
   type = map(any)
   default = {
     ibm_provider = "ibm.powervs1",
@@ -177,7 +192,7 @@ variable "powervs_region3" {
   }
 }
 
-variable "ocp_instances_region3" {
+variable "ocp_instances_zone3" {
   type    = map(any)
   default = {
     ocp_instances = {
@@ -190,7 +205,7 @@ variable "ocp_instances_region3" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
+        pi_image_name    = "OCP412"
       },
       worker = {
         pi_instance_name = "worker3",
@@ -201,8 +216,16 @@ variable "ocp_instances_region3" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
-      },
+        pi_image_name    = "OCP412"
+      }
+    }
+  }
+}
+
+variable "lnx_instances_zone3" {
+  type    = map(any)
+  default = {
+    lnx_instances = {
       linux = {
         pi_instance_name = "linux3",
         pi_memory = "32",
@@ -213,9 +236,8 @@ variable "ocp_instances_region3" {
         pi_health_status = "WARNING",
         pi_user_data = {},
         pi_image_name = "RHEL8-SP8",
-      } ,
-    },
+      }
+    }
   }
 }
-
 
