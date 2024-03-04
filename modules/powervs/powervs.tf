@@ -46,15 +46,15 @@ module "network" {
 
 module "ocp_instance" {
   source = "./ocp_instance"
-  for_each = var.this_ocp_instances[obj]
-  this_pi_instance_name      = each.value.obj.pi_instance_name
-  this_pi_memory             = each.value.obj.pi_memory
-  this_pi_processors         = each.value.obj.pi_processors
-  this_pi_proc_type          = each.value.obj._pi_proc_type
-  this_pi_sys_type           = each.value.obj.pi_pin_policy
-  this_pi_pin_policy         = each.value.obj.pi_health_status
-  this_pi_health_status      = each.value.obj.pi_health_status
-  this_pi_user_data = each.value.obj.pi_user_data
+  for_each = var.this_ocp_instances[pi_instance_name]
+  this_pi_instance_name      = each.value.pi_instance_name
+  this_pi_memory             = each.value.pi_memory
+  this_pi_processors         = each.value.pi_processors
+  this_pi_proc_type          = each.value._pi_proc_type
+  this_pi_sys_type           = each.value.pi_pin_policy
+  this_pi_pin_policy         = each.value.pi_health_status
+  this_pi_health_status      = each.value.pi_health_status
+  this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
@@ -65,16 +65,16 @@ module "ocp_instance" {
 
 module "linux_instance" {
   source = "./linux_instance"
-  for_each = var.this_linux_instances[obj]
-  this_pi_instance_name      = each.value.obj.pi_instance_name
-  this_pi_memory             = each.value.obj.pi_memory
-  this_pi_processors         = each.value.obj.pi_processors
-  this_pi_proc_type          = each.value.obj._pi_proc_type
-  this_pi_sys_type           = each.value.obj.pi_pin_policy
-  this_pi_pin_policy         = each.value.obj.pi_health_status
-  this_pi_health_status      = each.value.obj.pi_health_status
-  this_pi_user_data = each.value.obj.pi_user_data
-  this_pi_image_name = each.value.obj.pi_image_name
+  for_each = var.this_linux_instances[pi_instance_name]
+  this_pi_instance_name      = each.value.pi_instance_name
+  this_pi_memory             = each.value.pi_memory
+  this_pi_processors         = each.value.pi_processors
+  this_pi_proc_type          = each.value._pi_proc_type
+  this_pi_sys_type           = each.value.pi_pin_policy
+  this_pi_pin_policy         = each.value.pi_health_status
+  this_pi_health_status      = each.value.pi_health_status
+  this_pi_user_data = each.value.pi_user_data
+  this_pi_image_name = each.value.pi_image_name
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
