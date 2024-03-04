@@ -2,7 +2,10 @@
 module "vpc" {
   source = "./modules/vpc"
   providers = {
-    ibm = ibm
+    ibm = {
+      source  = "IBM-Cloud/ibm"
+      version = ">= 1.61.0"
+    }
   }
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -12,7 +15,10 @@ module "vpc" {
 module "res-group" {
   source = "./modules/res-group"
   providers = {
-    ibm = ibm
+    ibm = {
+      source  = "IBM-Cloud/ibm"
+      version = ">= 1.61.0"
+    }
   }
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -23,7 +29,10 @@ module "powervs" {
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   for_each = var.loop_workspace
   providers = {
-    ibm = ibm.each.value.ibm_provider
+    ibm = {
+      source  = "IBM-Cloud/ibm"
+      version = ">= 1.61.0"
+    }
   }
   this_service_instance_name = each.key
   this_zone = each.value.region_zone
