@@ -4,6 +4,8 @@ module "vpc" {
   providers = {
     ibm = ibm
   }
+  provider_region = var.provider_region
+  ibmcloud_api_key = var.ibmcloud_api_key
 }
 
 
@@ -12,6 +14,8 @@ module "res-group" {
   providers = {
     ibm = ibm
   }
+  provider_region = var.provider_region
+  ibmcloud_api_key = var.ibmcloud_api_key
 }
 
 module "powervs" {
@@ -38,4 +42,6 @@ module "powervs" {
   ocp_pi_image_bucket_region = var.ocp_pi_image_bucket_region
   ocp_pi_image_name = var.ocp_pi_image_name
   ocp_pi_image_storage_type = var.ocp_pi_image_storage_type
+  provider_region = var.provider_region
+  ibmcloud_api_key = var.ibmcloud_api_key
 }
