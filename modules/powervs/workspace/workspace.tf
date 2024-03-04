@@ -10,6 +10,9 @@ variable "this_service_instance_name" {
   type = string
 }
 
+variable "provider_region" {}
+variable "ibmcloud_api_key" {}
+
 resource "ibm_pi_workspace" "powervs_service_instance" {
   pi_name               = var.this_service_instance_name
   pi_datacenter         = var.this_zone

@@ -49,3 +49,6 @@ variable "this_net_start_ip" {
 variable "this_net_end_ip" {
   type = string
 }
+
+variable "provider_region" {}
+variable "ibmcloud_api_key" {}

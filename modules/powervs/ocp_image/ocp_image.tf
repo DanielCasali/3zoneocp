@@ -15,3 +15,5 @@ variable "ocp_pi_image_bucket_access" {}
 variable "ocp_pi_image_bucket_region" {}
 variable "ocp_pi_image_bucket_file_name" {}
 variable "ocp_pi_image_storage_type" {}
+variable "provider_region" {}
+variable "ibmcloud_api_key" {}

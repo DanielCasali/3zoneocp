@@ -7,3 +7,6 @@ resource "ibm_pi_key" "my-key_ssh-key" {
 variable "pi_ssh_key" {}
 
 variable "this_workspace_id" {}
+
+variable "provider_region" {}
+variable "ibmcloud_api_key" {}

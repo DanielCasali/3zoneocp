@@ -56,3 +56,6 @@ variable "this_pi_user_data" {
 variable "this_network_id" {}
 
 variable "this_pi_image_name" {}
+
+variable "provider_region" {}
+variable "ibmcloud_api_key" {}
