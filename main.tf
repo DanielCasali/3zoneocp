@@ -19,7 +19,7 @@ module "powervs" {
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   for_each = var.loop_workspace
   providers = {
-    ibm = ibm.each.key
+    ibm = ibm.each.value.ibm_provider
   }
   this_service_instance_name = each.key
   this_zone = each.value.region_zone
