@@ -46,7 +46,7 @@ module "network" {
 
 module "ocp_instance" {
   source = "./ocp_instance"
-  for_each = var.this_ocp_instances.pi_instance_name
+  for_each = var.ocp_instances_region.ocp_instances
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
   this_pi_processors         = each.value.pi_processors
@@ -63,24 +63,6 @@ module "ocp_instance" {
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
-module "linux_instance" {
-  source = "./linux_instance"
-  for_each = var.this_linux_instances.pi_instance_name
-  this_pi_instance_name      = each.value.pi_instance_name
-  this_pi_memory             = each.value.pi_memory
-  this_pi_processors         = each.value.pi_processors
-  this_pi_proc_type          = each.value.pi_proc_type
-  this_pi_sys_type           = each.value.pi_pin_policy
-  this_pi_pin_policy         = each.value.pi_health_status
-  this_pi_health_status      = each.value.pi_health_status
-  this_pi_user_data = each.value.pi_user_data
-  this_pi_image_name = each.value.pi_image_name
-  this_workspace_id = module.workspace.workspace_id
-  this_network_id = module.network.this_network_id
-  ssh_key_id = module.ssh_key.ssh_key_id
-  provider_region = var.provider_region
-  ibmcloud_api_key = var.ibmcloud_api_key
-}
 
 variable "internal_vpc_dns1" {
   type = string
@@ -121,11 +103,9 @@ type = string
 variable "pi_ssh_key" {
   type = string
 }
-variable "this_ocp_instances" {
 
-}
-
-variable "this_linux_instances" {
+variable "ocp_instances_region" {
+  type = object({})
 }
 
 variable "ocp_pi_image_name" {}
