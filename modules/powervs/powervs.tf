@@ -24,7 +24,7 @@ module "ssh_key" {
 
 
 module "network" {
-  source    = "./network",
+  source    = "./network"
   this_workspace_id = module.workspace.workspace_id
   this_service_instance_name = var.this_service_instance_name
   this_zone = var.this_zone
