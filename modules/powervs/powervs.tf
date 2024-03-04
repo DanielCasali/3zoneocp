@@ -1,13 +1,13 @@
 
 module "workspace" {
-  source    = "workspace"
+  source    = "./workspace"
   ibm_resource_group_id = var.ibm_resource_group_id
   this_service_instance_name = var.this_service_instance_name
   this_zone = var.this_zone
 }
 
 module "ocp_image" {
-  source = "ocp_image"
+  source = "./ocp_image"
   ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
   ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name
   ocp_pi_image_bucket_name = var.ocp_pi_image_bucket_name
@@ -17,14 +17,14 @@ module "ocp_image" {
   this_workspace_id = module.workspace.workspace_id
 }
 module "ssh_key" {
-  source = "ssh_key"
+  source = "./ssh_key"
   this_workspace_id = module.workspace.workspace_id
   pi_ssh_key = var.pi_ssh_key
 }
 
 
 module "network" {
-  source    = "network"
+  source    = "./network"
   this_workspace_id = module.workspace.workspace_id
   this_service_instance_name = var.this_service_instance_name
   this_zone = var.this_zone
@@ -37,7 +37,7 @@ module "network" {
 }
 
 module "ocp_instance" {
-  source = "ocp_instance"
+  source = "./ocp_instance"
   for_each = var.this_ocp_instances[obj],
   this_pi_instance_name      = each.value.obj.pi_instance_name,
   this_pi_memory             = each.value.obj.pi_memory,
@@ -55,7 +55,7 @@ module "ocp_instance" {
 }
 
 module "linux_instance" {
-  source = "linux_instance"
+  source = "./linux_instance"
   for_each = var.this_linux_instances[obj],
   this_pi_instance_name      = each.value.obj.pi_instance_name,
   this_pi_memory             = each.value.obj.pi_memory,

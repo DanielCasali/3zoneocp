@@ -1,25 +1,25 @@
 
 module "vpc" {
-  source = "modules/vpc"
+  source = "./modules/vpc"
   providers = {
-    ibm = "ibm"
+    ibm = ibm
   }
 }
 
 
 module "res-group" {
-  source = "modules/res-group"
+  source = "./modules/res-group"
   providers = {
-    ibm = "ibm"
+    ibm = ibm
   }
 }
 
 module "powervs" {
-  source    = "modules/powervs"
+  source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   for_each = var.loop_workspace
   providers = {
-    ibm = each.value.ibm_provider
+    ibm = ibm.each.key
   }
   this_service_instance_name = each.key
   this_zone = each.value.region_zone
