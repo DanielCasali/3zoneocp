@@ -1,3 +1,10 @@
+variable "internal_vpc_dns1" {
+  default = "8.8.4.4"
+}
+variable "internal_vpc_dns2" {
+  default = "8.8.8.8"
+}
+
 
 variable "provider_region" {
   default = "us-south"
