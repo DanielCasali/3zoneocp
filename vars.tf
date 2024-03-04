@@ -73,7 +73,7 @@ variable "ocp_instances_region1" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = var.ocp_pi_image_name,
+        pi_image_name    = "OCP412",
       },
       master = {
         pi_instance_name = "master1",
