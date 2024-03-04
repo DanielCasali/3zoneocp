@@ -9,8 +9,8 @@ resource "ibm_pi_instance" "linux_instance" {
   pi_cloud_instance_id  = var.this_workspace_id
   pi_pin_policy         = var.this_pi_pin_policy
   pi_health_status      = var.this_pi_health_status
+  pi_user_data = ""
   pi_network {
-    pi_user_data = ""
     network_id = var.this_network_id
   }
 }
@@ -58,4 +58,5 @@ variable "this_network_id" {}
 variable "this_pi_image_name" {}
 
 variable "provider_region" {}
+
 variable "ibmcloud_api_key" {}
