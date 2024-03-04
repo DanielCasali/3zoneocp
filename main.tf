@@ -2,7 +2,7 @@
 module "vpc" {
   source = "./modules/vpc"
   providers = {
-    ibm = region
+    ibm = ibm
   }
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -12,7 +12,7 @@ module "vpc" {
 module "res-group" {
   source = "./modules/res-group"
   providers = {
-    ibm = region
+    ibm = ibm
   }
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
