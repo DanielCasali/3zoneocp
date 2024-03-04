@@ -47,7 +47,6 @@ module "ocp_instance" {
   this_pi_pin_policy         = each.value.obj.pi_health_status
   this_pi_health_status      = each.value.obj.pi_health_status
   this_pi_user_data = each.value.obj.pi_user_data
-  this_pi_image_name = each.value.obj.pi_image_name
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
