@@ -32,9 +32,9 @@ module "powervs" {
   this_net_start_ip = each.value.net_start_ip
   this_net_end_ip   = each.value.net_end_ip
   this_ocp_instances    = each.value.ocp_instances
-  this_linux_instances    = each.value.linux_instances
-  internal_vpc_dns1          = var.internal_vpc_dns1
-  internal_vpc_dns2          = var.internal_vpc_dns2
+  this_linux_instances  = each.value.linux_instances
+  internal_vpc_dns1     = var.internal_vpc_dns1
+  internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key
   ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
   ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name

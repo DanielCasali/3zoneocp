@@ -46,7 +46,7 @@ module "network" {
 
 module "ocp_instance" {
   source = "./ocp_instance"
-  for_each = var.this_ocp_instances[pi_instance_name]
+  for_each = var.this_ocp_instances.pi_instance_name
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
   this_pi_processors         = each.value.pi_processors
@@ -65,11 +65,11 @@ module "ocp_instance" {
 
 module "linux_instance" {
   source = "./linux_instance"
-  for_each = var.this_linux_instances[pi_instance_name]
+  for_each = var.this_linux_instances.pi_instance_name
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
   this_pi_processors         = each.value.pi_processors
-  this_pi_proc_type          = each.value._pi_proc_type
+  this_pi_proc_type          = each.value.pi_proc_type
   this_pi_sys_type           = each.value.pi_pin_policy
   this_pi_pin_policy         = each.value.pi_health_status
   this_pi_health_status      = each.value.pi_health_status
