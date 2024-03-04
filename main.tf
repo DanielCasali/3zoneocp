@@ -3,9 +3,9 @@ module "vpc" {
   source = "./modules/vpc"
   providers = {
     ibm = ibm
+    region = var.provider_region
+    ibmcloud_api_key = var.ibmcloud_api_key
   }
-  provider_region = var.provider_region
-  ibmcloud_api_key = var.ibmcloud_api_key
 }
 
 
@@ -13,9 +13,10 @@ module "res-group" {
   source = "./modules/res-group"
   providers = {
     ibm = ibm
+    region = var.provider_region
+    ibmcloud_api_key = var.ibmcloud_api_key
   }
-  provider_region = var.provider_region
-  ibmcloud_api_key = var.ibmcloud_api_key
+
 }
 
 module "powervs" {
@@ -23,7 +24,10 @@ module "powervs" {
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   for_each = var.loop_workspace
   providers = {
-    ibm = ibm.each.value.ibm_provider
+    ibm = ibm
+    region = var.provider_region
+    zone = each.value.region_zone
+    ibmcloud_api_key = var.ibmcloud_api_key
   }
   this_service_instance_name = each.key
   this_zone = each.value.region_zone
@@ -42,6 +46,4 @@ module "powervs" {
   ocp_pi_image_bucket_region = var.ocp_pi_image_bucket_region
   ocp_pi_image_name = var.ocp_pi_image_name
   ocp_pi_image_storage_type = var.ocp_pi_image_storage_type
-  provider_region = var.provider_region
-  ibmcloud_api_key = var.ibmcloud_api_key
 }
