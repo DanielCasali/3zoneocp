@@ -15,5 +15,3 @@ resource "ibm_pi_workspace" "powervs_service_instance" {
   pi_datacenter         = var.this_zone
   pi_resource_group_id  = var.ibm_resource_group_id
 }
-
-
