@@ -45,7 +45,7 @@ variable "loop_workspace" {
   default = {
     powervs1 = {
       region_zone  = "dal10",
-      ibm_provider = powervs1,
+      ibm_provider = "powervs1",
       network_cidr = "192.168.101.0/24",
       network_gw   = "192.168.101.1",
       net_start_ip = "192.168.101.5",
@@ -101,7 +101,7 @@ variable "loop_workspace" {
     },
     powervs2 = {
       region_zone  = "dal12",
-      ibm_provider = powervs2,
+      ibm_provider = "powervs2",
       network_cidr = "192.168.102.0/24",
       network_gw   = "192.168.102.1",
       net_start_ip = "192.168.102.5",
@@ -146,7 +146,7 @@ variable "loop_workspace" {
     },
     powervs3 = {
       region_zone  = "us-south",
-      ibm_provider = powervs3,
+      ibm_provider = "powervs3",
       network_cidr = "192.168.103.0/24",
       network_gw   = "192.168.103.1",
       net_start_ip = "192.168.103.5",
