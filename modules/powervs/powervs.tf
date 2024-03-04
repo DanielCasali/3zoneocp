@@ -105,7 +105,7 @@ variable "pi_ssh_key" {
 }
 
 variable "ocp_instances_region" {
-  type = object({})
+  type = map(any)
 }
 
 variable "ocp_pi_image_name" {}
