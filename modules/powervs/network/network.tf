@@ -1,7 +1,6 @@
 
 
 resource "ibm_pi_network" "power_networks" {
-  count                = 1
   pi_network_name      = "power-network"
   pi_cloud_instance_id = var.this_workspace_id
   pi_network_type      = "vlan"
