@@ -1,18 +1,6 @@
 terraform {
   required_providers {
-    region = {
-      source  = "IBM-Cloud/ibm"
-      version = ">= 1.61.0"
-    }
-    powervs1 = {
-      source  = "IBM-Cloud/ibm"
-      version = ">= 1.61.0"
-    }
-    powervs2 = {
-      source  = "IBM-Cloud/ibm"
-      version = ">= 1.61.0"
-    }
-    powervs3 = {
+    ibm = {
       source  = "IBM-Cloud/ibm"
       version = ">= 1.61.0"
     }
