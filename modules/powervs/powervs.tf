@@ -122,11 +122,10 @@ variable "pi_ssh_key" {
   type = string
 }
 variable "this_ocp_instances" {
-  type = list(any)
+
 }
 
 variable "this_linux_instances" {
-  type = list(any)
 }
 
 variable "ocp_pi_image_name" {}
