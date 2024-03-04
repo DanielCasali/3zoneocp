@@ -53,7 +53,6 @@ variable "ocp_pi_image_storage_type" {
 variable "powervs_region1" {
   type = object({})
   default = {
-    region_zone  = var.zone1,
     ibm_provider = "ibm.powervs1",
     network_cidr = "192.168.101.0/24",
     network_gw   = "192.168.101.1",
@@ -116,7 +115,6 @@ variable "ocp_instances_region1" {
 variable "powervs_region2" {
   type = map(any)
   default = {
-    region_zone  = var.zone2,
     ibm_provider = "ibm.powervs1",
     network_cidr = "192.168.102.0/24",
     network_gw   = "192.168.102.1",
@@ -173,7 +171,6 @@ variable "ocp_instances_region2" {
 variable "powervs_region3" {
   type = map(any)
   default = {
-    region_zone  = var.zone3,
     ibm_provider = "ibm.powervs1",
     network_cidr = "192.168.103.0/24",
     network_gw   = "192.168.103.1",

@@ -19,13 +19,13 @@ module "res-group" {
 }
 
 module "powervs1" {
-  source    = "modules/powervs"
+  source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers = {
     ibm = ibm.powervs1
   }
   this_service_instance_name = "powervs1"
-  this_zone = var.powervs_region1.region_zone
+  this_zone = var.zone1
   this_network_cidr = var.powervs_region1.network_cidr
   this_network_gw   = var.powervs_region1.network_gw
   this_net_start_ip = var.powervs_region1.net_start_ip
@@ -45,13 +45,13 @@ module "powervs1" {
 }
 
 module "powervs2" {
-  source    = "modules/powervs"
+  source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers = {
     ibm = ibm.powervs2
   }
   this_service_instance_name = "powervs2"
-  this_zone = var.powervs_region2.region_zone
+  this_zone = var.zone2
   this_network_cidr = var.powervs_region2.network_cidr
   this_network_gw   = var.powervs_region2.network_gw
   this_net_start_ip = var.powervs_region2.net_start_ip
@@ -72,13 +72,13 @@ module "powervs2" {
 
 
 module "powervs3" {
-  source    = "modules/powervs"
+  source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers = {
     ibm = ibm.powervs3
   }
   this_service_instance_name = "powervs3"
-  this_zone = var.powervs_region3.region_zone
+  this_zone = var.zone3
   this_network_cidr = var.powervs_region3.network_cidr
   this_network_gw   = var.powervs_region3.network_gw
   this_net_start_ip = var.powervs_region3.net_start_ip
