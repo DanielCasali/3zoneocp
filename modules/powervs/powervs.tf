@@ -51,8 +51,8 @@ module "ocp_instance" {
   this_pi_memory             = each.value.pi_memory
   this_pi_processors         = each.value.pi_processors
   this_pi_proc_type          = each.value.pi_proc_type
-  this_pi_sys_type           = each.value.pi_pin_policy
-  this_pi_pin_policy         = each.value.pi_health_status
+  this_pi_sys_type           = each.value.pi_sys_type
+  this_pi_pin_policy         = each.value.pi_pin_policy
   this_pi_health_status      = each.value.pi_health_status
   this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
