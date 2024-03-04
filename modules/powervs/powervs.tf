@@ -50,7 +50,7 @@ module "ocp_instance" {
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
   this_pi_processors         = each.value.pi_processors
-  this_pi_proc_type          = each.value._pi_proc_type
+  this_pi_proc_type          = each.value.pi_proc_type
   this_pi_sys_type           = each.value.pi_pin_policy
   this_pi_pin_policy         = each.value.pi_health_status
   this_pi_health_status      = each.value.pi_health_status
