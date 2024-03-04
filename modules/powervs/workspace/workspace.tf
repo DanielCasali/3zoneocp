@@ -15,6 +15,7 @@ variable "ibmcloud_api_key" {}
 
 resource "ibm_pi_workspace" "powervs_service_instance" {
   pi_name               = var.this_service_instance_name
+  pi_plan               = private
   pi_datacenter         = var.this_zone
   pi_resource_group_id  = var.ibm_resource_group_id
 }
