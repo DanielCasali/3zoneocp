@@ -2,10 +2,7 @@
 module "vpc" {
   source = "./modules/vpc"
   providers = {
-    ibm = {
-      source  = "IBM-Cloud/ibm"
-      version = ">= 1.61.0"
-    }
+    ibm = ibm
   }
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
