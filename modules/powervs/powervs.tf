@@ -45,7 +45,7 @@ module "network" {
 }
 
 module "ocp_instance" {
-  source = "./ocp_instance"
+  source = "./instance"
   for_each = var.ocp_instances_region.ocp_instances
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
@@ -54,14 +54,17 @@ module "ocp_instance" {
   this_pi_sys_type           = each.value.pi_sys_type
   this_pi_pin_policy         = each.value.pi_pin_policy
   this_pi_health_status      = each.value.pi_health_status
+  this_pi_image_name         = each.value.pi_image_name
   this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
-  this_ocp_image_id = module.ocp_image.this_ocp_image_id
+  this_image_id = module.ocp_image.this_ocp_image_id
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }
+
+
 
 
 variable "internal_vpc_dns1" {
