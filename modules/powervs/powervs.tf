@@ -67,7 +67,7 @@ module "ocp_instance" {
 module "ocp_inst_shut" {
   source     = "./inst_shut"
   depends_on = [module.ocp_instance]
-  ocp_instance_mac = module.ocp_instance
+  ocp_instance_mac = module.ocp_instance.ocp_instance_mac
   ibmcloud_api_key = var.ibmcloud_api_key
   this_workspace_id = module.workspace.workspace_id
 }
