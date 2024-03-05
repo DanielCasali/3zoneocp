@@ -113,7 +113,7 @@ variable "lnx_instances_zone1" {
         pi_pin_policy = "none",
         pi_health_status = "WARNING",
         pi_user_data = {},
-        pi_image_name = "RHEL8-SP8",
+        pi_image_id = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
   }
@@ -173,7 +173,7 @@ variable "lnx_instances_zone2" {
         pi_pin_policy = "none",
         pi_health_status = "WARNING",
         pi_user_data = {},
-        pi_image_name = "RHEL8-SP8",
+        pi_image_id = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
   }
@@ -232,7 +232,7 @@ variable "lnx_instances_zone3" {
         pi_pin_policy = "none",
         pi_health_status = "WARNING",
         pi_user_data = {},
-        pi_image_name = "RHEL8-SP8",
+        pi_image_id = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
   }

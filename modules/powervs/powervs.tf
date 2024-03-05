@@ -79,7 +79,7 @@ module "lnx_instance" {
   this_pi_sys_type           = each.value.pi_sys_type
   this_pi_pin_policy         = each.value.pi_pin_policy
   this_pi_health_status      = each.value.pi_health_status
-  this_pi_image_name         = each.value.pi_image_name
+  this_pi_image_id         = each.value.pi_image_id
   this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
