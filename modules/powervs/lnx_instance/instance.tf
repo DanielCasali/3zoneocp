@@ -17,6 +17,22 @@ resource "ibm_pi_instance" "instance" {
   }
 }
 
+data "ibm_pi_instances" "all_ocp" {
+  pi_cloud_instance_id = var.this_workspace_id
+}
+
+data "ibm_pi_instance" "all_ocp" {
+  pi_cloud_instance_id = var.this_workspace_id
+  pi_instance_name     = data.ibm_pi_instances.all_ocp.pvm_instances.pvm_instance_id
+}
+
+
+variable "workspace_servers" {
+  type = map(any)
+  default = {
+
+  }
+}
 
 data "ibm_pi_image" "this_image" {
   pi_image_name        = var.this_pi_image_name

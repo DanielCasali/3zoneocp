@@ -10,6 +10,7 @@ module "workspace" {
 
 module "ocp_image" {
   source = "./ocp_image"
+  depends_on = [module.workspace]
   ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
   ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name
   ocp_pi_image_bucket_name = var.ocp_pi_image_bucket_name
@@ -22,6 +23,7 @@ module "ocp_image" {
 }
 module "ssh_key" {
   source = "./ssh_key"
+  depends_on = [module.workspace]
   this_workspace_id = module.workspace.workspace_id
   pi_ssh_key = var.pi_ssh_key
   provider_region = var.provider_region
@@ -31,6 +33,7 @@ module "ssh_key" {
 
 module "network" {
   source    = "./network"
+  depends_on = [module.workspace]
   this_workspace_id = module.workspace.workspace_id
   this_service_instance_name = var.this_service_instance_name
   this_zone = var.this_zone
@@ -45,6 +48,7 @@ module "network" {
 }
 
 module "ocp_instance" {
+  depends_on = [module.workspace,module.network,module.ocp_image,module.ssh_key]
   source = "./ocp_instance"
   for_each = var.ocp_instances_zone.ocp_instances
   this_pi_instance_name      = each.value.pi_instance_name
@@ -66,6 +70,7 @@ module "ocp_instance" {
 
 module "lnx_instance" {
   source = "./lnx_instance"
+  depends_on = [module.ocp_instance]
   for_each = var.lnx_instances_zone.lnx_instances
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory

@@ -1,5 +1,3 @@
-
-
 resource "ibm_pi_instance" "instance" {
   pi_memory             = var.this_pi_memory
   pi_processors         = var.this_pi_processors
