@@ -6,7 +6,7 @@ resource "ibm_pi_instance_action" "example" {
 }
 
 variable "instance_mac" {
-  type = map(any)
+
 }
 variable "ibmcloud_api_key" {}
 
