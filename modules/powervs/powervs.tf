@@ -59,6 +59,7 @@ module "ocp_instance" {
   this_pi_pin_policy         = each.value.pi_pin_policy
   this_pi_health_status      = each.value.pi_health_status
   this_pi_image_name         = each.value.pi_image_name
+  this_ocp_image_id = module.ocp_image.this_ocp_image_id
   this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
@@ -84,7 +85,8 @@ module "lnx_instance" {
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
-  this_image_id = module.ocp_image.this_ocp_image_id
+  ocp_instance_mac = module.ocp_instance.ocp_instance_mac
+  this_image_id = each.value.pi_image_id
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }

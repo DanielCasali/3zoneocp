@@ -3,7 +3,7 @@ resource "ibm_pi_instance" "instance" {
   pi_processors         = var.this_pi_processors
   pi_instance_name      = var.this_pi_instance_name
   pi_proc_type          = var.this_pi_proc_type
-  pi_image_id           = data.ibm_pi_image.this_image.id
+  pi_image_id           = var.this_ocp_image_id
   pi_key_pair_name      = var.ssh_key_id
   pi_sys_type           = var.this_pi_sys_type
   pi_cloud_instance_id  = var.this_workspace_id
@@ -15,11 +15,6 @@ resource "ibm_pi_instance" "instance" {
   }
 }
 
-
-data "ibm_pi_image" "this_image" {
-  pi_image_name        = var.this_pi_image_name
-  pi_cloud_instance_id = var.this_workspace_id
-}
 
 variable "this_pi_instance_name" {
 }
@@ -57,6 +52,9 @@ variable "this_pi_user_data" {
 
 }
 
+variable "this_ocp_image_id" {
+
+}
 variable "this_network_id" {}
 
 variable "this_image_id" {}
