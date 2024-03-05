@@ -72,7 +72,6 @@ variable "ocp_instances_zone1" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
       },
       master = {
         pi_instance_name = "master1",
@@ -83,7 +82,6 @@ variable "ocp_instances_zone1" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
       },
       worker = {
         pi_instance_name = "worker1",
@@ -94,7 +92,6 @@ variable "ocp_instances_zone1" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
       },
     },
   }
@@ -143,7 +140,6 @@ variable "ocp_instances_zone2" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
       },
       worker = {
         pi_instance_name = "worker2",
@@ -154,7 +150,6 @@ variable "ocp_instances_zone2" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412",
       }
     }
   }
@@ -202,7 +197,6 @@ variable "ocp_instances_zone3" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412"
       },
       worker = {
         pi_instance_name = "worker3",
@@ -213,7 +207,6 @@ variable "ocp_instances_zone3" {
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
         pi_user_data     = {},
-        pi_image_name    = "OCP412"
       }
     }
   }
