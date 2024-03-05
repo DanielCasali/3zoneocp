@@ -26,21 +26,16 @@ module "powervs1" {
   }
   this_service_instance_name = "powervs1"
   this_zone = var.zone1
-  this_network_cidr = var.powervs_zone1.network_cidr
-  this_network_gw   = var.powervs_zone1.network_gw
-  this_net_start_ip = var.powervs_zone1.net_start_ip
-  this_net_end_ip   = var.powervs_zone1.net_end_ip
+  this_network_cidr = var.network_zone1.network_cidr
+  this_network_gw   = var.network_zone1.network_gw
+  this_net_start_ip = var.network_zone1.net_start_ip
+  this_net_end_ip   = var.network_zone1.net_end_ip
   ocp_instances_zone = var.ocp_instances_zone1
   lnx_instances_zone = var.lnx_instances_zone1
   internal_vpc_dns1     = var.internal_vpc_dns1
   internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key
-  ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
-  ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name
-  ocp_pi_image_bucket_name = var.ocp_pi_image_bucket_name
-  ocp_pi_image_bucket_region = var.ocp_pi_image_bucket_region
-  ocp_pi_image_name = var.ocp_pi_image_name
-  ocp_pi_image_storage_type = var.ocp_pi_image_storage_type
+  ocp_pi_image = var.ocp_pi_image
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }
@@ -53,21 +48,16 @@ module "powervs2" {
   }
   this_service_instance_name = "powervs2"
   this_zone = var.zone2
-  this_network_cidr = var.powervs_zone2.network_cidr
-  this_network_gw   = var.powervs_zone2.network_gw
-  this_net_start_ip = var.powervs_zone2.net_start_ip
-  this_net_end_ip   = var.powervs_zone2.net_end_ip
+  this_network_cidr = var.network_zone2.network_cidr
+  this_network_gw   = var.network_zone2.network_gw
+  this_net_start_ip = var.network_zone2.net_start_ip
+  this_net_end_ip   = var.network_zone2.net_end_ip
   ocp_instances_zone = var.ocp_instances_zone2
   lnx_instances_zone = var.lnx_instances_zone2
   internal_vpc_dns1     = var.internal_vpc_dns1
   internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key
-  ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
-  ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name
-  ocp_pi_image_bucket_name = var.ocp_pi_image_bucket_name
-  ocp_pi_image_bucket_region = var.ocp_pi_image_bucket_region
-  ocp_pi_image_name = var.ocp_pi_image_name
-  ocp_pi_image_storage_type = var.ocp_pi_image_storage_type
+  ocp_pi_image = var.ocp_pi_image
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }
@@ -81,21 +71,16 @@ module "powervs3" {
   }
   this_service_instance_name = "powervs3"
   this_zone = var.zone3
-  this_network_cidr = var.powervs_zone3.network_cidr
-  this_network_gw   = var.powervs_zone3.network_gw
-  this_net_start_ip = var.powervs_zone3.net_start_ip
-  this_net_end_ip   = var.powervs_zone3.net_end_ip
+  this_network_cidr = var.network_zone3.network_cidr
+  this_network_gw   = var.network_zone3.network_gw
+  this_net_start_ip = var.network_zone3.net_start_ip
+  this_net_end_ip   = var.network_zone3.net_end_ip
   ocp_instances_zone = var.ocp_instances_zone3
   lnx_instances_zone = var.lnx_instances_zone3
   internal_vpc_dns1     = var.internal_vpc_dns1
   internal_vpc_dns2     = var.internal_vpc_dns2
   pi_ssh_key = var.pi_ssh_key
-  ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
-  ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name
-  ocp_pi_image_bucket_name = var.ocp_pi_image_bucket_name
-  ocp_pi_image_bucket_region = var.ocp_pi_image_bucket_region
-  ocp_pi_image_name = var.ocp_pi_image_name
-  ocp_pi_image_storage_type = var.ocp_pi_image_storage_type
+  ocp_pi_image = var.ocp_pi_image
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }

@@ -30,27 +30,21 @@ variable "pi_ssh_key" {
   default = "Not_this_ssh_key"
 }
 
-variable "ocp_pi_image_name" {
-  default = "OCP412"
-}
-variable "ocp_pi_image_bucket_name" {
-  default = "images-public-bucket"
+
+variable "ocp_pi_image" {
+  type = map(any)
+  default = {
+    ocp_pi_image_name = "OCP412"
+    ocp_pi_image_bucket_name = "images-public-bucket"
+    ocp_pi_image_bucket_access = "public"
+    ocp_pi_image_bucket_region = "us-south"
+    ocp_pi_image_bucket_file_name = "rhcos-48-07222021.ova.gz"
+    ocp_pi_image_storage_type = "tier3"
+  }
 }
 
-variable "ocp_pi_image_bucket_access" {
-  default = "public"
-}
-variable "ocp_pi_image_bucket_region" {
-  default = "us-south"
-}
-variable "ocp_pi_image_bucket_file_name" {
-  default = "rhcos-48-07222021.ova.gz"
-}
-variable "ocp_pi_image_storage_type" {
-  default = "tier3"
-}
 
-variable "powervs_zone1" {
+variable "network_zone1" {
   type = map(any)
   default = {
     network_cidr = "192.168.101.0/24",
@@ -116,7 +110,7 @@ variable "lnx_instances_zone1" {
   }
 }
 
-variable "powervs_zone2" {
+variable "network_zone2" {
   type = map(any)
   default = {
     network_cidr = "192.168.102.0/24",
@@ -174,7 +168,7 @@ variable "lnx_instances_zone2" {
   }
 }
 
-variable "powervs_zone3" {
+variable "network_zone3" {
   type = map(any)
   default = {
     network_cidr = "192.168.103.0/24",

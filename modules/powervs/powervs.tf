@@ -11,12 +11,7 @@ module "workspace" {
 module "ocp_image" {
   source = "./ocp_image"
   depends_on = [module.workspace]
-  ocp_pi_image_bucket_access = var.ocp_pi_image_bucket_access
-  ocp_pi_image_bucket_file_name = var.ocp_pi_image_bucket_file_name
-  ocp_pi_image_bucket_name = var.ocp_pi_image_bucket_name
-  ocp_pi_image_bucket_region = var.ocp_pi_image_bucket_region
-  ocp_pi_image_name = var.ocp_pi_image_name
-  ocp_pi_image_storage_type = var.ocp_pi_image_storage_type
+  ocp_pi_image = var.ocp_pi_image
   this_workspace_id = module.workspace.workspace_id
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -58,7 +53,29 @@ module "ocp_instance" {
   this_pi_sys_type           = each.value.pi_sys_type
   this_pi_pin_policy         = each.value.pi_pin_policy
   this_pi_health_status      = each.value.pi_health_status
-  this_pi_image_name         = var.ocp_pi_image_name
+  this_pi_image_name         = var.ocp_pi_image.ocp_pi_image_name
+  this_ocp_image_id = module.ocp_image.this_ocp_image_id
+  this_pi_user_data = each.value.pi_user_data
+  this_workspace_id = module.workspace.workspace_id
+  this_network_id = module.network.this_network_id
+  ssh_key_id = module.ssh_key.ssh_key_id
+  this_image_id = module.ocp_image.this_ocp_image_id
+  provider_region = var.provider_region
+  ibmcloud_api_key = var.ibmcloud_api_key
+}
+
+module "inst_shut" {
+  source     = "./inst_shut"
+  depends_on = [module.ocp_instance]
+  for_each = var.ocp_instances_zone.ocp_instances
+  this_pi_instance_name      = each.value.pi_instance_name
+  this_pi_memory             = each.value.pi_memory
+  this_pi_processors         = each.value.pi_processors
+  this_pi_proc_type          = each.value.pi_proc_type
+  this_pi_sys_type           = each.value.pi_sys_type
+  this_pi_pin_policy         = each.value.pi_pin_policy
+  this_pi_health_status      = each.value.pi_health_status
+  this_pi_image_name         = var.ocp_pi_image.ocp_pi_image_name
   this_ocp_image_id = module.ocp_image.this_ocp_image_id
   this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
@@ -71,7 +88,7 @@ module "ocp_instance" {
 
 module "lnx_instance" {
   source = "./lnx_instance"
-  depends_on = [module.ocp_instance]
+  depends_on = [module.inst_shut]
   for_each = var.lnx_instances_zone.lnx_instances
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
@@ -140,11 +157,6 @@ variable "lnx_instances_zone" {
   type = map(any)
 }
 
-variable "ocp_pi_image_name" {}
-variable "ocp_pi_image_bucket_name" {}
-variable "ocp_pi_image_bucket_access" {}
-variable "ocp_pi_image_bucket_region" {}
-variable "ocp_pi_image_bucket_file_name" {}
-variable "ocp_pi_image_storage_type" {}
+variable "ocp_pi_image" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}
