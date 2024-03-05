@@ -3,6 +3,7 @@ data "ibm_pi_instances" "ds_instance" {
 }
 
 output "ocp_instance_mac" {
+  type = tomap()
   value = {
     for instance in data.ibm_pi_instances.ds_instance.pvm_instances : instance.pvm_instance_id => {
       ip_address = instance.networks[0].ip
