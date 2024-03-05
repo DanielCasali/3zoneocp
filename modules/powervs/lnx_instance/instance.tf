@@ -17,20 +17,16 @@ resource "ibm_pi_instance" "instance" {
   }
 }
 
-data "ibm_pi_instances" "all_ocp" {
+data "ibm_pi_instances" "ds_instance" {
   pi_cloud_instance_id = var.this_workspace_id
 }
 
-data "ibm_pi_instance" "all_ocp" {
-  pi_cloud_instance_id = var.this_workspace_id
-  pi_instance_name     = data.ibm_pi_instances.all_ocp.pvm_instances.pvm_instance_id
-}
-
-
-variable "workspace_servers" {
-  type = map(any)
-  default = {
-
+output "instance_map" {
+  value = {
+    for instance in data.ibm_pi_instances.ds_instance.pvm_instances : instance.pvm_instance_id => {
+      ip_address = instance.networks[0].ip
+      mac_address = instance.networks[0].macaddress
+    }
   }
 }
 
