@@ -67,7 +67,7 @@ module "ocp_instance" {
 module "ocp_inst_shut" {
   source     = "./inst_shut"
   depends_on = [module.ocp_instance]
-  instance_mac = module.ocp_instance.ocp_instance_mac
+  instance_mac = module.ocp_instance.ocp_instance_mac.value
   ibmcloud_api_key = var.ibmcloud_api_key
   this_workspace_id = module.workspace.workspace_id
 }
@@ -88,7 +88,7 @@ module "lnx_instance" {
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
-  ocp_instance_mac = module.ocp_instance.ocp_instance_mac
+  ocp_instance_mac = module.ocp_instance.ocp_instance_mac.value
   this_image_id = each.value.pi_image_id
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -97,7 +97,7 @@ module "lnx_instance" {
 module "ocp_inst_up" {
   source     = "./inst_up"
   depends_on = [module.lnx_instance]
-  instance_mac = module.ocp_instance.ocp_instance_mac
+  instance_mac = module.ocp_instance.ocp_instance_mac.value
   ibmcloud_api_key = var.ibmcloud_api_key
   this_workspace_id = module.workspace.workspace_id
 }
