@@ -65,8 +65,8 @@ module "ocp_instance" {
 }
 
 
-module "get_mac" {
-  source = "./get_mac"
+module "get_ocp_inst" {
+  source = "./get_ocp_inst"
   depends_on = [module.ocp_instance]
   this_workspace_id = module.workspace.workspace_id
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -74,8 +74,8 @@ module "get_mac" {
 
 module "ocp_inst_shut" {
   source     = "./inst_shut"
-  depends_on = [module.get_mac]
-  ocp_instance_mac = module.get_mac.ocp_instance_mac
+  depends_on = [module.get_ocp_inst]
+  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
   ibmcloud_api_key = var.ibmcloud_api_key
   this_workspace_id = module.workspace.workspace_id
 }
@@ -96,7 +96,7 @@ module "lnx_instance" {
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
-  ocp_instance_mac = module.get_mac.ocp_instance_mac
+  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
   this_image_id = each.value.pi_image_id
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -105,7 +105,7 @@ module "lnx_instance" {
 module "ocp_inst_up" {
   source     = "./inst_up"
   depends_on = [module.lnx_instance]
-  ocp_instance_mac = module.get_mac.ocp_instance_mac
+  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
   ibmcloud_api_key = var.ibmcloud_api_key
   this_workspace_id = module.workspace.workspace_id
 }
