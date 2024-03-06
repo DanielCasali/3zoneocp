@@ -72,6 +72,13 @@ module "get_ocp_inst" {
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
+module "build_dhcp" {
+  source     = "./build_dhcp"
+  depends_on = [module.get_ocp_inst]
+  instances = module.get_ocp_inst.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+}
+
 module "ocp_inst_shut" {
   source     = "./inst_shut"
   depends_on = [module.get_ocp_inst]
