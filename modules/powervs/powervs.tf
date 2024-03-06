@@ -16,6 +16,14 @@ module "ocp_image" {
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }
+
+module "lnx_image" {
+  source     = "./lnx_image"
+  depends_on = [module.workspace]
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.workspace.workspace_id
+}
+
 module "ssh_key" {
   source = "./ssh_key"
   depends_on = [module.workspace]
@@ -43,7 +51,7 @@ module "network" {
 }
 
 module "ocp_instance" {
-  depends_on = [module.workspace,module.network,module.ocp_image,module.ssh_key]
+  depends_on = [module.workspace,module.network,module.ocp_image,module.lnx_image,module.ssh_key]
   source = "./ocp_instance"
   for_each = var.ocp_instances_zone.ocp_instances
   this_pi_instance_name      = each.value.pi_instance_name
@@ -92,6 +100,8 @@ module "build_dhcp" {
 #  ibmcloud_api_key = var.ibmcloud_api_key
 #  this_workspace_id = module.workspace.workspace_id
 #}
+
+
 
 module "lnx_instance" {
   source = "./lnx_instance"
