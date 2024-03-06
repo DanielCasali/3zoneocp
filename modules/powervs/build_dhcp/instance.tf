@@ -3,7 +3,7 @@ variable "instances" {}
 
 variable "ibmcloud_api_key" {}
 
-data "templatefile" "cloud_init_config" {
+data "template_file" "cloud_init_config" {
   template = <<-EOF
 #cloud-config
 write_files:
