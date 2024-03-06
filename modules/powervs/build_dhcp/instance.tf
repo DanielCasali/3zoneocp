@@ -13,11 +13,11 @@ EOF
     map_lines = join("\n", concat(
       ["default-lease-time 900;"],
       ["      max-lease-time 7200; "],
-      ["      subnet $$this_network_addr netmask $$this_network_mask {"],
-      ["              option routers $$this_network_gw; "],
-      ["              option subnet-mask $$this_network_mask; "],
-      ["              option domain-search \"$$ocp_cluster_name.$$ocp_cluster_domain\";"],
-      ["              option domain-name-servers $; "],
+      ["      subnet ${var.this_network_addr} netmask ${var.this_network_mask} {"],
+      ["              option routers ${var.this_network_gw}; "],
+      ["              option subnet-mask ${var.this_network_mask}; "],
+      ["              option domain-search \"${var.ocp_cluster_name}.${var.ocp_cluster_domain}\";"],
+      ["              option domain-name-servers ${var.internal_vpc_dns1}; "],
       ["      }"],
       flatten([
         for instance_name, instance in var.ocp_instance_mac.instance_list : [
