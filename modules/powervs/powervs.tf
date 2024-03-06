@@ -75,8 +75,14 @@ module "get_ocp_inst" {
 module "build_dhcp" {
   source     = "./build_dhcp"
   depends_on = [module.get_ocp_inst]
-  instances = module.get_ocp_inst.ocp_instance_mac
+  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
   ibmcloud_api_key = var.ibmcloud_api_key
+  ocp_cluster_name = var.ocp_cluster_name
+  ocp_cluster_domain = var.ocp_cluster_domain
+  this_network_addr = var.this_network_addr
+  this_network_mask = var.this_network_mask
+  internal_vpc_dns1 = var.internal_vpc_dns1
+  this_network_gw = var.this_network_gw
 }
 
 #module "ocp_inst_shut" {
@@ -170,3 +176,7 @@ variable "lnx_instances_zone" {
 variable "ocp_pi_image" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}
+variable "ocp_cluster_name" {}
+variable "ocp_cluster_domain" {}
+variable "this_network_addr" {}
+variable "this_network_mask" {}

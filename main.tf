@@ -26,6 +26,10 @@ module "powervs1" {
   }
   this_service_instance_name = "powervs1"
   this_zone = var.zone1
+  ocp_cluster_name = var.ocp_cluster_name
+  ocp_cluster_domain = var.ocp_cluster_domain
+  this_network_addr = var.network_zone1.network_addr
+  this_network_mask = var.network_zone1.network_mask
   this_network_cidr = var.network_zone1.network_cidr
   this_network_gw   = var.network_zone1.network_gw
   this_net_start_ip = var.network_zone1.net_start_ip
@@ -48,6 +52,10 @@ module "powervs2" {
   }
   this_service_instance_name = "powervs2"
   this_zone = var.zone2
+  ocp_cluster_name = var.ocp_cluster_name
+  ocp_cluster_domain = var.ocp_cluster_domain
+  this_network_addr = var.network_zone2.network_addr
+  this_network_mask = var.network_zone2.network_mask
   this_network_cidr = var.network_zone2.network_cidr
   this_network_gw   = var.network_zone2.network_gw
   this_net_start_ip = var.network_zone2.net_start_ip
@@ -71,6 +79,10 @@ module "powervs3" {
   }
   this_service_instance_name = "powervs3"
   this_zone = var.zone3
+  ocp_cluster_name = var.ocp_cluster_name
+  ocp_cluster_domain = var.ocp_cluster_domain
+  this_network_addr = var.network_zone3.network_addr
+  this_network_mask = var.network_zone3.network_mask
   this_network_cidr = var.network_zone3.network_cidr
   this_network_gw   = var.network_zone3.network_gw
   this_net_start_ip = var.network_zone3.net_start_ip

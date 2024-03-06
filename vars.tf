@@ -5,7 +5,15 @@ variable "internal_vpc_dns2" {
   default = "8.8.8.8"
 }
 
+variable "ocp_cluster_name" {
+  default = "ocp"
 
+}
+
+variable "ocp_cluster_domain" {
+  default = "example.com"
+
+}
 variable "provider_region" {
   default = "us-south"
 }
@@ -48,6 +56,8 @@ variable "network_zone1" {
   type = map(any)
   default = {
     network_cidr = "192.168.101.0/24",
+    network_addr = "192.168.101.0",
+    network_mask = "255.255.255.0",
     network_gw   = "192.168.101.1",
     net_start_ip = "192.168.101.5",
     net_end_ip   = "192.168.101.254"
@@ -114,6 +124,8 @@ variable "network_zone2" {
   type = map(any)
   default = {
     network_cidr = "192.168.102.0/24",
+    network_addr = "192.168.102.0",
+    network_mask = "255.255.255.0",
     network_gw   = "192.168.102.1",
     net_start_ip = "192.168.102.5",
     net_end_ip   = "192.168.102.254"
@@ -172,6 +184,8 @@ variable "network_zone3" {
   type = map(any)
   default = {
     network_cidr = "192.168.103.0/24",
+    network_addr = "192.168.103.0",
+    network_mask = "255.255.255.0",
     network_gw   = "192.168.103.1",
     net_start_ip = "192.168.103.5",
     net_end_ip   = "192.168.103.254"
