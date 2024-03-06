@@ -89,7 +89,7 @@ module "build_dhcp" {
 
 module "lnx_instance" {
   source = "./lnx_instance"
-  depends_on = [module.ocp_inst_shut]
+#  depends_on = [module.ocp_inst_shut]
   for_each = var.lnx_instances_zone.lnx_instances
   this_pi_instance_name      = each.value.pi_instance_name
   this_pi_memory             = each.value.pi_memory
