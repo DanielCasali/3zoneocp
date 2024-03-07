@@ -9,7 +9,7 @@ packages:
   - dhcp-server
 runcmd:
   - [ systemctl, enable, dhcpd.service ]
-  - [ systemctl, start, dhcpd.service ]"
+  - [ systemctl, start, dhcpd.service ]
 EOF
   vars = {
     map_lines = join("\n", concat(
@@ -25,6 +25,7 @@ EOF
         for instance_name, instance in var.ocp_instance_mac.instance_list : [
           "      host ${instance_name} {",
           [for k, v in instance : "      ${k == "mac_address" ? "hardware ethernet" : k == "ip_address" ? "fixed-address" : k } ${v};"],
+          ["      option host-name \"{instance_name}${var.ocp_cluster_name}.${var.ocp_cluster_domain}\""]
           ["      }"]
         ]
       ])
