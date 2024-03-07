@@ -1,6 +1,7 @@
 
-module "vpc" {
-  source = "./modules/vpc"
+
+module "res-group" {
+  source = "./modules/res-group"
   providers = {
     ibm = ibm
   }
@@ -8,9 +9,8 @@ module "vpc" {
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
-
-module "res-group" {
-  source = "./modules/res-group"
+module "vpc" {
+  source = "./modules/vpc"
   providers = {
     ibm = ibm
   }
