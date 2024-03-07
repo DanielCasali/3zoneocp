@@ -4,6 +4,7 @@ module "workspace" {
   ibm_resource_group_id = var.ibm_resource_group_id
   this_service_instance_name = var.this_service_instance_name
   this_zone = var.this_zone
+  workspace_plan = var.workspace_plan
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }

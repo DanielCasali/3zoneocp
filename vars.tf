@@ -52,6 +52,10 @@ variable "ocp_pi_image" {
 }
 
 
+variable "workspace_plan" {
+  type = string
+  default = "public"
+}
 variable "network_zone1" {
   type = map(any)
   default = {
