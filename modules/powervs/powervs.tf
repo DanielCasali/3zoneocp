@@ -191,3 +191,5 @@ variable "ocp_cluster_name" {}
 variable "ocp_cluster_domain" {}
 variable "this_network_addr" {}
 variable "this_network_mask" {}
+
+variable "workspace_plan" {}
