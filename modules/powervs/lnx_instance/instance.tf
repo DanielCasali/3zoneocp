@@ -11,7 +11,7 @@ resource "ibm_pi_instance" "instance" {
   pi_cloud_instance_id  = var.this_workspace_id
   pi_pin_policy         = var.this_pi_pin_policy
   pi_health_status      = var.this_pi_health_status
-  pi_user_data = ""
+  pi_user_data = var.cloud_init_file
   pi_network {
     network_id = var.this_network_id
   }
@@ -22,7 +22,7 @@ locals {
   usable_image_id = element(split("/", var.this_pi_image_id), 1)
 }
 
-variable "ocp_instance_mac" {}
+variable "cloud_init_file" {}
 
 variable "this_pi_instance_name" {
 }

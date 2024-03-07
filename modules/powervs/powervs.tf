@@ -119,7 +119,7 @@ module "lnx_instance" {
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
-  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
+  cloud_init_file = module.build_dhcp.cloud_init_file
   this_image_id = each.value.pi_image_id
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
