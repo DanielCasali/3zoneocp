@@ -1,13 +1,15 @@
 data "template_file" "cloud_init_config" {
   template = <<-EOF
 #cloud-config
-packages:
-  - dhcp-server
 write_files:
   - path: /etc/dhcp/dhcpd.conf
     content: |
       $${map_lines}
-
+packages:
+  - dhcp-server
+runcmd:
+  - [ systemctl, enable, dhcpd.service ]
+  - [ systemctl, start, dhcpd.service ]"
 EOF
   vars = {
     map_lines = join("\n", concat(
@@ -25,10 +27,7 @@ EOF
           [for k, v in instance : "      ${k == "mac_address" ? "hardware ethernet" : k == "ip_address" ? "fixed-address" : k } ${v};"],
           ["      }"]
         ]
-      ]),
-      ["runcmd:"],
-      ["  - [ systemctl, enable, dhcpd.service ]"],
-      ["  - [ systemctl, start, dhcpd.service ]"]
+      ])
     ))
   }
 }
