@@ -5,7 +5,7 @@ resource "ibm_pi_instance" "instance" {
   pi_processors         = var.this_pi_processors
   pi_instance_name      = var.this_pi_instance_name
   pi_proc_type          = var.this_pi_proc_type
-  pi_image_id           = var.this_pi_image_id
+  pi_image_id           = local.usable_image_id
   pi_key_pair_name      = "my-key"
   pi_sys_type           = var.this_pi_sys_type
   pi_cloud_instance_id  = var.this_workspace_id
@@ -15,6 +15,11 @@ resource "ibm_pi_instance" "instance" {
   pi_network {
     network_id = var.this_network_id
   }
+}
+
+
+locals {
+  usable_image_id = element(split("/", var.this_pi_image_id), 1)
 }
 
 variable "ocp_instance_mac" {}
