@@ -1,3 +1,3 @@
 output "this_lnx_image_id" {
-  value = ibm_pi_catalog_image.centos.id
+  value = ibm_pi_image.centos.id
 }
