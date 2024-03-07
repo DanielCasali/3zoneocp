@@ -1,5 +1,3 @@
-
-
 module "res-group" {
   source = "./modules/res-group"
   providers = {
