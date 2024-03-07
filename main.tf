@@ -10,6 +10,7 @@ module "res-group" {
 }
 
 module "vpc" {
+  depends_on = [module.res-group]
   source = "./modules/vpc"
   providers = {
     ibm = ibm
@@ -19,6 +20,7 @@ module "vpc" {
 }
 
 module "powervs1" {
+  depends_on = [module.res-group,module.vpc]
   source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers = {
@@ -45,6 +47,7 @@ module "powervs1" {
 }
 
 module "powervs2" {
+  depends_on = [module.res-group,module.vpc]
   source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers = {
@@ -72,6 +75,7 @@ module "powervs2" {
 
 
 module "powervs3" {
+  depends_on = [module.res-group,module.vpc]
   source    = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers = {
