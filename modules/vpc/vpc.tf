@@ -37,7 +37,7 @@ module "create_inst1" {
   ssh_key_id = module.create_vpc.ssh_key_id
   vpc_id = module.create_vpc.vpc_id
   zone_name = var.vpc_zone_1
-  image_id = data.ibm_is_images.centos_stream_9.images[0].id
+  image_id = var.centos_stream_9_image_id
   subnet_id = module.create_vpc.subnet1_vpc_id
 }
 
@@ -49,7 +49,7 @@ module "create_inst2" {
   ssh_key_id = module.create_vpc.ssh_key_id
   vpc_id = module.create_vpc.vpc_id
   zone_name = var.vpc_zone_2
-  image_id = data.ibm_is_images.centos_stream_9.images[0].id
+  image_id = var.centos_stream_9_image_id
   subnet_id = module.create_vpc.subnet2_vpc_id
 }
 
@@ -67,18 +67,11 @@ module "lb_int" {
 
 
 
-data "ibm_is_images" "centos_stream_9" {
-  visibility = "public"
-  filter {
-    name  = "operating_system.display_name"
-    values = ["CentOS Stream"]
-  }
-  filter {
-    name  = "operating_system.version"
-    values = ["9"]
-  }
-}
 
+
+variable "centos_stream_9_image_id" {
+  value = length(local.centos_stream_9_images) > 0 ? local.centos_stream_9_images[0].id : null
+}
 
 variable "provider_region" {}
 
@@ -95,3 +88,21 @@ variable "vpc_zone3_cidr" {}
 variable "vpc_zone_1" {}
 variable "vpc_zone_2" {}
 variable "vpc_zone_3" {}
+
+
+
+data "ibm_is_images" "all_images" {
+  visibility = "public"
+}
+
+locals {
+  centos_stream_9_images = [
+    for image in data.ibm_is_images.all_images.images:
+    image
+    if image.operating_system != null &&
+    image.operating_system.display_name != null &&
+    can(regex("CentOS Stream", image.operating_system.display_name)) &&
+    image.operating_system.version != null &&
+    can(regex("9", image.operating_system.version))
+  ]
+}
