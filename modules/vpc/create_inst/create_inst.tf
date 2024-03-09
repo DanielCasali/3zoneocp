@@ -1,5 +1,4 @@
-resource "ibm_is_instance" "instance
-" {
+resource "ibm_is_instance" "instance" {
   name    = var.instance_name
   image   = var.image_id
   profile = "cx2-2x4"
