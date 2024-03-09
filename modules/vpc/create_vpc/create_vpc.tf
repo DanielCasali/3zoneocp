@@ -64,6 +64,7 @@ resource "ibm_is_ssh_key" "vpc-ssh-key" {
   public_key = var.pi_ssh_key
 }
 
+variable "ibm_resource_group_id" {}
 variable "pi_ssh_key" {}
 variable "vpc_name" {}
 variable "ibmcloud_api_key" {}

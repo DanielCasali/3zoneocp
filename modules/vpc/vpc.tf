@@ -69,12 +69,10 @@ module "lb_int" {
 
 data "ibm_is_images" "centos_stream_9" {
   visibility = "public"
-
   filter {
     name  = "operating_system.display_name"
     values = ["CentOS Stream"]
   }
-
   filter {
     name  = "operating_system.version"
     values = ["9"]
