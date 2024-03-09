@@ -94,6 +94,19 @@ module "build_dhcp" {
   this_network_gw = var.this_network_gw
 }
 
+
+module "add_int_lb_pool" {
+  source = "./add_int_lb_pool"
+  ibmcloud_api_key = ""
+  lb_int_pool_api_id = var.lb_int_pool_api_id
+  lb_int_pool_app_id = var.lb_int_pool_app_id
+  lb_int_pool_apps_id = var.lb_int_pool_apps_id
+  lb_int_pool_cfgmgr_id = var.lb_int_pool_cfgmgr_id
+  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
+  lb_int_id = var.lb_int_id
+  this_workspace_id = ""
+}
+
 #module "ocp_inst_shut" {
 #  source     = "./inst_shut"
 #  depends_on = [module.get_ocp_inst]
@@ -116,7 +129,6 @@ module "lnx_instance" {
   this_pi_pin_policy         = each.value.pi_pin_policy
   this_pi_health_status      = each.value.pi_health_status
   this_pi_image_id         = each.value.pi_image_id
-  this_pi_user_data = each.value.pi_user_data
   this_workspace_id = module.workspace.workspace_id
   this_network_id = module.network.this_network_id
   ssh_key_id = module.ssh_key.ssh_key_id
@@ -135,9 +147,12 @@ module "lnx_instance" {
 #}
 
 
-variable "lb-int-id" {}
+variable "lb_int_id" {}
 
-variable "lb-int-pool-id" {}
+variable "lb_int_pool_api_id" {}
+variable "lb_int_pool_app_id" {}
+variable "lb_int_pool_apps_id" {}
+variable "lb_int_pool_cfgmgr_id" {}
 
 variable "internal_vpc_dns1" {
   type = string

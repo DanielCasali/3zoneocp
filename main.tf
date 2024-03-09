@@ -15,7 +15,6 @@ module "transit-gw" {
   provider_region = var.provider_region
 }
 
-
 module "vpc" {
   depends_on = [module.res-group]
   source = "./modules/vpc"
@@ -60,15 +59,18 @@ module "powervs1" {
   this_net_end_ip   = var.pvs_zone1.net_end_ip
   ocp_instances_zone = var.ocp_instances_zone1
   lnx_instances_zone = var.lnx_instances_zone1
-  internal_vpc_dns1     = var.internal_vpc_dns1
-  internal_vpc_dns2     = var.internal_vpc_dns2
+  internal_vpc_dns1     = module.vpc.vpc_instance1_ip
+  internal_vpc_dns2     = module.vpc.vpc_instance2_ip
   pi_ssh_key = var.pi_ssh_key
   ocp_pi_image = var.ocp_pi_image
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
   workspace_plan = var.workspace_plan
-  lb-int-id = module.vpc.lb-int-id
-  lb-int-pool-id = module.vpc.lb-int-pool-id
+  lb_int_id = module.vpc.lb_int_id
+  lb_int_pool_api_id = module.vpc.lb_int_pool_api_id
+  lb_int_pool_cfgmgr_id = module.vpc.lb_int_pool_cfgmgr_id
+  lb_int_pool_apps_id = module.vpc.lb_int_pool_apps_id
+  lb_int_pool_app_id = module.vpc.lb_int_pool_app_id
 }
 
 module "powervs2" {
@@ -90,15 +92,18 @@ module "powervs2" {
   this_net_end_ip   = var.pvs_zone2.net_end_ip
   ocp_instances_zone = var.ocp_instances_zone2
   lnx_instances_zone = var.lnx_instances_zone2
-  internal_vpc_dns1     = var.internal_vpc_dns1
-  internal_vpc_dns2     = var.internal_vpc_dns2
+  internal_vpc_dns1     = module.vpc.vpc_instance1_ip
+  internal_vpc_dns2     = module.vpc.vpc_instance2_ip
   pi_ssh_key = var.pi_ssh_key
   ocp_pi_image = var.ocp_pi_image
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
   workspace_plan = var.workspace_plan
-  lb-int-id = module.vpc.lb-int-id
-  lb-int-pool-id = module.vpc.lb-int-pool-id
+  lb_int_id = module.vpc.lb_int_id
+  lb_int_pool_api_id = module.vpc.lb_int_pool_api_id
+  lb_int_pool_cfgmgr_id = module.vpc.lb_int_pool_cfgmgr_id
+  lb_int_pool_apps_id = module.vpc.lb_int_pool_apps_id
+  lb_int_pool_app_id = module.vpc.lb_int_pool_app_id
 }
 
 
@@ -121,13 +126,18 @@ module "powervs3" {
   this_net_end_ip   = var.pvs_zone3.net_end_ip
   ocp_instances_zone = var.ocp_instances_zone3
   lnx_instances_zone = var.lnx_instances_zone3
-  internal_vpc_dns1     = var.internal_vpc_dns1
-  internal_vpc_dns2     = var.internal_vpc_dns2
+  internal_vpc_dns1     = module.vpc.vpc_instance1_ip
+  internal_vpc_dns2     = module.vpc.vpc_instance2_ip
   pi_ssh_key = var.pi_ssh_key
   ocp_pi_image = var.ocp_pi_image
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
   workspace_plan = var.workspace_plan
-  lb-int-id = module.vpc.lb-int-id
-  lb-int-pool-id = module.vpc.lb-int-pool-id
+  lb_int_id = module.vpc.lb_int_id
+  lb_int_pool_api_id = module.vpc.lb_int_pool_api_id
+  lb_int_pool_cfgmgr_id = module.vpc.lb_int_pool_cfgmgr_id
+  lb_int_pool_apps_id = module.vpc.lb_int_pool_apps_id
+  lb_int_pool_app_id = module.vpc.lb_int_pool_app_id
 }
+
+

@@ -56,9 +56,6 @@ variable "this_pi_pin_policy" {
 variable "this_pi_health_status" {
 
 }
-variable "this_pi_user_data" {
-
-}
 
 variable "this_network_id" {}
 

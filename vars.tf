@@ -1,10 +1,3 @@
-variable "internal_vpc_dns1" {
-  default = "8.8.4.4"
-}
-variable "internal_vpc_dns2" {
-  default = "8.8.8.8"
-}
-
 variable "ocp_cluster_name" {
   default = "ocp"
 
@@ -154,7 +147,6 @@ variable "lnx_instances_zone1" {
         pi_sys_type = "s922",
         pi_pin_policy = "none",
         pi_health_status = "WARNING",
-        pi_user_data = {},
         pi_image_id = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
@@ -214,7 +206,6 @@ variable "lnx_instances_zone2" {
         pi_sys_type = "s922",
         pi_pin_policy = "none",
         pi_health_status = "WARNING",
-        pi_user_data = {},
         pi_image_id = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
@@ -273,7 +264,6 @@ variable "lnx_instances_zone3" {
         pi_sys_type = "s922",
         pi_pin_policy = "none",
         pi_health_status = "WARNING",
-        pi_user_data = {},
         pi_image_id = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
