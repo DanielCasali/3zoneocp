@@ -27,6 +27,8 @@ module "vpc" {
   vpc_zone_2 = var.vpc_zone_2
   vpc_zone_3 = var.vpc_zone_3
   pi_ssh_key = var.pi_ssh_key
+  ocp_cluster_domain = var.ocp_cluster_domain
+  ocp_cluster_name = var.ocp_cluster_name
 }
 
 module "powervs1" {

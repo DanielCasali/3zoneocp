@@ -59,6 +59,19 @@ resource "ibm_is_subnet" "vpc-zone3-subnet" {
   routing_table   = ibm_is_vpc_routing_table.ocp-routing-table.routing_table
 }
 
+resource "ibm_is_public_gateway" "gw_zone_1" {
+  name = "gw-zone1"
+  vpc  = ibm_is_vpc.vpc.id
+  zone = var.vpc_zone_1
+}
+
+resource "ibm_is_public_gateway" "gw_zone_2" {
+  name = "gw-zone2"
+  vpc  = ibm_is_vpc.vpc.id
+  zone = var.vpc_zone_2
+}
+
+
 resource "ibm_is_ssh_key" "vpc-ssh-key" {
   name       = "vpc-ssh-key"
   public_key = var.pi_ssh_key

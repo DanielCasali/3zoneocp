@@ -2,6 +2,10 @@ output "vpc_id" {
   value = ibm_is_vpc.vpc.id
 }
 
+output "vpc_crn" {
+  value = ibm_is_vpc.vpc.crn
+}
+
 output "subnet1_vpc_id" {
   value = element(split("/", ibm_is_subnet.vpc-zone1-subnet.id), 1)
 }

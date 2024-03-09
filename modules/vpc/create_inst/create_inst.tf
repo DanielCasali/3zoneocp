@@ -10,7 +10,7 @@ resource "ibm_is_instance" "instance" {
   vpc  = var.vpc_id
   zone = var.zone_name
   keys = [var.ssh_key_id]
-
+  user_data = var.user_data
   //User can configure timeouts
   timeouts {
     create = "15m"
@@ -19,6 +19,7 @@ resource "ibm_is_instance" "instance" {
   }
 }
 
+variable "user_data" {}
 variable "subnet_id" {}
 variable "image_id" {}
 variable "instance_name" {}
