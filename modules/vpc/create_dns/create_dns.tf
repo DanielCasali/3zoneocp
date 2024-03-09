@@ -20,7 +20,7 @@ resource "ibm_dns_permitted_network" "ocp-dns-permitted-network" {
   vpc_crn     = var.vpc_crn
 }
 
-resource "ibm_dns_resource_record" "test-pdns-resource-record-cname" {
+resource "ibm_dns_resource_record" "ocp-proxy-cname" {
   instance_id = ibm_resource_instance.ocp-dns-instance.guid
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "CNAME"
@@ -28,11 +28,37 @@ resource "ibm_dns_resource_record" "test-pdns-resource-record-cname" {
   rdata       = var.lb-int-hostname
 }
 
+resource "ibm_dns_resource_record" "ocp-apps-cname" {
+  instance_id = ibm_resource_instance.ocp-dns-instance.guid
+  zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
+  type        = "CNAME"
+  name        = "*.apps"
+  rdata       = var.lb-int-hostname
+}
+
+resource "ibm_dns_resource_record" "ocp-api-int-cname" {
+  instance_id = ibm_resource_instance.ocp-dns-instance.guid
+  zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
+  type        = "CNAME"
+  name        = "api-int"
+  rdata       = var.lb-int-hostname
+}
+
+
+resource "ibm_dns_resource_record" "ocp-api-cname" {
+  instance_id = ibm_resource_instance.ocp-dns-instance.guid
+  zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
+  type        = "CNAME"
+  name        = "api"
+  rdata       = var.lb-int-hostname
+}
+
+
 resource "ibm_dns_resource_record" "test-pdns-resource-record-a" {
   instance_id = ibm_resource_instance.ocp-dns-instance.guid
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "A"
-  name        = "testA"
+  name        = "testa"
   rdata       = "1.2.3.4"
   ttl         = 3600
 }
@@ -42,7 +68,7 @@ resource "ibm_dns_resource_record" "test-pdns-resource-record-ptr" {
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "PTR"
   name        = "1.2.3.4"
-  rdata       = "testA.${var.ocp_cluster_name}.${var.ocp_cluster_domain}"
+  rdata       = "testa.${var.ocp_cluster_name}.${var.ocp_cluster_domain}"
 }
 
 

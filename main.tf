@@ -7,6 +7,15 @@ module "res-group" {
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
+module "transit-gw" {
+  depends_on = [module.res-group]
+  source = "./modules/transit-gw"
+  ibm_resource_group_id = module.res-group.ibm_resource_group_id
+  ibmcloud_api_key = var.ibmcloud_api_key
+  provider_region = var.provider_region
+}
+
+
 module "vpc" {
   depends_on = [module.res-group]
   source = "./modules/vpc"
@@ -30,6 +39,7 @@ module "vpc" {
   ocp_cluster_domain = var.ocp_cluster_domain
   ocp_cluster_name = var.ocp_cluster_name
 }
+
 
 module "powervs1" {
   depends_on = [module.res-group,module.vpc]
@@ -57,6 +67,8 @@ module "powervs1" {
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
   workspace_plan = var.workspace_plan
+  lb-int-id = module.vpc.lb-int-id
+  lb-int-pool-id = module.vpc.lb-int-pool-id
 }
 
 module "powervs2" {
@@ -85,6 +97,8 @@ module "powervs2" {
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
   workspace_plan = var.workspace_plan
+  lb-int-id = module.vpc.lb-int-id
+  lb-int-pool-id = module.vpc.lb-int-pool-id
 }
 
 
@@ -114,4 +128,6 @@ module "powervs3" {
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
   workspace_plan = var.workspace_plan
+  lb-int-id = module.vpc.lb-int-id
+  lb-int-pool-id = module.vpc.lb-int-pool-id
 }

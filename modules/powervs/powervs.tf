@@ -135,6 +135,9 @@ module "lnx_instance" {
 #}
 
 
+variable "lb-int-id" {}
+
+variable "lb-int-pool-id" {}
 
 variable "internal_vpc_dns1" {
   type = string
