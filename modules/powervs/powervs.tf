@@ -3,7 +3,7 @@ module "workspace" {
   source    = "./workspace"
   ibm_resource_group_id = var.ibm_resource_group_id
   this_service_instance_name = var.this_service_instance_name
-  this_zone = var.this_zone
+  this_pvs_dc = var.this_pvs_dc
   workspace_plan = var.workspace_plan
   provider_region = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
@@ -40,7 +40,7 @@ module "network" {
   depends_on = [module.workspace]
   this_workspace_id = module.workspace.workspace_id
   this_service_instance_name = var.this_service_instance_name
-  this_zone = var.this_zone
+  this_pvs_dc = var.this_pvs_dc
   internal_vpc_dns1 = var.internal_vpc_dns1
   internal_vpc_dns2 = var.internal_vpc_dns2
   this_network_cidr = var.this_network_cidr
@@ -144,7 +144,7 @@ variable "internal_vpc_dns2" {
   type = string
 }
 
-variable "this_zone" {
+variable "this_pvs_dc" {
 type = string
 }
 

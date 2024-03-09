@@ -18,15 +18,15 @@ variable "provider_region" {
   default = "us-south"
 }
 
-variable "zone1" {
+variable "pvs_dc1" {
   default = "dal10"
 }
 
-variable "zone2" {
+variable "pvs_dc2" {
   default = "dal12"
 }
 
-variable "zone3" {
+variable "pvs_dc3" {
   default = "us-south"
 }
 
@@ -36,6 +36,14 @@ variable "ibmcloud_api_key" {
 
 variable "pi_ssh_key" {
   default = "Not_this_ssh_key"
+}
+
+
+variable "vpc" {
+  type = map(any)
+  default = {
+    name           = "ocp-vpc"
+  }
 }
 
 
@@ -51,12 +59,39 @@ variable "ocp_pi_image" {
   }
 }
 
+variable "vpc_zone1_cidr" {
+  type = string
+  default = "10.0.1.0/24"
+}
+
+variable "vpc_zone2_cidr" {
+  type = string
+  default = "10.0.2.0/24"
+}
+
+variable "vpc_zone3_cidr" {
+  type = string
+  default = "10.0.3.0/24"
+}
+
+variable "vpc_zone_1" {
+  type = string
+  default = "us-south-1"
+}
+variable "vpc_zone_2" {
+  type = string
+  default = "us-south-2"
+}
+variable "vpc_zone_3" {
+  type = string
+  default = "us-south-3"
+}
 
 variable "workspace_plan" {
   type = string
   default = "public"
 }
-variable "network_zone1" {
+variable "pvs_zone1" {
   type = map(any)
   default = {
     network_cidr = "192.168.101.0/24",
@@ -124,7 +159,7 @@ variable "lnx_instances_zone1" {
   }
 }
 
-variable "network_zone2" {
+variable "pvs_zone2" {
   type = map(any)
   default = {
     network_cidr = "192.168.102.0/24",
@@ -184,7 +219,7 @@ variable "lnx_instances_zone2" {
   }
 }
 
-variable "network_zone3" {
+variable "pvs_zone3" {
   type = map(any)
   default = {
     network_cidr = "192.168.103.0/24",

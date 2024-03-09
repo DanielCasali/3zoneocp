@@ -25,7 +25,7 @@ variable "internal_vpc_dns2" {
   type = string
 }
 
-variable "this_zone" {
+variable "this_pvs_dc" {
   type = string
 }
 
