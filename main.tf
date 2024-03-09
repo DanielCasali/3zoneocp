@@ -26,6 +26,7 @@ module "vpc" {
   vpc_zone_1 = var.vpc_zone_1
   vpc_zone_2 = var.vpc_zone_2
   vpc_zone_3 = var.vpc_zone_3
+  pi_ssh_key = var.pi_ssh_key
 }
 
 module "powervs1" {

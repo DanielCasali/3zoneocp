@@ -6,7 +6,7 @@ resource "ibm_pi_instance" "instance" {
   pi_instance_name      = var.this_pi_instance_name
   pi_proc_type          = var.this_pi_proc_type
   pi_image_id           = local.usable_image_id
-  pi_key_pair_name      = "my-key"
+  pi_key_pair_name      = "ocp-ssh-key"
   pi_sys_type           = var.this_pi_sys_type
   pi_cloud_instance_id  = var.this_workspace_id
   pi_pin_policy         = var.this_pi_pin_policy

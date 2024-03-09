@@ -32,10 +32,12 @@ variable "pvs_dc3" {
 
 variable "ibmcloud_api_key" {
   default = "Not_this_API_KEY"
+  description = "On the safe side, delete this variable entry and create a terraform.tfvars file with the content with the ssh_key"
 }
 
 variable "pi_ssh_key" {
   default = "Not_this_ssh_key"
+  description = "On the safe side, delete this variable entry and create a terraform.tfvars file with the content with the ibmcloud_api_key"
 }
 
 
