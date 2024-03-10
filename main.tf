@@ -92,6 +92,7 @@ module "powervs1" {
   lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
+  this_dc_name               = var.region_entries.zone1.dc_name
 }
 
 module "powervs2" {
@@ -127,6 +128,7 @@ module "powervs2" {
   lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
+  this_dc_name               = var.region_entries.zone1.dc_name
 }
 
 
@@ -163,6 +165,7 @@ module "powervs3" {
   lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
+  this_dc_name               = var.region_entries.zone1.dc_name
 }
 
 

@@ -157,7 +157,7 @@ module "lnx_instance" {
 #  this_workspace_id = module.workspace.workspace_id
 #}
 
-
+variable "this_dc_name" {}
 variable "transit_gw_id" {}
 variable "lb_int_id" {}
 variable "lb_int_pool_api_id" {}

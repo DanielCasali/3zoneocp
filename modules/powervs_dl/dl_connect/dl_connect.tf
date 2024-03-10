@@ -1,5 +1,5 @@
 data "ibm_dl_ports" "ocp_ds_dl_ports" {
-  location_name = "${var.this_pvs_dc}"
+  location_name = var.this_dc_name
 }
 
 resource "ibm_dl_gateway" "ocp_dl_connect" {
@@ -17,7 +17,7 @@ resource "ibm_dl_gateway" "ocp_dl_connect" {
 }
 
 
-variable "this_pvs_dc" {}
+variable "this_dc_name" {}
 variable "ibm_resource_group_id" {}
 variable "ibmcloud_api_key" {}
 variable "this_workspace_id" {

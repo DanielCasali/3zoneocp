@@ -56,7 +56,7 @@ module "dl_connect" {
   ibm_resource_group_id = var.ibm_resource_group_id
   ibmcloud_api_key      = var.ibmcloud_api_key
   this_workspace_id     = module.workspace.workspace_id
-  this_pvs_dc = var.this_pvs_dc
+  this_dc_name = var.this_dc_name
 }
 
 
@@ -167,7 +167,7 @@ module "lnx_instance" {
 #  this_workspace_id = module.workspace.workspace_id
 #}
 
-
+variable "this_dc_name" {}
 variable "transit_gw_id" {}
 variable "lb_int_id" {}
 variable "lb_int_pool_api_id" {}
