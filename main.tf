@@ -26,7 +26,7 @@ module "boot_image" {
 }
 
 module "vpc" {
-  depends_on = [module.res-group]
+  depends_on = [module.res-group,module.cr_ocp_inst_var]
   source     = "./modules/vpc"
   providers  = {
     ibm = ibm
