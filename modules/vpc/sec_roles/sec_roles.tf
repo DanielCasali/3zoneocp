@@ -109,3 +109,4 @@ variable "vpc_zone1_cidr" {}
 variable "vpc_zone2_cidr" {}
 variable "vpc_zone3_cidr" {}
 variable "security_group_id" {}
+variable "ibmcloud_api_key" {}
