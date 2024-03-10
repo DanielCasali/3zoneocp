@@ -8,13 +8,13 @@ variable "pi_ssh_key" {
   description = "On the safe side, delete this variable entry and create a terraform.tfvars file with the content with the ibmcloud_api_key"
 }
 
-
-variable "ocp_cluster_name" {
-  default = "ocp"
-}
-
-variable "ocp_cluster_domain" {
-  default = "example.com"
+variable "ocp_config" {
+  default = {
+    ocp_cluster_name   = "ocp"
+    ocp_cluster_domain = "example.com"
+    #maintain this format for ocp_image_version, it is used on the buckets.
+    ocp_image_version  = "rhcos-412"
+  }
 }
 
 
@@ -85,18 +85,6 @@ variable "region_entries" {
       vpc_zone_name = "us-south-3"
       vpc_zone_cidr = "10.0.103.0/24"
     }
-  }
-}
-
-variable "ocp_pi_image" {
-  type = map(any)
-  default = {
-    ocp_pi_image_name = "OCP412"
-    ocp_pi_image_bucket_name = "rhcos-powervs-images-us-south"
-    ocp_pi_image_bucket_access = "public"
-    ocp_pi_image_bucket_region = "us-south"
-    ocp_pi_image_bucket_file_name = "rhcos-412-86-202210250604-0-ppc64le-powervs.ova.gz"
-    ocp_pi_image_storage_type = "tier3"
   }
 }
 

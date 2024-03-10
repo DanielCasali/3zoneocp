@@ -45,8 +45,8 @@ module "vpc" {
   vpc_zone_2            = var.region_entries.zone2.vpc_zone_name
   vpc_zone_3            = var.region_entries.zone3.vpc_zone_name
   pi_ssh_key            = var.pi_ssh_key
-  ocp_cluster_domain    = var.ocp_cluster_domain
-  ocp_cluster_name      = var.ocp_cluster_name
+  ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
+  ocp_cluster_name      = var.ocp_config.ocp_cluster_name
 }
 
 module "transit-gw" {
@@ -68,8 +68,8 @@ module "powervs1" {
   }
   this_service_instance_name = "powervs1"
   this_pvs_dc                = var.region_entries.zone1.pvs_dc_name
-  ocp_cluster_name           = var.ocp_cluster_name
-  ocp_cluster_domain         = var.ocp_cluster_domain
+  ocp_cluster_name           = var.ocp_config.ocp_cluster_name
+  ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
   this_network_addr          = module.cr_ocp_inst_var.pvs_zone1.network_addr
   this_network_mask          = module.cr_ocp_inst_var.pvs_zone1.network_mask
   this_network_cidr          = module.cr_ocp_inst_var.pvs_zone1.network_cidr
@@ -81,7 +81,7 @@ module "powervs1" {
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
-  ocp_pi_image               = var.ocp_pi_image
+  ocp_pi_image               = var.ocp_config.ocp_image_version
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
@@ -104,8 +104,8 @@ module "powervs2" {
   }
   this_service_instance_name = "powervs2"
   this_pvs_dc                = var.region_entries.zone2.pvs_dc_name
-  ocp_cluster_name           = var.ocp_cluster_name
-  ocp_cluster_domain         = var.ocp_cluster_domain
+  ocp_cluster_name           = var.ocp_config.ocp_cluster_name
+  ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
   this_network_addr          = module.cr_ocp_inst_var.pvs_zone2.network_addr
   this_network_mask          = module.cr_ocp_inst_var.pvs_zone2.network_mask
   this_network_cidr          = module.cr_ocp_inst_var.pvs_zone2.network_cidr
@@ -117,7 +117,7 @@ module "powervs2" {
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
-  ocp_pi_image               = var.ocp_pi_image
+  ocp_pi_image               = var.ocp_config.ocp_image_version
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
@@ -141,8 +141,8 @@ module "powervs3" {
   }
   this_service_instance_name = "powervs3"
   this_pvs_dc                = var.region_entries.zone3.pvs_dc_name
-  ocp_cluster_name           = var.ocp_cluster_name
-  ocp_cluster_domain         = var.ocp_cluster_domain
+  ocp_cluster_name           = var.ocp_config.ocp_cluster_name
+  ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
   this_network_addr          = module.cr_ocp_inst_var.pvs_zone3.network_addr
   this_network_mask          = module.cr_ocp_inst_var.pvs_zone3.network_mask
   this_network_cidr          = module.cr_ocp_inst_var.pvs_zone3.network_cidr
@@ -154,7 +154,7 @@ module "powervs3" {
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
-  ocp_pi_image               = var.ocp_pi_image
+  ocp_pi_image               = var.ocp_config.ocp_image_version
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
