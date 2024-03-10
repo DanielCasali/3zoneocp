@@ -12,36 +12,38 @@ locals {
     net_end_ip   = cidrhost(var.region_entries.zone1.pvs_dc_cidr, -2)
   }
   ocp_instances_zone1 = {
-    bootstrap = {
-      pi_instance_name = "bootstrap",
-      pi_memory        = var.instance_sizes.size.bootstrap.pi_memory,
-      pi_processors    = var.instance_sizes.size.bootstrap.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.bootstrap.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.bootstrap.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.bootstrap.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.bootstrap.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../bootstrap.ign")),
+    ocp_instances = {
+      bootstrap = {
+        pi_instance_name = "bootstrap",
+        pi_memory        = var.instance_sizes.size.bootstrap.pi_memory,
+        pi_processors    = var.instance_sizes.size.bootstrap.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.bootstrap.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.bootstrap.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.bootstrap.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.bootstrap.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../bootstrap.ign")),
+      }
+      master = {
+        pi_instance_name = "master1",
+        pi_memory        = var.instance_sizes.size.master.pi_memory,
+        pi_processors    = var.instance_sizes.size.master.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.master.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.master.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+      }
+      worker = {
+        pi_instance_name = "worker1",
+        pi_memory        = var.instance_sizes.size.worker.pi_memory,
+        pi_processors    = var.instance_sizes.size.worker.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.worker.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+      }
     }
-    master = {
-      pi_instance_name = "master1",
-      pi_memory        = var.instance_sizes.size.master.pi_memory,
-      pi_processors    = var.instance_sizes.size.master.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.master.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.master.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
-    }
-    worker = {
-      pi_instance_name = "worker1",
-      pi_memory        = var.instance_sizes.size.worker.pi_memory,
-      pi_processors    = var.instance_sizes.size.worker.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
-    },
   }
   lnx_instances_zone1 = {
     lnx_instances = {
@@ -66,25 +68,27 @@ locals {
     net_end_ip   = cidrhost(var.region_entries.zone2.pvs_dc_cidr, -2)
   }
   ocp_instances_zone2 = {
-    master = {
-      pi_instance_name = "master2",
-      pi_memory        = var.instance_sizes.size.master.pi_memory,
-      pi_processors    = var.instance_sizes.size.master.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.master.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.master.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
-    }
-    worker = {
-      pi_instance_name = "worker2",
-      pi_memory        = var.instance_sizes.size.worker.pi_memory,
-      pi_processors    = var.instance_sizes.size.worker.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+    ocp_instances = {
+      master = {
+        pi_instance_name = "master2",
+        pi_memory        = var.instance_sizes.size.master.pi_memory,
+        pi_processors    = var.instance_sizes.size.master.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.master.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.master.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+      }
+      worker = {
+        pi_instance_name = "worker2",
+        pi_memory        = var.instance_sizes.size.worker.pi_memory,
+        pi_processors    = var.instance_sizes.size.worker.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.worker.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+      }
     }
   }
   lnx_instances_zone2 = {
@@ -110,25 +114,27 @@ locals {
     net_end_ip   = cidrhost(var.region_entries.zone3.pvs_dc_cidr, -2)
   }
   ocp_instances_zone3 = {
-    master = {
-      pi_instance_name = "master3",
-      pi_memory        = var.instance_sizes.size.master.pi_memory,
-      pi_processors    = var.instance_sizes.size.master.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.master.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.master.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
-    }
-    worker = {
-      pi_instance_name = "worker3",
-      pi_memory        = var.instance_sizes.size.worker.pi_memory,
-      pi_processors    = var.instance_sizes.size.worker.pi_processors,
-      pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
-      pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
-      pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
-      pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-      pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+    ocp_instances = {
+      master = {
+        pi_instance_name = "master3",
+        pi_memory        = var.instance_sizes.size.master.pi_memory,
+        pi_processors    = var.instance_sizes.size.master.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.master.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.master.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+      }
+      worker = {
+        pi_instance_name = "worker3",
+        pi_memory        = var.instance_sizes.size.worker.pi_memory,
+        pi_processors    = var.instance_sizes.size.worker.pi_processors,
+        pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
+        pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
+        pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
+        pi_health_status = var.instance_sizes.size.worker.pi_health_status,
+        pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+      }
     }
   }
   lnx_instances_zone3 = {
