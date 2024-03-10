@@ -10,7 +10,7 @@ locals {
     network_gw   = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 1)
     net_start_ip = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 5)
     net_end_ip   = cidrhost(var.region_entries.zone1.pvs_dc_cidr, -2)
-  },
+  }
   ocp_instances_zone1 = {
     bootstrap = {
       pi_instance_name = "bootstrap",
@@ -21,7 +21,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.bootstrap.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.bootstrap.pi_health_status,
       pi_user_data     = base64encode(file("../../bootstrap.ign")),
-    },
+    }
     master = {
       pi_instance_name = "master1",
       pi_memory        = var.instance_sizes.size.master.pi_memory,
@@ -31,7 +31,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.master.pi_health_status,
       pi_user_data     = base64encode(file("../../master.ign")),
-    },
+    }
     worker = {
       pi_instance_name = "worker1",
       pi_memory        = var.instance_sizes.size.worker.pi_memory,
@@ -64,7 +64,7 @@ locals {
     network_gw   = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 1)
     net_start_ip = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 5)
     net_end_ip   = cidrhost(var.region_entries.zone2.pvs_dc_cidr, -2)
-  },
+  }
   ocp_instances_zone2 = {
     master = {
       pi_instance_name = "master2",
@@ -75,7 +75,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.master.pi_health_status,
       pi_user_data     = base64encode(file("../../master.ign")),
-    },
+    }
     worker = {
       pi_instance_name = "worker2",
       pi_memory        = var.instance_sizes.size.worker.pi_memory,
@@ -85,7 +85,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.worker.pi_health_status,
       pi_user_data     = base64encode(file("../../worker.ign")),
-    },
+    }
   }
   lnx_instances_zone2 = {
     lnx_instances = {
@@ -108,7 +108,7 @@ locals {
     network_gw   = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 1)
     net_start_ip = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 5)
     net_end_ip   = cidrhost(var.region_entries.zone3.pvs_dc_cidr, -2)
-  },
+  }
   ocp_instances_zone3 = {
     master = {
       pi_instance_name = "master3",
@@ -119,7 +119,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.master.pi_health_status,
       pi_user_data     = base64encode(file("../../master.ign")),
-    },
+    }
     worker = {
       pi_instance_name = "worker3",
       pi_memory        = var.instance_sizes.size.worker.pi_memory,
@@ -129,7 +129,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.worker.pi_health_status,
       pi_user_data     = base64encode(file("../../worker.ign")),
-    },
+    }
   }
   lnx_instances_zone3 = {
     lnx_instances = {
