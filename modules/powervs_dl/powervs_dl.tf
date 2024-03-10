@@ -51,20 +51,21 @@ module "network" {
 }
 
 module "dl_connect" {
+  depends_on = [module.network]
   source = "./dl_connect"
-  ibm_resource_group_id = ""
-  ibmcloud_api_key      = ""
-  this_workspace_id     = ""
-  vpc_crn               = ""
+  ibm_resource_group_id = var.ibm_resource_group_id
+  ibmcloud_api_key      = var.ibmcloud_api_key
+  this_workspace_id     = module.workspace.workspace_id
   this_pvs_dc = var.this_pvs_dc
 }
 
 
 resource "ibm_tg_connection" "dl_ibm_tg_connection" {
+  depends_on = [module.dl_connect]
   gateway      = var.transit_gw_id
-  network_type = "power_virtual_server"
-  name         = "ocp-vpc"
-  network_id   = module.workspace.workspace_crn
+  network_type = "direct_link"
+  name         = "${var.this_pvs_dc}ocp-vpc"
+  network_id   = module.dl_connect.ocp_dl_crn
 }
 
 
@@ -136,7 +137,7 @@ module "add_int_lb_pool" {
 
 
 module "lnx_instance" {
-  depends_on = [module.build_dhcp]
+  depends_on = [module.build_dhcp,module.dl_connect]
   source                = "./lnx_instance"
   #  depends_on = [module.ocp_inst_shut]
   for_each              = var.lnx_instances_zone.lnx_instances

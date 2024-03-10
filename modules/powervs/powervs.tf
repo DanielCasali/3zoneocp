@@ -54,7 +54,7 @@ module "network" {
 resource "ibm_tg_connection" "test_ibm_tg_connection" {
   gateway      = var.transit_gw_id
   network_type = "power_virtual_server"
-  name         = "ocp-vpc"
+  name         = "${var.this_pvs_dc}ocp-vpc"
   network_id   = module.workspace.workspace_crn
 }
 

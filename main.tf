@@ -116,7 +116,7 @@ module "powervs2" {
 
 module "powervs3" {
   depends_on            = [module.res-group, module.vpc]
-  source                = "./modules/powervs"
+  source                = "./modules/powervs_dl"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers             = {
     ibm = ibm.powervs3

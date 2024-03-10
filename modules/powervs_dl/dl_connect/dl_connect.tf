@@ -17,7 +17,6 @@ resource "ibm_dl_gateway" "ocp_dl_connect" {
 }
 
 
-variable "vpc_crn" {}
 variable "this_pvs_dc" {}
 variable "ibm_resource_group_id" {}
 variable "ibmcloud_api_key" {}

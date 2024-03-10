@@ -20,7 +20,7 @@ variable "pvs_dc2" {
 }
 
 variable "pvs_dc3" {
-  default = "us-south"
+  default = "dal13"
 }
 
 variable "ibmcloud_api_key" {
