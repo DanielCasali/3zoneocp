@@ -6,7 +6,7 @@ resource "ibm_dl_gateway" "ocp_dl_connect" {
   bgp_asn =  4206000412
   global = true
   metered = true
-  name = "${var.this_pvs_dc}-directlinnk"
+  name = "${var.this_dc_name}-directlink"
   speed_mbps = 1000
   type =  "connect"
   connection_mode = "transit"
