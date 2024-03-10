@@ -13,28 +13,29 @@ resource "ibm_is_vpc" "vpc" {
 #  advertise_routes_to           = ["direct_link", "transit_gateway"]
 #}
 
-resource "ibm_is_vpc_address_prefix" "zone-1-prefix" {
+resource "ibm_is_vpc_address_prefix" "zone_1_prefix" {
   name = "zone-1-prefix"
   zone = var.vpc_zone_1
   vpc  = ibm_is_vpc.vpc.id
   cidr = var.vpc_zone1_cidr
 }
 
-resource "ibm_is_vpc_address_prefix" "zone-2-prefix" {
+resource "ibm_is_vpc_address_prefix" "zone_2_prefix" {
   name = "zone-2-prefix"
   zone = var.vpc_zone_2
   vpc  = ibm_is_vpc.vpc.id
   cidr = var.vpc_zone2_cidr
 }
 
-resource "ibm_is_vpc_address_prefix" "zone-3-prefix" {
+resource "ibm_is_vpc_address_prefix" "zone_3_prefix" {
   name = "zone-3-prefix"
   zone = var.vpc_zone_3
   vpc  = ibm_is_vpc.vpc.id
   cidr = var.vpc_zone3_cidr
 }
 
-resource "ibm_is_subnet" "vpc-zone1-subnet" {
+resource "ibm_is_subnet" "vpc_zone1_subnet" {
+  depends_on = [ibm_is_vpc_address_prefix.zone_1_prefix]
   name            = "vpc-zone1-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_1
@@ -42,7 +43,8 @@ resource "ibm_is_subnet" "vpc-zone1-subnet" {
 #  routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
-resource "ibm_is_subnet" "vpc-zone2-subnet" {
+resource "ibm_is_subnet" "vpc_zone2_subnet" {
+  depends_on = [ibm_is_vpc_address_prefix.zone_2_prefix]
   name            = "vpc-zone2-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_2
@@ -51,7 +53,8 @@ resource "ibm_is_subnet" "vpc-zone2-subnet" {
 #  routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
-resource "ibm_is_subnet" "vpc-zone3-subnet" {
+resource "ibm_is_subnet" "vpc_zone3_subnet" {
+  depends_on = [ibm_is_vpc_address_prefix.zone_3_prefix]
   name            = "vpc-zone3-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_3
