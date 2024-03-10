@@ -22,7 +22,7 @@ module "boot_image" {
   provider_region       = var.region_entries.region
   ibmcloud_api_key      = var.ibmcloud_api_key
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
-  bootstrap_image       = module.cr_ocp_inst_var.ocp_instances_zone1.bootstrap.pi_user_data
+  bootstrap_image       = module.cr_ocp_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
 }
 
 module "vpc" {

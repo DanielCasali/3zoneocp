@@ -10,7 +10,6 @@ resource "ibm_cos_bucket" "cos_bucket" {
   bucket_name           = var.ibm_resource_group_id
   resource_instance_id  = ibm_resource_instance.cos_instance.id
   region_location       = var.provider_region
-  cross_region_location = "us"
   storage_class         = "standard"
 }
 
