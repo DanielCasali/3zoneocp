@@ -7,7 +7,6 @@ resource "ibm_is_vpc" "vpc" {
 
 resource "ibm_is_vpc_routing_table" "ocp-routing-table" {
   vpc                           = ibm_is_vpc.vpc.id
-  name                          = "ocp-routing-table"
   route_direct_link_ingress     = true
   route_transit_gateway_ingress = true
   route_vpc_zone_ingress        = true
