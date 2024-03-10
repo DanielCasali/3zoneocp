@@ -37,6 +37,7 @@ EOF
 variable "internal_vpc_dns1" {
   type = string
 }
+
 variable "ocp_instance_mac" {
   type = map(any)
 }

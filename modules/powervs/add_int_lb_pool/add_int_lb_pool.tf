@@ -34,12 +34,14 @@ resource "ibm_is_lb_pool_member" "cfgmgr" {
   weight    = 60
 }
 
+variable "ocp_instance_mac" {
+  type = map(any)
+}
 variable "lb_int_id" {}
 variable "lb_int_pool_api_id" {}
 variable "lb_int_pool_app_id" {}
 variable "lb_int_pool_apps_id" {}
 variable "lb_int_pool_cfgmgr_id" {}
-variable "ocp_instance_mac" {}
 variable "ibmcloud_api_key" {}
 variable "this_workspace_id" {
   type = string
