@@ -2,16 +2,16 @@ resource "ibm_is_vpc" "vpc" {
   resource_group            = var.ibm_resource_group_id
   name                      = var.vpc_name
   address_prefix_management = "manual"
-  default_routing_table_name = "ocp-routing-table"
 }
 
-#resource "ibm_is_vpc_routing_table" "ocp-routing-table" {
-#  vpc                           = ibm_is_vpc.vpc.id
-#  route_direct_link_ingress     = true
-#  route_transit_gateway_ingress = true
-#  route_vpc_zone_ingress        = true
-#  advertise_routes_to           = ["direct_link", "transit_gateway"]
-#}
+resource "ibm_is_vpc_routing_table" "ocp_routing_table" {
+  name                          = "ocp-routing-table"
+  vpc                           = ibm_is_vpc.vpc.id
+  route_direct_link_ingress     = true
+  route_transit_gateway_ingress = true
+  route_vpc_zone_ingress        = true
+  advertise_routes_to           = ["direct_link", "transit_gateway"]
+}
 
 resource "ibm_is_vpc_address_prefix" "zone-1-prefix" {
   name = "zone-1-prefix"
@@ -39,7 +39,7 @@ resource "ibm_is_subnet" "vpc-zone1-subnet" {
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_1
   ipv4_cidr_block = var.vpc_zone1_cidr
-  routing_table   = ibm_is_vpc_routing_table.ocp-routing-table.routing_table
+  routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
 resource "ibm_is_subnet" "vpc-zone2-subnet" {
@@ -47,7 +47,7 @@ resource "ibm_is_subnet" "vpc-zone2-subnet" {
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_2
   ipv4_cidr_block = var.vpc_zone2_cidr
-  routing_table   = ibm_is_vpc_routing_table.ocp-routing-table.routing_table
+  routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
 resource "ibm_is_subnet" "vpc-zone3-subnet" {
@@ -55,7 +55,7 @@ resource "ibm_is_subnet" "vpc-zone3-subnet" {
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_3
   ipv4_cidr_block = var.vpc_zone3_cidr
-  routing_table   = ibm_is_vpc_routing_table.ocp-routing-table.routing_table
+  routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
 resource "ibm_is_public_gateway" "gw_zone_1" {
