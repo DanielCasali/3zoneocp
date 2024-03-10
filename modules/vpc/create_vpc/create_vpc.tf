@@ -4,14 +4,14 @@ resource "ibm_is_vpc" "vpc" {
   address_prefix_management = "manual"
 }
 
-resource "ibm_is_vpc_routing_table" "ocp_routing_table" {
-  name                          = "ocp-routing-table"
-  vpc                           = ibm_is_vpc.vpc.id
-  route_direct_link_ingress     = true
-  route_transit_gateway_ingress = true
-  route_vpc_zone_ingress        = true
-  advertise_routes_to           = ["direct_link", "transit_gateway"]
-}
+#resource "ibm_is_vpc_routing_table" "ocp_routing_table" {
+#  name                          = "ocp-routing-table"
+#  vpc                           = ibm_is_vpc.vpc.id
+#  route_direct_link_ingress     = true
+#  route_transit_gateway_ingress = true
+#  route_vpc_zone_ingress        = true
+#  advertise_routes_to           = ["direct_link", "transit_gateway"]
+#}
 
 resource "ibm_is_vpc_address_prefix" "zone-1-prefix" {
   name = "zone-1-prefix"
