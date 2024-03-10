@@ -92,10 +92,10 @@ variable "ocp_pi_image" {
   type = map(any)
   default = {
     ocp_pi_image_name = "OCP412"
-    ocp_pi_image_bucket_name = "images-public-bucket"
+    ocp_pi_image_bucket_name = "rhcos-powervs-images-us-south"
     ocp_pi_image_bucket_access = "public"
     ocp_pi_image_bucket_region = "us-south"
-    ocp_pi_image_bucket_file_name = "rhcos-48-07222021.ova.gz"
+    ocp_pi_image_bucket_file_name = "rhcos-412-86-202210250604-0-ppc64le-powervs.ova.gz"
     ocp_pi_image_storage_type = "tier3"
   }
 }
