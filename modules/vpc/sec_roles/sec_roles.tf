@@ -10,6 +10,7 @@ resource "ibm_is_security_group_rule" "ping" {
   remote    = "0.0.0.0/0"
   icmp {
     code = 8
+    type = "all"
   }
 }
 
