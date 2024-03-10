@@ -5,13 +5,13 @@ resource "ibm_is_vpc" "vpc" {
   default_routing_table_name = "ocp-routing-table"
 }
 
-resource "ibm_is_vpc_routing_table" "ocp-routing-table" {
-  vpc                           = ibm_is_vpc.vpc.id
-  route_direct_link_ingress     = true
-  route_transit_gateway_ingress = true
-  route_vpc_zone_ingress        = true
-  advertise_routes_to           = ["direct_link", "transit_gateway"]
-}
+#resource "ibm_is_vpc_routing_table" "ocp-routing-table" {
+#  vpc                           = ibm_is_vpc.vpc.id
+#  route_direct_link_ingress     = true
+#  route_transit_gateway_ingress = true
+#  route_vpc_zone_ingress        = true
+#  advertise_routes_to           = ["direct_link", "transit_gateway"]
+#}
 
 resource "ibm_is_vpc_address_prefix" "zone-1-prefix" {
   name = "zone-1-prefix"
