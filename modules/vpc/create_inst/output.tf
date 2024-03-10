@@ -3,5 +3,5 @@ output "ibm_instance_id" {
 }
 
 output "ibm_instance_ip" {
-  value = ibm_is_instance.instance.primary_network_interface.primary_ip.address
+  value = ibm_is_instance.instance.primary_network_interface[0].primary_ip.address
 }
