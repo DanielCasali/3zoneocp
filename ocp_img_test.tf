@@ -3,15 +3,14 @@ data "http" "bucket_contents" {
 }
 
 locals {
-  bucket_yaml = yamldecode(data.http.bucket_contents.response_body)
+  bucket_xml = data.http.bucket_contents.response_body
 
   rhcos_412_images = [
-    for content in local.bucket_yaml.ListBucketResult.Contents :
+    for key in distinct(regexall("<Key>(rhcos-412[^<]*)</Key>", local.bucket_xml)) :
     {
-      key           = content.Key
-      last_modified = content.LastModified
+      key           = key[0]
+      last_modified = regex("(?<=<LastModified>)([^<]*)(?=</LastModified>)", replace(local.bucket_xml, "/\\n/", "", key[0]))[0]
     }
-    if length(regexall("rhcos-412", content.Key)) > 0
   ]
 
   newest_rhcos_412_image = max(local.rhcos_412_images[*].last_modified)
