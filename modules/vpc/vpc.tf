@@ -16,7 +16,6 @@ module "create_vpc" {
 module "sec_roles" {
   depends_on = [module.create_vpc]
   source          = "./sec_roles"
-  ibm_resource_group_id = var.ibm_resource_group_id
   ibmcloud_api_key = var.ibmcloud_api_key
   security_group_id = module.create_vpc.security_group_id
   pvs_zone1_cidr = var.pvs_zone1_cidr
