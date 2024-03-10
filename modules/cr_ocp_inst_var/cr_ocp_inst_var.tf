@@ -20,7 +20,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.bootstrap.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.bootstrap.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.bootstrap.pi_health_status,
-      pi_user_data     = base64encode(file("../../bootstrap.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../bootstrap.ign")),
     }
     master = {
       pi_instance_name = "master1",
@@ -30,7 +30,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.master.pi_health_status,
-      pi_user_data     = base64encode(file("../../master.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
     }
     worker = {
       pi_instance_name = "worker1",
@@ -40,7 +40,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-      pi_user_data     = base64encode(file("../../worker.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
     },
   }
   lnx_instances_zone1 = {
@@ -74,7 +74,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.master.pi_health_status,
-      pi_user_data     = base64encode(file("../../master.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
     }
     worker = {
       pi_instance_name = "worker2",
@@ -84,7 +84,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-      pi_user_data     = base64encode(file("../../worker.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
     }
   }
   lnx_instances_zone2 = {
@@ -118,7 +118,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.master.pi_health_status,
-      pi_user_data     = base64encode(file("../../master.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
     }
     worker = {
       pi_instance_name = "worker3",
@@ -128,7 +128,7 @@ locals {
       pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
       pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-      pi_user_data     = base64encode(file("../../worker.ign")),
+      pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
     }
   }
   lnx_instances_zone3 = {
