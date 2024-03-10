@@ -14,6 +14,7 @@ resource "ibm_pi_instance" "instance" {
   pi_user_data = var.cloud_init_file
   pi_network {
     network_id = var.this_network_id
+    ip_address = var.this_ip_address
   }
 }
 
@@ -22,6 +23,7 @@ locals {
   usable_image_id = element(split("/", var.this_pi_image_id), 1)
 }
 
+variable "this_ip_address" {}
 variable "cloud_init_file" {}
 
 variable "this_pi_instance_name" {

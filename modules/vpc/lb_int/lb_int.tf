@@ -130,6 +130,95 @@ resource "ibm_is_lb_listener" "cfgmgr" {
   default_pool = ibm_is_lb_pool.cfgmgr.pool_id
 }
 
+
+resource "ibm_is_lb_pool_member" "api" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  port      = 6443
+  target_address = var.ocp_instances_zone1.ocp_instances.bootstrap.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "cfgmgr" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
+  port      = 22623
+  target_address = var.ocp_instances_zone1.ocp_instances.bootstrap.ip_address
+  weight    = 60
+}
+
+
+resource "ibm_is_lb_pool_member" "api" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  port      = 6443
+  target_address = var.ocp_instances_zone1.ocp_instances.master.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "cfgmgr" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
+  port      = 22623
+  target_address = var.ocp_instances_zone1.ocp_instances.master.ip_address
+  weight    = 60
+}
+
+
+resource "ibm_is_lb_pool_member" "api" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  port      = 6443
+  target_address = var.ocp_instances_zone2.ocp_instances.master.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "cfgmgr" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
+  port      = 22623
+  target_address = var.ocp_instances_zone2.ocp_instances.master.ip_address
+  weight    = 60
+}
+
+
+resource "ibm_is_lb_pool_member" "api" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  port      = 6443
+  target_address = var.ocp_instances_zone3.ocp_instances.master.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "cfgmgr" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
+  port      = 22623
+  target_address = var.ocp_instances_zone3.ocp_instances.master.ip_address
+  weight    = 60
+}
+
+
+resource "ibm_is_lb_pool_member" "app" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
+  port      = 80
+  target_address = var.ocp_instances_zone1.ocp_instances.worker.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "apps" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
+  port      = 443
+  target_address = var.ocp_instances_zone1.ocp_instances.worker.ip_address
+  weight    = 60
+}
+
+
+variable "ocp_instances_zone1" {}
+variable "ocp_instances_zone2" {}
+variable "ocp_instances_zone3" {}
 variable "instance1_id" {}
 variable "instance2_id" {}
 variable "ibmcloud_api_key" {}

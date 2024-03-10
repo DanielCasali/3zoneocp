@@ -47,6 +47,9 @@ module "vpc" {
   pi_ssh_key            = var.pi_ssh_key
   ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
   ocp_cluster_name      = var.ocp_config.ocp_cluster_name
+  ocp_instances_zone1   = module.cr_ocp_inst_var.ocp_instances_zone1
+  ocp_instances_zone2   = module.cr_ocp_inst_var.ocp_instances_zone2
+  ocp_instances_zone3   = module.cr_ocp_inst_var.ocp_instances_zone3
 }
 
 module "transit-gw" {

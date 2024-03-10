@@ -12,10 +12,11 @@ resource "ibm_pi_instance" "instance" {
   pi_user_data         = var.this_pi_instance_name == "bootstrap" ? var.bootstrap_image : var.this_pi_user_data
   pi_network {
     network_id = var.this_network_id
+    ip_address = var.this_ip_address
   }
 }
 
-
+variable "this_ip_address" {}
 variable "this_pi_instance_name" {}
 variable "this_pi_image_name" {}
 variable "ssh_key_id" {}

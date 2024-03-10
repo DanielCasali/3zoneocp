@@ -55,14 +55,17 @@ module "create_inst2" {
 
 
 module "lb_int" {
-  depends_on = [module.create_inst1,module.create_inst2]
-  source     = "./lb_int"
-  ibmcloud_api_key = var.ibmcloud_api_key
-  subnet1_vpc_id = module.create_vpc.subnet1_vpc_id
-  subnet2_vpc_id = module.create_vpc.subnet2_vpc_id
-  subnet3_vpc_id = module.create_vpc.subnet3_vpc_id
-  instance1_id = module.create_inst1.ibm_instance_id
-  instance2_id = module.create_inst2.ibm_instance_id
+  depends_on          = [module.create_inst1, module.create_inst2]
+  source              = "./lb_int"
+  ibmcloud_api_key    = var.ibmcloud_api_key
+  subnet1_vpc_id      = module.create_vpc.subnet1_vpc_id
+  subnet2_vpc_id      = module.create_vpc.subnet2_vpc_id
+  subnet3_vpc_id      = module.create_vpc.subnet3_vpc_id
+  instance1_id        = module.create_inst1.ibm_instance_id
+  instance2_id        = module.create_inst2.ibm_instance_id
+  ocp_instances_zone1 = var.ocp_instances_zone1
+  ocp_instances_zone2 = var.ocp_instances_zone2
+  ocp_instances_zone3 = var.ocp_instances_zone3
 }
 
 
@@ -77,7 +80,9 @@ module "create_dns"{
   lb-int-hostname = module.lb_int.lb-int-hostname
 }
 
-
+variable "ocp_instances_zone1" {}
+variable "ocp_instances_zone2" {}
+variable "ocp_instances_zone3" {}
 variable "ocp_cluster_name" {}
 variable "ocp_cluster_domain" {}
 variable "provider_region" {}
