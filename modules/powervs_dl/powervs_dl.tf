@@ -50,8 +50,17 @@ module "network" {
   ibmcloud_api_key           = var.ibmcloud_api_key
 }
 
+module "dl_connect" {
+  source = "./dl_connect"
+  ibm_resource_group_id = ""
+  ibmcloud_api_key      = ""
+  this_workspace_id     = ""
+  vpc_crn               = ""
+  this_pvs_dc = var.this_pvs_dc
+}
 
-resource "ibm_tg_connection" "test_ibm_tg_connection" {
+
+resource "ibm_tg_connection" "dl_ibm_tg_connection" {
   gateway      = var.transit_gw_id
   network_type = "power_virtual_server"
   name         = "ocp-vpc"

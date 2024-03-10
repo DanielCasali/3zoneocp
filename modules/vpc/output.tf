@@ -26,3 +26,11 @@ output "lb_int_pool_cfgmgr_id" {
 output "lb_int_pool_api_id" {
   value = module.lb_int.lb_int_pool_api_id
 }
+
+output "vpc_id" {
+  value = module.create_vpc.vpc_id
+}
+
+output "vpc_crn" {
+  value = module.create_vpc.vpc_crn
+}
