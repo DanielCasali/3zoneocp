@@ -1,6 +1,9 @@
 # Local .terraform directories
 **/.terraform/*
 
+bootstrap.ign
+master.ign
+worker.ign
 
 *.xml
 **/.idea

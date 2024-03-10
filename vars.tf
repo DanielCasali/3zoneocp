@@ -97,10 +97,12 @@ variable "pvs_zone1" {
     net_end_ip   = "192.168.101.254"
   }
 }
+
 variable "ocp_instances_zone1" {
   type    = map(any)
   default = {
     ocp_instances = {
+      #LEAVE BOOTSTRAP IN ZONE1
       bootstrap = {
         pi_instance_name = "bootstrap",
         pi_memory        = "32",
@@ -109,7 +111,7 @@ variable "ocp_instances_zone1" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./bootstrap.ign")),
       },
       master = {
         pi_instance_name = "master1",
@@ -119,7 +121,7 @@ variable "ocp_instances_zone1" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./master.ign")),
       },
       worker = {
         pi_instance_name = "worker1",
@@ -129,7 +131,7 @@ variable "ocp_instances_zone1" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./worker.ign")),
       },
     },
   }
@@ -178,7 +180,7 @@ variable "ocp_instances_zone2" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./master.ign")),
       },
       worker = {
         pi_instance_name = "worker2",
@@ -188,7 +190,7 @@ variable "ocp_instances_zone2" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./worker.ign")),
       }
     }
   }
@@ -236,7 +238,7 @@ variable "ocp_instances_zone3" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./master.ign")),
       },
       worker = {
         pi_instance_name = "worker3",
@@ -246,7 +248,7 @@ variable "ocp_instances_zone3" {
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
-        pi_user_data     = {},
+        pi_user_data     = base64encode(file("./worker.ign")),
       }
     }
   }

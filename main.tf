@@ -1,13 +1,23 @@
 module "res-group" {
-  source = "./modules/res-group"
+  source    = "./modules/res_group"
   providers = {
     ibm = ibm
   }
-  provider_region = var.provider_region
+  provider_region  = var.provider_region
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
-
+module "boot_image" {
+  depends_on = [module.res-group]
+  source     = "./modules/boot_ignition"
+  providers  = {
+    ibm = ibm
+  }
+  provider_region       = var.provider_region
+  ibmcloud_api_key      = var.ibmcloud_api_key
+  ibm_resource_group_id = module.res-group.ibm_resource_group_id
+  bootstrap_image       = var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
+}
 
 module "vpc" {
   depends_on = [module.res-group]
@@ -32,8 +42,6 @@ module "vpc" {
   ocp_cluster_domain    = var.ocp_cluster_domain
   ocp_cluster_name      = var.ocp_cluster_name
 }
-
-
 
 module "transit-gw" {
   depends_on            = [module.vpc]
@@ -77,6 +85,7 @@ module "powervs1" {
   lb_int_pool_apps_id        = module.vpc.lb_int_pool_apps_id
   lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
+  bootstrap_image            = var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
 }
 
 module "powervs2" {
@@ -111,6 +120,7 @@ module "powervs2" {
   lb_int_pool_apps_id        = module.vpc.lb_int_pool_apps_id
   lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
+  bootstrap_image            = var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
 }
 
 
@@ -146,6 +156,7 @@ module "powervs3" {
   lb_int_pool_apps_id        = module.vpc.lb_int_pool_apps_id
   lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
+  bootstrap_image            = var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
 }
 
 
