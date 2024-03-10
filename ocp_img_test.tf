@@ -12,7 +12,8 @@ locals {
     }
   ]
 
-  newest_rhcos_412_image = max(local.rhcos_412_images[*].key)
+  sorted_rhcos_412_images = sort(local.rhcos_412_images[*].key)
+  newest_rhcos_412_image = local.sorted_rhcos_412_images[length(local.sorted_rhcos_412_images) - 1]
 }
 
 output "newest_rhcos_412_image" {
