@@ -1,5 +1,5 @@
 resource "ibm_is_lb_pool_member" "app" {
-  for_each = var.ocp_instance_mac.instance-list
+  for_each = var.ocp_instance_mac.instance_list
   lb        = var.lb_int_id
   pool      = var.lb_int_pool_app_id
   port      = 80
@@ -8,7 +8,7 @@ resource "ibm_is_lb_pool_member" "app" {
 }
 
 resource "ibm_is_lb_pool_member" "apps" {
-  for_each = var.ocp_instance_mac.instance-list
+  for_each = var.ocp_instance_mac.instance_list
   lb        = var.lb_int_id
   pool      = var.lb_int_pool_apps_id
   port      = 443
@@ -17,7 +17,7 @@ resource "ibm_is_lb_pool_member" "apps" {
 }
 
 resource "ibm_is_lb_pool_member" "api" {
-  for_each = var.ocp_instance_mac.instance-list
+  for_each = var.ocp_instance_mac.instance_list
   lb        = var.lb_int_id
   pool      = var.lb_int_pool_api_id
   port      = 6443
@@ -26,7 +26,7 @@ resource "ibm_is_lb_pool_member" "api" {
 }
 
 resource "ibm_is_lb_pool_member" "cfgmgr" {
-  for_each = var.ocp_instance_mac.instance-list
+  for_each = var.ocp_instance_mac.instance_list
   lb        = var.lb_int_id
   pool      = var.lb_int_pool_cfgmgr_id
   port      = 22623
