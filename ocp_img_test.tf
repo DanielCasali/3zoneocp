@@ -6,19 +6,17 @@ locals {
   bucket_xml = data.http.bucket_contents.response_body
 
   rhcos_412_images = [
-    for match in regexall("<Contents>\\s*<Key>(rhcos-412[^<]*)</Key>\\s*<LastModified>([^<]*)</LastModified>", local.bucket_xml) :
+    for key in distinct(regexall("<Key>(rhcos-412[^<]*)</Key>", local.bucket_xml)) :
     {
-      key           = match[1]
-      last_modified = match[2]
+      key = key[0]
     }
   ]
 
-  newest_rhcos_412_image = max(local.rhcos_412_images[*].last_modified)
+  newest_rhcos_412_image = max(local.rhcos_412_images[*].key)
 }
 
 output "newest_rhcos_412_image" {
   value = {
-    key           = [for image in local.rhcos_412_images : image.key if image.last_modified == local.newest_rhcos_412_image][0]
-    last_modified = local.newest_rhcos_412_image
+    key = local.newest_rhcos_412_image
   }
 }
