@@ -103,7 +103,7 @@ variable "vpc_zone_3" {}
 
 data "ibm_is_images" "centos_stream_9" {
   visibility = "public"
-
+  status = "available"
 }
 
 locals {
@@ -112,14 +112,9 @@ locals {
     image
     if image.os == "centos-stream-9-amd64"
   ][0]
+  centos_image_id = local.centos_stream_9_image.id
 }
 
-output "centos_stream_9_image" {
-  value = {
-    id   = local.centos_stream_9_image.id
-    name = local.centos_stream_9_image.name
-  }
-}
 
 data "template_file" "vpc_infra_init_config" {
   template = <<-EOF
