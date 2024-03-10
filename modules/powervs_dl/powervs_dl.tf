@@ -63,7 +63,7 @@ module "dl_connect" {
 resource "ibm_tg_connection" "dl_ibm_tg_connection" {
   depends_on = [module.dl_connect]
   gateway      = var.transit_gw_id
-  network_type = "direct_link"
+  network_type = "directlink"
   name         = "${var.this_pvs_dc}ocp-vpc"
   network_id   = module.dl_connect.ocp_dl_crn
 }
