@@ -9,8 +9,7 @@ resource "ibm_is_security_group_rule" "ping" {
   direction = "inbound"
   remote    = "0.0.0.0/0"
   icmp {
-    code = 8
-    type = "all"
+    type = 8
   }
 }
 
