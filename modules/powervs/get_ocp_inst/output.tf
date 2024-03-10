@@ -1,6 +1,6 @@
 
 output "ocp_instance_mac" {
-  value = local.prod
+  value = local.plan
 }
 
 
