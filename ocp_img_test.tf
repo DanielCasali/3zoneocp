@@ -3,10 +3,10 @@ data "http" "bucket_contents" {
 }
 
 locals {
-  bucket_json = jsondecode(data.http.bucket_contents.response_body)
+  bucket_yaml = yamldecode(data.http.bucket_contents.response_body)
 
   rhcos_412_images = [
-    for content in local.bucket_json.ListBucketResult.Contents :
+    for content in local.bucket_yaml.ListBucketResult.Contents :
     {
       key           = content.Key
       last_modified = content.LastModified
