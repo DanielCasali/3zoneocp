@@ -81,7 +81,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.master.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 6),
+        ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 6),
         pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
       }
       worker = {
@@ -92,7 +92,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 7),
+        ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 7),
         pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
       }
     }
@@ -107,7 +107,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.linux.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.linux.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.linux.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 5),
+        ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 5),
         pi_image_id      = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }
@@ -130,7 +130,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.master.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.master.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 6),
+        ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 6),
         pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
       }
       worker = {
@@ -141,7 +141,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 7),
+        ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 7),
         pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
       }
     }
@@ -156,7 +156,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.linux.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.linux.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.linux.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 5),
+        ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 5),
         pi_image_id      = "1fa28b82-16c8-4fa2-8f25-986d50ca2f36",
       }
     }

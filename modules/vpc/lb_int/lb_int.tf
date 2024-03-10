@@ -130,7 +130,7 @@ resource "ibm_is_lb_pool_member" "proxy2" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.proxy.id), 1)
   port      = 3128
-  target_id = var.instance1_id
+  target_id = var.instance2_id
   weight    = 60
 }
 
