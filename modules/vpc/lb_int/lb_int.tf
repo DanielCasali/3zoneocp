@@ -131,7 +131,7 @@ resource "ibm_is_lb_listener" "cfgmgr" {
 }
 
 
-resource "ibm_is_lb_pool_member" "api" {
+resource "ibm_is_lb_pool_member" "api_bootstrap" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
   port      = 6443
@@ -139,7 +139,7 @@ resource "ibm_is_lb_pool_member" "api" {
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "cfgmgr" {
+resource "ibm_is_lb_pool_member" "cfgmgr_bootstrap" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
   port      = 22623
@@ -148,7 +148,7 @@ resource "ibm_is_lb_pool_member" "cfgmgr" {
 }
 
 
-resource "ibm_is_lb_pool_member" "api" {
+resource "ibm_is_lb_pool_member" "api_master1" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
   port      = 6443
@@ -156,7 +156,7 @@ resource "ibm_is_lb_pool_member" "api" {
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "cfgmgr" {
+resource "ibm_is_lb_pool_member" "cfgmgr_master1" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
   port      = 22623
@@ -165,7 +165,7 @@ resource "ibm_is_lb_pool_member" "cfgmgr" {
 }
 
 
-resource "ibm_is_lb_pool_member" "api" {
+resource "ibm_is_lb_pool_member" "api_master2" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
   port      = 6443
@@ -173,7 +173,7 @@ resource "ibm_is_lb_pool_member" "api" {
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "cfgmgr" {
+resource "ibm_is_lb_pool_member" "cfgmgr_master2" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
   port      = 22623
@@ -182,7 +182,7 @@ resource "ibm_is_lb_pool_member" "cfgmgr" {
 }
 
 
-resource "ibm_is_lb_pool_member" "api" {
+resource "ibm_is_lb_pool_member" "api_master3" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
   port      = 6443
@@ -190,7 +190,7 @@ resource "ibm_is_lb_pool_member" "api" {
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "cfgmgr" {
+resource "ibm_is_lb_pool_member" "cfgmgr_master3" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.cfgmgr.id), 1)
   port      = 22623
@@ -199,7 +199,7 @@ resource "ibm_is_lb_pool_member" "cfgmgr" {
 }
 
 
-resource "ibm_is_lb_pool_member" "app" {
+resource "ibm_is_lb_pool_member" "app_worker1" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
   port      = 80
@@ -207,13 +207,49 @@ resource "ibm_is_lb_pool_member" "app" {
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "apps" {
+resource "ibm_is_lb_pool_member" "apps_worker1" {
   lb        = ibm_is_lb.lb_int.id
   pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
   port      = 443
   target_address = var.ocp_instances_zone1.ocp_instances.worker.ip_address
   weight    = 60
 }
+
+resource "ibm_is_lb_pool_member" "app_worker2" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
+  port      = 80
+  target_address = var.ocp_instances_zone2.ocp_instances.worker.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "apps_worker2" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
+  port      = 443
+  target_address = var.ocp_instances_zone2.ocp_instances.worker.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "app_worker3" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
+  port      = 80
+  target_address = var.ocp_instances_zone3.ocp_instances.worker.ip_address
+  weight    = 60
+}
+
+resource "ibm_is_lb_pool_member" "apps_worker3" {
+  lb        = ibm_is_lb.lb_int.id
+  pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
+  port      = 443
+  target_address = var.ocp_instances_zone3.ocp_instances.worker.ip_address
+  weight    = 60
+}
+
+
+
+
 
 
 variable "ocp_instances_zone1" {}
