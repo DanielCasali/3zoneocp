@@ -6,7 +6,7 @@ locals {
   pvs_zone1 = {
     network_cidr = var.region_entries.zone1.pvs_dc_cidr
     network_addr = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 0)
-    network_mask = cidrnetmask(var.region_entries.zone1.pvs_dc_cidr, 0)
+    network_mask = cidrnetmask(element(split("/", var.region_entries.zone1.pvs_dc_cidr), 1))
     network_gw   = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 1)
     net_start_ip = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 5)
     net_end_ip   = cidrhost(var.region_entries.zone1.pvs_dc_cidr, -2)
@@ -60,7 +60,7 @@ locals {
   pvs_zone2 = {
     network_cidr = var.region_entries.zone2.pvs_dc_cidr
     network_addr = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 0)
-    network_mask = cidrnetmask(var.region_entries.zone2.pvs_dc_cidr, 0)
+    network_mask = cidrnetmask(element(split("/", var.region_entries.zone1.pvs_dc_cidr), 1))
     network_gw   = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 1)
     net_start_ip = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 5)
     net_end_ip   = cidrhost(var.region_entries.zone2.pvs_dc_cidr, -2)
@@ -104,7 +104,7 @@ locals {
   pvs_zone3 = {
     network_cidr = var.region_entries.zone3.pvs_dc_cidr
     network_addr = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 0)
-    network_mask = cidrnetmask(var.region_entries.zone3.pvs_dc_cidr, 0)
+    network_mask = cidrnetmask(element(split("/", var.region_entries.zone1.pvs_dc_cidr), 1))
     network_gw   = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 1)
     net_start_ip = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 5)
     net_end_ip   = cidrhost(var.region_entries.zone3.pvs_dc_cidr, -2)
