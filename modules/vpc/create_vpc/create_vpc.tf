@@ -38,7 +38,7 @@ resource "ibm_is_subnet" "vpc-zone1-subnet" {
   name            = "vpc-zone1-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_1
-  ipv4_cidr_block = cidrsubnet(var.vpc_zone_1, 1, 0)
+  ipv4_cidr_block = cidrsubnet(var.vpc_zone1_cidr, 1, 0)
   routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
@@ -46,7 +46,7 @@ resource "ibm_is_subnet" "vpc-zone2-subnet" {
   name            = "vpc-zone2-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_2
-  ipv4_cidr_block = cidrsubnet(var.vpc_zone_2, 1, 0)
+  ipv4_cidr_block = cidrsubnet(var.vpc_zone2_cidr, 1, 0)
   routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
@@ -54,7 +54,7 @@ resource "ibm_is_subnet" "vpc-zone3-subnet" {
   name            = "vpc-zone3-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = var.vpc_zone_3
-  ipv4_cidr_block = cidrsubnet(var.vpc_zone_3, 1, 0)
+  ipv4_cidr_block = cidrsubnet(var.vpc_zone3_cidr, 1, 0)
   routing_table   = ibm_is_vpc_routing_table.ocp_routing_table.routing_table
 }
 
