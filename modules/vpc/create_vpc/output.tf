@@ -23,5 +23,5 @@ output "ssh_key_id" {
 }
 
 output "security_group_id" {
-  value = ibm_is_vpc.vpc.security_group.group_id
+  value = ibm_is_vpc.vpc.default_security_group
 }
