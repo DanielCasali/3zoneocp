@@ -6,10 +6,10 @@ locals {
   bucket_xml = data.http.bucket_contents.response_body
 
   rhcos_412_images = [
-    for key in distinct(regexall("<Key>(rhcos-412[^<]*)</Key>", local.bucket_xml)) :
+    for match in regexall("<Contents>\\s*<Key>(rhcos-412[^<]*)</Key>\\s*<LastModified>([^<]*)</LastModified>", local.bucket_xml) :
     {
-      key           = key[0]
-      last_modified = regex("(?<=<LastModified>)([^<]*)(?=</LastModified>)", replace(local.bucket_xml, "/\\n/", "", key[0]))[0]
+      key           = match[1]
+      last_modified = match[2]
     }
   ]
 
