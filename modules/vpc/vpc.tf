@@ -101,18 +101,24 @@ variable "vpc_zone_2" {}
 variable "vpc_zone_3" {}
 
 
+data "ibm_is_images" "centos_stream_9" {
+  visibility = "public"
+
+}
+
 locals {
-  centos_image_name = "ibm-centos-stream-9-*"
-  centos_image_id = [
-    for image in data.ibm_is_images.all_images.images :
+  centos_stream_9_image = [
+    for image in data.ibm_is_images.centos_stream_9.images:
     image
-    if image.name != null
-    && image.status == "available"
-    && length(regexall("^${local.centos_image_name}$", image.name)) > 0
+    if image.os == "centos-stream-9-amd64"
   ][0]
 }
 
-data "ibm_is_images" "all_images" {
+output "centos_stream_9_image" {
+  value = {
+    id   = local.centos_stream_9_image.id
+    name = local.centos_stream_9_image.name
+  }
 }
 
 data "template_file" "vpc_infra_init_config" {
