@@ -6,7 +6,6 @@ module "create_vpc" {
   vpc_zone1_cidr = var.vpc_zone1_cidr
   vpc_zone2_cidr = var.vpc_zone2_cidr
   vpc_zone3_cidr = var.vpc_zone3_cidr
-  provider_region = var.provider_region
   vpc_zone_1 = var.vpc_zone_1
   vpc_zone_2 = var.vpc_zone_2
   vpc_zone_3 = var.vpc_zone_3
