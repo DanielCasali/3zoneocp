@@ -7,15 +7,15 @@ output "vpc_crn" {
 }
 
 output "subnet1_vpc_id" {
-  value = element(split("/", ibm_is_subnet.vpc-zone1-subnet.id), 1)
+  value = element(split("/", ibm_is_subnet.vpc_zone1_subnet.id), 1)
 }
 
 output "subnet2_vpc_id" {
-  value = element(split("/", ibm_is_subnet.vpc-zone2-subnet.id), 1)
+  value = element(split("/", ibm_is_subnet.vpc_zone2_subnet.id), 1)
 }
 
 output "subnet3_vpc_id" {
-  value = element(split("/", ibm_is_subnet.vpc-zone3-subnet.id), 1)
+  value = element(split("/", ibm_is_subnet.vpc_zone3_subnet.id), 1)
 }
 
 output "ssh_key_id" {
