@@ -77,7 +77,7 @@ module "create_dns"{
   ocp_cluster_domain = var.ocp_cluster_domain
   ocp_cluster_name = var.ocp_cluster_name
   vpc_crn = module.create_vpc.vpc_crn
-  lb-int-hostname = module.lb_int.lb-int-hostname
+  lb-int-hostname = module.lb_int.lb_int_hostname
 }
 
 variable "ocp_instances_zone1" {}
