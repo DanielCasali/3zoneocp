@@ -1,20 +1,15 @@
-resource "ibm_pi_image" "centos" {
+data "ibm_pi_catalog_images" "catalog_images" {
   pi_cloud_instance_id = var.this_workspace_id
-  pi_image_name        = "CentOS-Stream-8"
-  pi_image_id = local.centos_stream_8_image.id
-}
-
-data "ibm_is_images" "centos_stream_8" {
-  visibility = "public"
 }
 
 locals {
-  centos_stream_8_image = [
-    for image in data.ibm_is_images.centos_stream_8.images:
+  lnx_image = [
+    for image in data.ibm_pi_catalog_images.catalog_images.images :
     image
-    if length(regexall("CentOS-Stream-8", image.name)) > 0
+    if image.name == "CentOS-Stream-9"
   ][0]
 }
+
 
 
 variable "this_workspace_id" {}
