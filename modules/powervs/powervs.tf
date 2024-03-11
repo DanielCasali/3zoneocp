@@ -82,6 +82,7 @@ module "ocp_instance" {
   provider_region       = var.provider_region
   ibmcloud_api_key      = var.ibmcloud_api_key
   bootstrap_image       = var.bootstrap_image
+  this_pvs_dc           = var.this_pvs_dc
 }
 
 
@@ -137,6 +138,7 @@ module "lnx_instance" {
   this_image_id         = each.value.pi_image_id
   provider_region       = var.provider_region
   ibmcloud_api_key      = var.ibmcloud_api_key
+  this_pvs_dc           = var.this_pvs_dc
 }
 
 #module "ocp_inst_up" {

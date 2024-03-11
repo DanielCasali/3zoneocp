@@ -4,7 +4,7 @@ resource "ibm_pi_instance" "instance" {
   pi_instance_name     = var.this_pi_instance_name
   pi_proc_type         = var.this_pi_proc_type
   pi_image_id          = var.this_ocp_image_id
-  pi_key_pair_name     = "ocp-ssh-key"
+  pi_key_pair_name     = "ocp-ssh-key-${var.this_pvs_dc}"
   pi_sys_type          = var.this_pi_sys_type
   pi_cloud_instance_id = var.this_workspace_id
   pi_pin_policy        = var.this_pi_pin_policy
@@ -16,6 +16,7 @@ resource "ibm_pi_instance" "instance" {
   }
 }
 
+variable "this_pvs_dc" {}
 variable "this_ip_address" {}
 variable "this_pi_instance_name" {}
 variable "this_pi_image_name" {}
