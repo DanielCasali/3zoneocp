@@ -64,24 +64,24 @@ variable "instance_sizes" {
   default = {
     size = {
       bootstrap = {
-        pi_memory        = "24",
-        pi_processors    = "1",
+        pi_memory        = "16",
+        pi_processors    = "0.25",
         pi_proc_type     = "shared",
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
       },
       master = {
-        pi_memory        = "32",
-        pi_processors    = "1",
+        pi_memory        = "16",
+        pi_processors    = "0.25",
         pi_proc_type     = "shared",
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
         pi_health_status = "WARNING",
       },
       worker = {
-        pi_memory        = "64",
-        pi_processors    = "4",
+        pi_memory        = "16",
+        pi_processors    = "0.25",
         pi_proc_type     = "shared",
         pi_sys_type      = "s922",
         pi_pin_policy    = "none",
