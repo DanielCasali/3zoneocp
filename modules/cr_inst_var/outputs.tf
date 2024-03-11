@@ -33,5 +33,5 @@ output "pvs_zone3" {
 }
 
 output "vpc_infra_init_config" {
-  value = data.template_file.vpc_infra_init_config.rendered
+  value = base64encode(data.template_file.vpc_infra_init_config.rendered)
 }
