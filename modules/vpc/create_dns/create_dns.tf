@@ -64,6 +64,7 @@ resource "ibm_dns_resource_record" "test-pdns-resource-record-a" {
 }
 
 resource "ibm_dns_resource_record" "test-pdns-resource-record-ptr" {
+  depends_on = [ibm_dns_resource_record.test-pdns-resource-record-a]
   instance_id = ibm_resource_instance.ocp-dns-instance.guid
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "PTR"

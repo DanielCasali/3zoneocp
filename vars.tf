@@ -17,6 +17,47 @@ variable "ocp_config" {
   }
 }
 
+#The configuration uses proxy for security, no public IP will be exposed into your PowerVS Subnet,
+###proxy:
+#httpProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
+#httpsProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
+#noProxy: .apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${region_entries.zone1.vpc_zone_cidr},${region_entries.zone2.vpc_zone_cidr},${region_entries.zone3.vpc_zone_cidr},${region_entries.zone1.pvs_dc_cidr},${region_entries.zone2.pvs_dc_cidr},${region_entries.zone3.pvs_dc_cidr}
+
+#httpProxy: http://proxy.ocp.example.com:8080
+#httpsProxy: http://proxy.ocp.example.com:8080
+#noProxy: .ocp.example.com,api.ocp.example.com,api-int.ocp.example.com,10.0.101.0/24,10.0.102.0/24,10.0.103.0/24,192.168.101.0/24,192.168.102.0/24,192.168.103.0/24
+
+
+variable "region_entries" {
+  default = {
+    region = "us-south"
+    vpc_name = "ocp-vpc"
+    zone1 = {
+      dc_name = "dal10"
+      pvs_dc_name = "dal10"
+      pvs_dc_cidr = "192.168.101.0/24"
+      vpc_zone_name = "us-south-1"
+      vpc_zone_cidr = "10.0.101.0/24"
+    }
+    zone2 = {
+      dc_name = "dal12"
+      pvs_dc_name = "dal12"
+      pvs_dc_cidr = "192.168.102.0/24"
+      vpc_zone_name = "us-south-2"
+      vpc_zone_cidr = "10.0.102.0/24"
+    }
+    zone3 = {
+      dc_name = "dal13"
+      pvs_dc_name = "us-south"
+      pvs_dc_cidr = "192.168.103.0/24"
+      vpc_zone_name = "us-south-3"
+      vpc_zone_cidr = "10.0.103.0/24"
+    }
+  }
+}
+
+
+
 
 variable "instance_sizes" {
   type    = map(any)
@@ -58,35 +99,6 @@ variable "instance_sizes" {
   }
 }
 
-
-
-variable "region_entries" {
-  default = {
-    region = "us-south"
-    vpc_name = "ocp-vpc"
-    zone1 = {
-      dc_name = "dal10"
-      pvs_dc_name = "dal10"
-      pvs_dc_cidr = "192.168.101.0/24"
-      vpc_zone_name = "us-south-1"
-      vpc_zone_cidr = "10.0.101.0/24"
-    }
-    zone2 = {
-      dc_name = "dal12"
-      pvs_dc_name = "dal12"
-      pvs_dc_cidr = "192.168.102.0/24"
-      vpc_zone_name = "us-south-2"
-      vpc_zone_cidr = "10.0.102.0/24"
-    }
-    zone3 = {
-      dc_name = "dal13"
-      pvs_dc_name = "us-south"
-      pvs_dc_cidr = "192.168.103.0/24"
-      vpc_zone_name = "us-south-3"
-      vpc_zone_cidr = "10.0.103.0/24"
-    }
-  }
-}
 
 
 variable "workspace_plan" {
