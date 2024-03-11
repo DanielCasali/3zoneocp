@@ -27,7 +27,6 @@ locals {
   newest_rhcos_version_image = local.sorted_rhcos_images[length(local.sorted_rhcos_images) - 1]
 }
 
-
 variable "this_workspace_id" {}
 variable "ocp_pi_image" {}
 variable "provider_region" {}
