@@ -30,6 +30,7 @@ module "ssh_key" {
   depends_on        = [module.workspace]
   this_workspace_id = module.workspace.workspace_id
   pi_ssh_key        = var.pi_ssh_key
+  this_pvs_dc       = var.this_pvs_dc
   provider_region   = var.provider_region
   ibmcloud_api_key  = var.ibmcloud_api_key
 }
