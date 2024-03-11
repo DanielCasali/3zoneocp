@@ -268,8 +268,9 @@ resource "ibm_is_lb_pool_member" "apps_worker3" {
   weight    = 60
 }
 
+
 resource "ibm_is_lb" "lb_ext" {
-  name    = "internal-lb"
+  name    = "external-lb"
   subnets = [var.subnet1_vpc_id,var.subnet2_vpc_id,var.subnet3_vpc_id]
   type = "public"
 }
