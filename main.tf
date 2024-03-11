@@ -71,7 +71,7 @@ module "powervs1" {
     ibm = ibm.powervs1
   }
   this_service_instance_name = "powervs1"
-  this_pvs_dc                = var.region_entries.zone1.pvs_dc_name
+  this_pvs_dc                = var.region_entries.zone1.ws_zone_name
   ocp_cluster_name           = var.ocp_config.ocp_cluster_name
   ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
   this_network_addr          = module.cr_inst_var.pvs_zone1.network_addr
@@ -102,7 +102,7 @@ module "powervs2" {
     ibm = ibm.powervs2
   }
   this_service_instance_name = "powervs2"
-  this_pvs_dc                = var.region_entries.zone2.pvs_dc_name
+  this_pvs_dc                = var.region_entries.zone2.ws_zone_name
   ocp_cluster_name           = var.ocp_config.ocp_cluster_name
   ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
   this_network_addr          = module.cr_inst_var.pvs_zone2.network_addr
@@ -122,7 +122,7 @@ module "powervs2" {
   workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
-  this_dc_name               = var.region_entries.zone1.dc_name
+  this_dc_name               = var.region_entries.zone2.dc_name
 }
 
 
@@ -134,7 +134,7 @@ module "powervs3" {
     ibm = ibm.powervs3
   }
   this_service_instance_name = "powervs3"
-  this_pvs_dc                = var.region_entries.zone3.pvs_dc_name
+  this_pvs_dc                = var.region_entries.zone3.ws_zone_name
   ocp_cluster_name           = var.ocp_config.ocp_cluster_name
   ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
   this_network_addr          = module.cr_inst_var.pvs_zone3.network_addr
@@ -154,7 +154,7 @@ module "powervs3" {
   workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
-  this_dc_name               = var.region_entries.zone1.dc_name
+  this_dc_name               = var.region_entries.zone3.dc_name
 }
 
 

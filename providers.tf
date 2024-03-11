@@ -6,20 +6,20 @@ provider ibm {
 provider ibm {
   alias = "powervs1"
   region = var.region_entries.region
-  zone = var.region_entries.zone1.pvs_dc_name
+  zone = var.region_entries.zone1.ws_zone_name
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
 provider ibm {
   alias = "powervs2"
   region = var.region_entries.region
-  zone = var.region_entries.zone2.pvs_dc_name
+  zone = var.region_entries.zone2.ws_zone_name
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
 provider ibm {
   alias = "powervs3"
   region = var.region_entries.region
-  zone = var.region_entries.zone3.pvs_dc_name
+  zone = var.region_entries.zone3.ws_zone_name
   ibmcloud_api_key = var.ibmcloud_api_key
 }

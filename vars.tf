@@ -34,23 +34,23 @@ variable "region_entries" {
     vpc_name = "ocp-vpc"
     zone1 = {
       dc_name = "dal10"
-      pvs_dc_name = "dal10"
-      pvs_dc_cidr = "192.168.101.0/24"
+      ws_zone_name = "dal10"
       vpc_zone_name = "us-south-1"
+      pvs_dc_cidr = "192.168.101.0/24"
       vpc_zone_cidr = "10.0.101.0/24"
     }
     zone2 = {
       dc_name = "dal12"
-      pvs_dc_name = "dal12"
-      pvs_dc_cidr = "192.168.102.0/24"
+      ws_zone_name = "dal12"
       vpc_zone_name = "us-south-2"
+      pvs_dc_cidr = "192.168.102.0/24"
       vpc_zone_cidr = "10.0.102.0/24"
     }
     zone3 = {
       dc_name = "dal13"
-      pvs_dc_name = "us-south"
-      pvs_dc_cidr = "192.168.103.0/24"
+      ws_zone_name = "us-south"
       vpc_zone_name = "us-south-3"
+      pvs_dc_cidr = "192.168.103.0/24"
       vpc_zone_cidr = "10.0.103.0/24"
     }
   }
