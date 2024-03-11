@@ -171,6 +171,10 @@ packages:
   - dnsmasq
   - squid
   - chrony
+  - firewall-cmd --permanent --add-port=3128/tcp
+  - firewall-cmd --permanent --add-port=53/tcp
+  - firewall-cmd --permanent --add-port=53/udp
+  - firewall-cmd --reload
 runcmd:
   - [ systemctl, enable, squid.service ]
   - [ systemctl, start, squid.service ]
