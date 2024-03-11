@@ -182,7 +182,7 @@ write_files:
       allow ${var.region_entries.zone3.pvs_dc_cidr}
       bindcmdaddress 0.0.0.0
       logdir /var/log/chrony
-  -path: /etc/squid/squid.conf
+  - path: /etc/squid/squid.conf
     acl localnet src 10.0.0.0/8	# RFC1918 possible internal network
     acl localnet src 172.16.0.0/12	# RFC1918 possible internal network
     acl localnet src 192.168.0.0/16	# RFC1918 possible internal network

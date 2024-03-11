@@ -36,7 +36,7 @@ module "create_inst1" {
   vpc_id = module.create_vpc.vpc_id
   user_data =  var.vpc_infra_init_config
   zone_name = var.vpc_zone_1
-  image_id = local.centos_image_id
+  image_id = local.vpc_boot_image
   subnet_id = module.create_vpc.subnet1_vpc_id
 }
 
@@ -49,7 +49,7 @@ module "create_inst2" {
   vpc_id = module.create_vpc.vpc_id
   user_data =  var.vpc_infra_init_config
   zone_name = var.vpc_zone_2
-  image_id = local.centos_image_id
+  image_id = local.vpc_boot_image
   subnet_id = module.create_vpc.subnet2_vpc_id
 }
 
@@ -101,18 +101,18 @@ variable "vpc_zone_2" {}
 variable "vpc_zone_3" {}
 variable "vpc_infra_init_config" {}
 
-data "ibm_is_images" "centos_stream_9" {
+data "ibm_is_images" "vpc_boot_image" {
   visibility = "public"
   status = "available"
 }
 
 locals {
-  centos_stream_9_image = [
-    for image in data.ibm_is_images.centos_stream_9.images:
+  vpc_boot_image = [
+    for image in data.ibm_is_images.vpc_boot_image.images:
     image
     if image.os == "centos-stream-9-amd64"
   ][0]
-  centos_image_id = local.centos_stream_9_image.id
+  centos_image_id = local.vpc_boot_image.id
 }
 
 
