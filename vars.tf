@@ -1,11 +1,11 @@
 variable "ibmcloud_api_key" {
   default = "Not_this_API_KEY"
-  description = "On the safe side, delete this variable entry and create a terraform.tfvars file with the content with the ssh_key"
+  description = "On the safe side, create a terraform.tfvars file with the content with the ssh_key"
 }
 
 variable "pi_ssh_key" {
   default = "Not_this_ssh_key"
-  description = "On the safe side, delete this variable entry and create a terraform.tfvars file with the content with the ibmcloud_api_key"
+  description = "On the safe side, create a terraform.tfvars file with the content with the ibmcloud_api_key"
 }
 
 variable "ocp_config" {
@@ -17,15 +17,19 @@ variable "ocp_config" {
   }
 }
 
-#The configuration uses proxy for security, no public IP will be exposed into your PowerVS Subnet,
-###proxy:
-#httpProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
-#httpsProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
-#noProxy: .apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${region_entries.zone1.vpc_zone_cidr},${region_entries.zone2.vpc_zone_cidr},${region_entries.zone3.vpc_zone_cidr},${region_entries.zone1.pvs_dc_cidr},${region_entries.zone2.pvs_dc_cidr},${region_entries.zone3.pvs_dc_cidr}
-
-#httpProxy: http://proxy.ocp.example.com:8080
-#httpsProxy: http://proxy.ocp.example.com:8080
-#noProxy: .ocp.example.com,api.ocp.example.com,api-int.ocp.example.com,10.0.101.0/24,10.0.102.0/24,10.0.103.0/24,192.168.101.0/24,192.168.102.0/24,192.168.103.0/24
+#
+#The configuration uses proxy for security, no public IP will be exposed into your PowerVS Subnet, make sure to add these lines into install-config.yaml when generating the ignitions
+#proxy:
+#  httpProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
+#  httpsProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
+#  noProxy: .apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${region_entries.zone1.vpc_zone_cidr},${region_entries.zone2.vpc_zone_cidr},${region_entries.zone3.vpc_zone_cidr},${region_entries.zone1.pvs_dc_cidr},${region_entries.zone2.pvs_dc_cidr},${region_entries.zone3.pvs_dc_cidr}
+#
+#Here is an example (the DNS will be created automatically for you):
+#
+#proxy:
+#  httpProxy: http://proxy.ocp.example.com:8080
+#  httpsProxy: http://proxy.ocp.example.com:8080
+#  noProxy: .ocp.example.com,api.ocp.example.com,api-int.ocp.example.com,10.0.101.0/24,10.0.102.0/24,10.0.103.0/24,192.168.101.0/24,192.168.102.0/24,192.168.103.0/24
 
 
 variable "region_entries" {
@@ -55,9 +59,6 @@ variable "region_entries" {
     }
   }
 }
-
-
-
 
 variable "instance_sizes" {
   type    = map(any)
