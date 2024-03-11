@@ -1,5 +1,5 @@
-module "cr_ocp_inst_var" {
-  source = "./modules/cr_ocp_inst_var"
+module "cr_inst_var" {
+  source = "./modules/cr_inst_var"
   instance_sizes = var.instance_sizes
   region_entries = var.region_entries
 }
@@ -22,11 +22,11 @@ module "boot_image" {
   provider_region       = var.region_entries.region
   ibmcloud_api_key      = var.ibmcloud_api_key
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
-  bootstrap_image       = module.cr_ocp_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
+  bootstrap_image       = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
 }
 
 module "vpc" {
-  depends_on = [module.res-group,module.cr_ocp_inst_var]
+  depends_on = [module.res-group,module.cr_inst_var]
   source     = "./modules/vpc"
   providers  = {
     ibm = ibm
@@ -47,10 +47,10 @@ module "vpc" {
   pi_ssh_key            = var.pi_ssh_key
   ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
   ocp_cluster_name      = var.ocp_config.ocp_cluster_name
-  ocp_instances_zone1   = module.cr_ocp_inst_var.ocp_instances_zone1
-  ocp_instances_zone2   = module.cr_ocp_inst_var.ocp_instances_zone2
-  ocp_instances_zone3   = module.cr_ocp_inst_var.ocp_instances_zone3
-  vpc_infra_init_config = module.cr_ocp_inst_var.vpc_infra_init_config
+  ocp_instances_zone1   = module.cr_inst_var.ocp_instances_zone1
+  ocp_instances_zone2   = module.cr_inst_var.ocp_instances_zone2
+  ocp_instances_zone3   = module.cr_inst_var.ocp_instances_zone3
+  vpc_infra_init_config = module.cr_inst_var.vpc_infra_init_config
 }
 
 module "transit-gw" {
@@ -74,14 +74,14 @@ module "powervs1" {
   this_pvs_dc                = var.region_entries.zone1.pvs_dc_name
   ocp_cluster_name           = var.ocp_config.ocp_cluster_name
   ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
-  this_network_addr          = module.cr_ocp_inst_var.pvs_zone1.network_addr
-  this_network_mask          = module.cr_ocp_inst_var.pvs_zone1.network_mask
-  this_network_cidr          = module.cr_ocp_inst_var.pvs_zone1.network_cidr
-  this_network_gw            = module.cr_ocp_inst_var.pvs_zone1.network_gw
-  this_net_start_ip          = module.cr_ocp_inst_var.pvs_zone1.net_start_ip
-  this_net_end_ip            = module.cr_ocp_inst_var.pvs_zone1.net_end_ip
-  ocp_instances_zone         = module.cr_ocp_inst_var.ocp_instances_zone1
-  lnx_instances_zone         = module.cr_ocp_inst_var.lnx_instances_zone1
+  this_network_addr          = module.cr_inst_var.pvs_zone1.network_addr
+  this_network_mask          = module.cr_inst_var.pvs_zone1.network_mask
+  this_network_cidr          = module.cr_inst_var.pvs_zone1.network_cidr
+  this_network_gw            = module.cr_inst_var.pvs_zone1.network_gw
+  this_net_start_ip          = module.cr_inst_var.pvs_zone1.net_start_ip
+  this_net_end_ip            = module.cr_inst_var.pvs_zone1.net_end_ip
+  ocp_instances_zone         = module.cr_inst_var.ocp_instances_zone1
+  lnx_instances_zone         = module.cr_inst_var.lnx_instances_zone1
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
@@ -105,14 +105,14 @@ module "powervs2" {
   this_pvs_dc                = var.region_entries.zone2.pvs_dc_name
   ocp_cluster_name           = var.ocp_config.ocp_cluster_name
   ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
-  this_network_addr          = module.cr_ocp_inst_var.pvs_zone2.network_addr
-  this_network_mask          = module.cr_ocp_inst_var.pvs_zone2.network_mask
-  this_network_cidr          = module.cr_ocp_inst_var.pvs_zone2.network_cidr
-  this_network_gw            = module.cr_ocp_inst_var.pvs_zone2.network_gw
-  this_net_start_ip          = module.cr_ocp_inst_var.pvs_zone2.net_start_ip
-  this_net_end_ip            = module.cr_ocp_inst_var.pvs_zone2.net_end_ip
-  ocp_instances_zone         = module.cr_ocp_inst_var.ocp_instances_zone2
-  lnx_instances_zone         = module.cr_ocp_inst_var.lnx_instances_zone2
+  this_network_addr          = module.cr_inst_var.pvs_zone2.network_addr
+  this_network_mask          = module.cr_inst_var.pvs_zone2.network_mask
+  this_network_cidr          = module.cr_inst_var.pvs_zone2.network_cidr
+  this_network_gw            = module.cr_inst_var.pvs_zone2.network_gw
+  this_net_start_ip          = module.cr_inst_var.pvs_zone2.net_start_ip
+  this_net_end_ip            = module.cr_inst_var.pvs_zone2.net_end_ip
+  ocp_instances_zone         = module.cr_inst_var.ocp_instances_zone2
+  lnx_instances_zone         = module.cr_inst_var.lnx_instances_zone2
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
@@ -137,14 +137,14 @@ module "powervs3" {
   this_pvs_dc                = var.region_entries.zone3.pvs_dc_name
   ocp_cluster_name           = var.ocp_config.ocp_cluster_name
   ocp_cluster_domain         = var.ocp_config.ocp_cluster_domain
-  this_network_addr          = module.cr_ocp_inst_var.pvs_zone3.network_addr
-  this_network_mask          = module.cr_ocp_inst_var.pvs_zone3.network_mask
-  this_network_cidr          = module.cr_ocp_inst_var.pvs_zone3.network_cidr
-  this_network_gw            = module.cr_ocp_inst_var.pvs_zone3.network_gw
-  this_net_start_ip          = module.cr_ocp_inst_var.pvs_zone3.net_start_ip
-  this_net_end_ip            = module.cr_ocp_inst_var.pvs_zone3.net_end_ip
-  ocp_instances_zone         = module.cr_ocp_inst_var.ocp_instances_zone3
-  lnx_instances_zone         = module.cr_ocp_inst_var.lnx_instances_zone3
+  this_network_addr          = module.cr_inst_var.pvs_zone3.network_addr
+  this_network_mask          = module.cr_inst_var.pvs_zone3.network_mask
+  this_network_cidr          = module.cr_inst_var.pvs_zone3.network_cidr
+  this_network_gw            = module.cr_inst_var.pvs_zone3.network_gw
+  this_net_start_ip          = module.cr_inst_var.pvs_zone3.net_start_ip
+  this_net_end_ip            = module.cr_inst_var.pvs_zone3.net_end_ip
+  ocp_instances_zone         = module.cr_inst_var.ocp_instances_zone3
+  lnx_instances_zone         = module.cr_inst_var.lnx_instances_zone3
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
