@@ -187,10 +187,10 @@ packages:
   - squid
   - chrony
 runcmd:
+  - [ /usr/bin/sed, -ie, '/acl SSL_ports port 443/a\'$\n''acl SSL_ports port 6443', /etc/squid/squid.conf ]
+  - [ /usr/bin/sed, -ie, '/acl Safe_ports port 443/a\'$\n''acl Safe_ports port 6443', /etc/squid/squid.conf ]
   - [ systemctl, enable, squid.service, --now ]
   - [ systemctl, enable, dnsmasq.service, --now ]
-  - [ /usr/bin/sed -ie '/acl SSL_ports port 443/a\'$\n''acl SSL_ports port 6443' /etc/squid/squid.conf ]
-  - [ /usr/bin/sed -ie '/acl Safe_ports port 443/a\'$\n''acl Safe_ports port 6443' /etc/squid/squid.conf ]
   - [ systemctl, restart, squid.service ]
   - [ systemctl, enable, chronyd.service ]
   - [ systemctl, restart, chronyd.service ]
