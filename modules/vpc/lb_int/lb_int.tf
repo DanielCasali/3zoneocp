@@ -386,7 +386,7 @@ resource "ibm_is_lb_listener" "ext_api" {
 resource "ibm_is_lb_pool_member" "ssh1" {
   depends_on = [ibm_is_lb_listener.ssh1]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.proxy.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ssh1.id), 1)
   port      = 22
   target_id = var.instance1_id
   weight    = 60
@@ -395,7 +395,7 @@ resource "ibm_is_lb_pool_member" "ssh1" {
 resource "ibm_is_lb_pool_member" "ssh2" {
   depends_on = [ibm_is_lb_listener.ssh2]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.proxy.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ssh2.id), 1)
   port      = 22
   target_id = var.instance2_id
   weight    = 60
