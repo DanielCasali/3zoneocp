@@ -159,11 +159,6 @@ module "lnx_instance" {
 
 variable "this_dc_name" {}
 variable "transit_gw_id" {}
-variable "lb_int_id" {}
-variable "lb_int_pool_api_id" {}
-variable "lb_int_pool_app_id" {}
-variable "lb_int_pool_apps_id" {}
-variable "lb_int_pool_cfgmgr_id" {}
 
 variable "internal_vpc_dns1" {}
 

@@ -88,11 +88,6 @@ module "powervs1" {
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
-  lb_int_id                  = module.vpc.lb_int_id
-  lb_int_pool_api_id         = module.vpc.lb_int_pool_api_id
-  lb_int_pool_cfgmgr_id      = module.vpc.lb_int_pool_cfgmgr_id
-  lb_int_pool_apps_id        = module.vpc.lb_int_pool_apps_id
-  lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name
@@ -124,11 +119,6 @@ module "powervs2" {
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
-  lb_int_id                  = module.vpc.lb_int_id
-  lb_int_pool_api_id         = module.vpc.lb_int_pool_api_id
-  lb_int_pool_cfgmgr_id      = module.vpc.lb_int_pool_cfgmgr_id
-  lb_int_pool_apps_id        = module.vpc.lb_int_pool_apps_id
-  lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name
@@ -161,11 +151,6 @@ module "powervs3" {
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
-  lb_int_id                  = module.vpc.lb_int_id
-  lb_int_pool_api_id         = module.vpc.lb_int_pool_api_id
-  lb_int_pool_cfgmgr_id      = module.vpc.lb_int_pool_cfgmgr_id
-  lb_int_pool_apps_id        = module.vpc.lb_int_pool_apps_id
-  lb_int_pool_app_id         = module.vpc.lb_int_pool_app_id
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_image.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name

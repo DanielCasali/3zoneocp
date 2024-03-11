@@ -1,4 +1,9 @@
-output "lb-int-hostname" {
+output "lb_ext_hostname" {
+  value = ibm_is_lb.lb_ext.hostname
+}
+
+
+output "lb_int_hostname" {
   value = ibm_is_lb.lb_int.hostname
 }
 
