@@ -50,6 +50,7 @@ module "vpc" {
   ocp_instances_zone1   = module.cr_ocp_inst_var.ocp_instances_zone1
   ocp_instances_zone2   = module.cr_ocp_inst_var.ocp_instances_zone2
   ocp_instances_zone3   = module.cr_ocp_inst_var.ocp_instances_zone3
+  vpc_infra_init_config = module.cr_ocp_inst_var.vpc_infra_init_config
 }
 
 module "transit-gw" {

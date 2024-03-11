@@ -31,3 +31,7 @@ output "pvs_zone2" {
 output "pvs_zone3" {
   value = local.pvs_zone3
 }
+
+output "vpc_infra_init_config" {
+  value = base64encode(data.template_file.vpc_infra_init_config.rendered)
+}
