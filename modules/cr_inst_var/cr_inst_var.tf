@@ -182,53 +182,21 @@ write_files:
       allow ${var.region_entries.zone3.pvs_dc_cidr}
       bindcmdaddress 0.0.0.0
       logdir /var/log/chrony
-  - path: /etc/squid/squid.conf
-    acl localnet src 10.0.0.0/8
-    acl localnet src 172.16.0.0/12
-    acl localnet src 192.168.0.0/16
-    acl localnet src fc00::/7
-    acl localnet src fe80::/10
-    acl SSL_ports port 443
-    acl SSL_ports port 6443
-    acl Safe_ports port 80
-    acl Safe_ports port 21
-    acl Safe_ports port 443
-    acl Safe_ports port 6443
-    acl Safe_ports port 70
-    acl Safe_ports port 210
-    acl Safe_ports port 1025-65535
-    acl Safe_ports port 280
-    acl Safe_ports port 488
-    acl Safe_ports port 591
-    acl Safe_ports port 777
-    acl CONNECT method CONNECT
-    http_access deny !Safe_ports
-    http_access deny CONNECT !SSL_ports
-    http_access allow localhost manager
-    http_access deny manager
-    http_access allow localnet
-    http_access allow localhost
-    http_access deny all
-    http_port 3128
-    coredump_dir /var/spool/squid
-    refresh_pattern ^ftp: 1440 20% 10080
-    refresh_pattern ^gopher: 1440 0% 1440
-    refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
-    refresh_pattern . 0 20% 4320
 packages:
   - dnsmasq
   - squid
   - chrony
-  - firewall-cmd --permanent --add-port=3128/tcp
-  - firewall-cmd --permanent --add-port=53/tcp
-  - firewall-cmd --permanent --add-port=53/udp
-  - firewall-cmd --reload
 runcmd:
+  - [ cp /etc/squid/squid.conf.default /etc/squid/squid.conf ]
   - [ systemctl, enable, squid.service ]
   - [ systemctl, start, squid.service ]
   - [ systemctl, enable, dnsmasq.service ]
   - [ systemctl, start, dnsmasq.service ]
   - [ systemctl, enable, chronyd.service ]
   - [ systemctl, start, chronyd.service ]
+  - [ firewall-cmd --permanent --add-port=3128/tcp ]
+  - [ firewall-cmd --permanent --add-port=53/tcp ]
+  - [ firewall-cmd --permanent --add-port=53/udp ]
+  - [ firewall-cmd --reload ]
 EOF
 }
