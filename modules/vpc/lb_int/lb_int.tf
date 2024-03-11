@@ -274,18 +274,6 @@ resource "ibm_is_lb" "lb_ext" {
   type = "public"
 }
 
-resource "ibm_is_lb_pool" "proxy" {
-  depends_on = [ibm_is_lb.lb_ext]
-  name           = "proxy"
-  lb             = ibm_is_lb.lb_ext.id
-  algorithm      = "round_robin"
-  protocol       = "tcp"
-  health_delay   = 5
-  health_retries = 5
-  health_timeout = 2
-  health_type    = "tcp"
-  proxy_protocol = "disabled"
-}
 
 resource "ibm_is_lb_pool" "ssh1" {
   depends_on = [ibm_is_lb.lb_ext]
@@ -313,7 +301,7 @@ resource "ibm_is_lb_pool" "ssh2" {
   proxy_protocol = "disabled"
 }
 
-resource "ibm_is_lb_pool" "apps" {
+resource "ibm_is_lb_pool" "ext_apps" {
   depends_on = [ibm_is_lb.lb_ext]
   name           = "apps"
   lb             = ibm_is_lb.lb_ext.id
@@ -326,7 +314,7 @@ resource "ibm_is_lb_pool" "apps" {
   proxy_protocol = "disabled"
 }
 
-resource "ibm_is_lb_pool" "app" {
+resource "ibm_is_lb_pool" "ext_app" {
   depends_on = [ibm_is_lb.lb_ext]
   name           = "app"
   lb             = ibm_is_lb.lb_ext.id
@@ -339,7 +327,7 @@ resource "ibm_is_lb_pool" "app" {
   proxy_protocol = "disabled"
 }
 
-resource "ibm_is_lb_pool" "api" {
+resource "ibm_is_lb_pool" "ext_api" {
   depends_on = [ibm_is_lb.lb_ext]
   name           = "api"
   lb             = ibm_is_lb.lb_ext.id
@@ -370,28 +358,28 @@ resource "ibm_is_lb_listener" "ssh2" {
 }
 
 
-resource "ibm_is_lb_listener" "apps" {
-  depends_on = [ibm_is_lb_pool.apps]
+resource "ibm_is_lb_listener" "ext_apps" {
+  depends_on = [ibm_is_lb_pool.ext_apps]
   lb           = ibm_is_lb.lb_ext.id
   port         = "443"
   protocol     = "tcp"
-  default_pool = ibm_is_lb_pool.apps.pool_id
+  default_pool = ibm_is_lb_pool.ext_apps.pool_id
 }
 
-resource "ibm_is_lb_listener" "app" {
-  depends_on = [ibm_is_lb_pool.app]
+resource "ibm_is_lb_listener" "ext_app" {
+  depends_on = [ibm_is_lb_pool.ext_app]
   lb           = ibm_is_lb.lb_ext.id
   port         = "80"
   protocol     = "tcp"
-  default_pool = ibm_is_lb_pool.app.pool_id
+  default_pool = ibm_is_lb_pool.ext_app.pool_id
 }
 
-resource "ibm_is_lb_listener" "api" {
-  depends_on = [ibm_is_lb_pool.api]
+resource "ibm_is_lb_listener" "ext_api" {
+  depends_on = [ibm_is_lb_pool.ext_api]
   lb           = ibm_is_lb.lb_ext.id
   port         = "6443"
   protocol     = "tcp"
-  default_pool = ibm_is_lb_pool.api.pool_id
+  default_pool = ibm_is_lb_pool.ext_api.pool_id
 }
 
 resource "ibm_is_lb_pool_member" "ssh1" {
@@ -412,95 +400,95 @@ resource "ibm_is_lb_pool_member" "ssh2" {
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "api_bootstrap" {
-  depends_on = [ibm_is_lb_listener.api]
+resource "ibm_is_lb_pool_member" "ext_api_bootstrap" {
+  depends_on = [ibm_is_lb_listener.ext_api]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_api.id), 1)
   port      = 6443
   target_address = var.ocp_instances_zone1.ocp_instances.bootstrap.ip_address
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "api_master1" {
-  depends_on = [ibm_is_lb_listener.api]
+resource "ibm_is_lb_pool_member" "ext_api_master1" {
+  depends_on = [ibm_is_lb_listener.ext_api]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_api.id), 1)
   port      = 6443
   target_address = var.ocp_instances_zone1.ocp_instances.master.ip_address
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "api_master2" {
-  depends_on = [ibm_is_lb_listener.api]
+resource "ibm_is_lb_pool_member" "ext_api_master2" {
+  depends_on = [ibm_is_lb_listener.ext_api]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_api.id), 1)
   port      = 6443
   target_address = var.ocp_instances_zone2.ocp_instances.master.ip_address
   weight    = 60
 }
 
 
-resource "ibm_is_lb_pool_member" "api_master3" {
-  depends_on = [ibm_is_lb_listener.api]
+resource "ibm_is_lb_pool_member" "ext_api_master3" {
+  depends_on = [ibm_is_lb_listener.ext_api]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.api.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_api.id), 1)
   port      = 6443
   target_address = var.ocp_instances_zone3.ocp_instances.master.ip_address
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "app_worker1" {
-  depends_on = [ibm_is_lb_listener.app]
+resource "ibm_is_lb_pool_member" "ext_app_worker1" {
+  depends_on = [ibm_is_lb_listener.ext_app]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_app.id), 1)
   port      = 80
   target_address = var.ocp_instances_zone1.ocp_instances.worker.ip_address
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "app_worker2" {
-  depends_on = [ibm_is_lb_listener.app]
+resource "ibm_is_lb_pool_member" "ext_app_worker2" {
+  depends_on = [ibm_is_lb_listener.ext_app]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_app.id), 1)
   port      = 80
   target_address = var.ocp_instances_zone2.ocp_instances.worker.ip_address
   weight    = 60
 }
 
-resource "ibm_is_lb_pool_member" "app_worker3" {
-  depends_on = [ibm_is_lb_listener.app]
+resource "ibm_is_lb_pool_member" "ext_app_worker3" {
+  depends_on = [ibm_is_lb_listener.ext_app]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.app.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_app.id), 1)
   port      = 80
   target_address = var.ocp_instances_zone3.ocp_instances.worker.ip_address
   weight    = 60
 }
 
 
-resource "ibm_is_lb_pool_member" "apps_worker1" {
-  depends_on = [ibm_is_lb_listener.apps]
+resource "ibm_is_lb_pool_member" "ext_apps_worker1" {
+  depends_on = [ibm_is_lb_listener.ext_apps]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_apps.id), 1)
   port      = 443
   target_address = var.ocp_instances_zone1.ocp_instances.worker.ip_address
   weight    = 60
 }
 
 
-resource "ibm_is_lb_pool_member" "apps_worker2" {
-  depends_on = [ibm_is_lb_listener.apps]
+resource "ibm_is_lb_pool_member" "ext_apps_worker2" {
+  depends_on = [ibm_is_lb_listener.ext_apps]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_apps.id), 1)
   port      = 443
   target_address = var.ocp_instances_zone2.ocp_instances.worker.ip_address
   weight    = 60
 }
 
 
-resource "ibm_is_lb_pool_member" "apps_worker3" {
-  depends_on = [ibm_is_lb_listener.apps]
+resource "ibm_is_lb_pool_member" "ext_apps_worker3" {
+  depends_on = [ibm_is_lb_listener.ext_apps]
   lb        = ibm_is_lb.lb_ext.id
-  pool      = element(split("/", ibm_is_lb_pool.apps.id), 1)
+  pool      = element(split("/", ibm_is_lb_pool.ext_apps.id), 1)
   port      = 443
   target_address = var.ocp_instances_zone3.ocp_instances.worker.ip_address
   weight    = 60
