@@ -67,7 +67,7 @@ variable "region_entries" {
     zone1 = {
       dc_name = "dal10"
       pvs_dc_name = "dal10"
-      pvs_dc_cidr = "192.168.100.0/24"
+      pvs_dc_cidr = "192.168.101.0/24"
       vpc_zone_name = "us-south-1"
       vpc_zone_cidr = "10.0.101.0/24"
     }
