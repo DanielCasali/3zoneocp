@@ -189,7 +189,7 @@ packages:
 runcmd:
   - [ /usr/bin/sed, -ie, '/acl SSL_ports port 443/a acl SSL_ports port 6443', /etc/squid/squid.conf ]
   - [ /usr/bin/sed, -ie, '/acl Safe_ports port 443/a acl Safe_ports port 6443', /etc/squid/squid.conf ]
-  - [ /usr/bin/sed, -ie, 's/interface=lo//', /etc/dnmasq.conf ]
+  - [ /usr/bin/sed, -ie, 's/interface=lo//', /etc/dnsmasq.conf ]
   - [ systemctl, enable, squid.service, --now ]
   - [ systemctl, enable, dnsmasq.service, --now ]
   - [ systemctl, restart, squid.service ]
