@@ -20,7 +20,8 @@ resource "ibm_pi_instance" "instance" {
 
 
 locals {
-  usable_image_id = element(split("/", var.this_pi_image_id), 1)
+  #usable_image_id = element(split("/", var.this_pi_image_id), 1)
+  usable_image_id = var.this_pi_image_id
 }
 
 variable "this_pvs_dc" {}
@@ -62,6 +63,5 @@ variable "this_pi_health_status" {
 
 variable "this_network_id" {}
 
-variable "this_image_id" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}

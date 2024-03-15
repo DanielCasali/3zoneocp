@@ -129,13 +129,12 @@ module "lnx_instance" {
   this_pi_sys_type      = each.value.pi_sys_type
   this_pi_pin_policy    = each.value.pi_pin_policy
   this_pi_health_status = each.value.pi_health_status
-  this_pi_image_id      = each.value.pi_image_id
   this_ip_address       = each.value.ip_address
   this_workspace_id     = module.workspace.workspace_id
   this_network_id       = module.network.this_network_id
   ssh_key_id            = module.ssh_key.ssh_key_id
   cloud_init_file       = module.build_dhcp.cloud_init_file
-  this_image_id         = each.value.pi_image_id
+  this_pi_image_id      = module.lnx_image.this_lnx_image_id
   provider_region       = var.provider_region
   ibmcloud_api_key      = var.ibmcloud_api_key
   this_pvs_dc           = var.this_pvs_dc
