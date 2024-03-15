@@ -20,8 +20,8 @@ resource "ibm_pi_instance" "instance" {
 
 
 locals {
-  #usable_image_id = element(split("/", var.this_pi_image_id), 1)
-  usable_image_id = var.this_pi_image_id
+  usable_image_id = element(split("/", var.this_pi_image_id), 1)
+  #usable_image_id = var.this_pi_image_id
 }
 
 variable "this_pvs_dc" {}
