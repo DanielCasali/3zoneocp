@@ -1,3 +1,9 @@
+resource "ibm_pi_image" "image"{
+  pi_image_name       = "Stream-9"
+  pi_image_id         = local.lnx_image.image_id
+  pi_cloud_instance_id = var.this_workspace_id
+}
+
 data "ibm_pi_catalog_images" "catalog_images" {
   pi_cloud_instance_id = var.this_workspace_id
 }
