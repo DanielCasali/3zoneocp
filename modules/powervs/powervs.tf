@@ -103,6 +103,7 @@ module "build_dhcp" {
   this_network_addr  = var.this_network_addr
   this_network_mask  = var.this_network_mask
   internal_vpc_dns1  = var.internal_vpc_dns1
+  internal_vpc_dns2  = var.internal_vpc_dns2
   this_network_gw    = var.this_network_gw
 }
 

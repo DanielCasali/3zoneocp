@@ -2,6 +2,15 @@ data "template_file" "cloud_init_config" {
   template = <<-EOF
 #cloud-config
 write_files:
+  - path: /etc/dnf/dnf.conf
+    content: |
+      [main]
+      gpgcheck=1
+      installonly_limit=3
+      clean_requirements_on_remove=True
+      best=False
+      skip_if_unavailable=True
+      proxy=http://proxy.${var.ocp_cluster_name}.${var.ocp_cluster_domain}:8080
   - path: /etc/dhcp/dhcpd.conf
     content: |
       $${map_lines}
@@ -19,7 +28,7 @@ EOF
       ["              option routers ${var.this_network_gw}; "],
       ["              option subnet-mask ${var.this_network_mask}; "],
       ["              option domain-search \"${var.ocp_cluster_name}.${var.ocp_cluster_domain}\";"],
-      ["              option domain-name-servers ${var.internal_vpc_dns1}; "],
+      ["              option domain-name-servers ${var.internal_vpc_dns1}, ${var.internal_vpc_dns2}; "],
       ["      }"],
       flatten([
         for instance_name, instance in var.ocp_instance_mac.instance_list : [
@@ -38,6 +47,9 @@ variable "internal_vpc_dns1" {
   type = string
 }
 
+variable "internal_vpc_dns2" {
+  type = string
+}
 variable "ocp_instance_mac" {
   type = map(any)
 }
