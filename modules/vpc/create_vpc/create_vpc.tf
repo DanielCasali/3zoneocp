@@ -61,6 +61,16 @@ resource "ibm_is_public_gateway" "gw_zone_2" {
   zone = var.vpc_zone_2
 }
 
+resource "ibm_is_subnet_public_gateway_attachment" "gw_zone_2_attach" {
+  subnet                = ibm_is_subnet.vpc_zone2_subnet.id
+  public_gateway         = ibm_is_public_gateway.gw_zone_2.id
+}
+
+
+resource "ibm_is_subnet_public_gateway_attachment" "gw_zone_1_attach" {
+  subnet                = ibm_is_subnet.vpc_zone1_subnet.id
+  public_gateway         = ibm_is_public_gateway.gw_zone_1.id
+}
 
 resource "ibm_is_ssh_key" "vpc-ssh-key" {
   name       = "vpc-ssh-key"
