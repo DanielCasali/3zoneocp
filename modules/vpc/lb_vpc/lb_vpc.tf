@@ -287,7 +287,6 @@ resource "ibm_is_lb_pool" "ssh1" {
   health_timeout = 2
   health_type    = "tcp"
   proxy_protocol = "disabled"
-  idle_connection_timeout = 7200
 }
 
 resource "ibm_is_lb_pool" "ssh2" {
@@ -301,7 +300,6 @@ resource "ibm_is_lb_pool" "ssh2" {
   health_timeout = 2
   health_type    = "tcp"
   proxy_protocol = "disabled"
-  idle_connection_timeout = 7200
 }
 
 resource "ibm_is_lb_pool" "ext_apps" {
@@ -350,6 +348,7 @@ resource "ibm_is_lb_listener" "ssh1" {
   port         = "22222"
   protocol     = "tcp"
   default_pool = ibm_is_lb_pool.ssh1.pool_id
+  idle_connection_timeout = 7200
 }
 
 resource "ibm_is_lb_listener" "ssh2" {
@@ -358,6 +357,7 @@ resource "ibm_is_lb_listener" "ssh2" {
   port         = "22223"
   protocol     = "tcp"
   default_pool = ibm_is_lb_pool.ssh2.pool_id
+  idle_connection_timeout = 7200
 }
 
 
