@@ -10,7 +10,7 @@ data "template_file" "bootstrap_init_config" {
     "version": "3.2.0",
     "config": {
       "replace": {
-        "source": "https://${ibm_cos_bucket.cos_bucket.region_location}.cloud-object-storage.appdomain.cloud/${ibm_cos_bucket.cos_bucket.bucket_name}/${ibm_cos_bucket_object.bootstrap.key}"
+        "source": "https://s3.${ibm_cos_bucket.cos_bucket.region_location}.cloud-object-storage.appdomain.cloud/${ibm_cos_bucket.cos_bucket.bucket_name}/${ibm_cos_bucket_object.bootstrap.key}"
       }
     }
   }
