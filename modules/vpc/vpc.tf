@@ -54,9 +54,9 @@ module "create_inst2" {
 }
 
 
-module "lb_int" {
+module "lb_vpc" {
   depends_on          = [module.create_inst1, module.create_inst2]
-  source              = "./lb_int"
+  source              = "./lb_vpc"
   ibmcloud_api_key    = var.ibmcloud_api_key
   subnet1_vpc_id      = module.create_vpc.subnet1_vpc_id
   subnet2_vpc_id      = module.create_vpc.subnet2_vpc_id
@@ -70,14 +70,14 @@ module "lb_int" {
 
 
 module "create_dns"{
-  depends_on = [module.lb_int]
+  depends_on = [module.lb_vpc]
   source = "./create_dns"
   ibmcloud_api_key = var.ibmcloud_api_key
   ibm_resource_group_id = var.ibm_resource_group_id
   ocp_cluster_domain = var.ocp_cluster_domain
   ocp_cluster_name = var.ocp_cluster_name
   vpc_crn = module.create_vpc.vpc_crn
-  lb-int-hostname = module.lb_int.lb_int_hostname
+  lb_int_hostname = module.lb_vpc.lb_int_hostname
 }
 
 variable "ocp_instances_zone1" {}

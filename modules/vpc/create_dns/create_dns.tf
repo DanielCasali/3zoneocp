@@ -25,7 +25,7 @@ resource "ibm_dns_resource_record" "ocp-proxy-cname" {
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "CNAME"
   name        = "proxy"
-  rdata       = var.lb-int-hostname
+  rdata       = var.lb_int_hostname
 }
 
 resource "ibm_dns_resource_record" "ocp-apps-cname" {
@@ -33,7 +33,7 @@ resource "ibm_dns_resource_record" "ocp-apps-cname" {
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "CNAME"
   name        = "*.apps"
-  rdata       = var.lb-int-hostname
+  rdata       = var.lb_int_hostname
 }
 
 resource "ibm_dns_resource_record" "ocp-api-int-cname" {
@@ -41,7 +41,7 @@ resource "ibm_dns_resource_record" "ocp-api-int-cname" {
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "CNAME"
   name        = "api-int"
-  rdata       = var.lb-int-hostname
+  rdata       = var.lb_int_hostname
 }
 
 
@@ -50,7 +50,7 @@ resource "ibm_dns_resource_record" "ocp-api-cname" {
   zone_id     = ibm_dns_zone.ocp-dns-zone.zone_id
   type        = "CNAME"
   name        = "api"
-  rdata       = var.lb-int-hostname
+  rdata       = var.lb_int_hostname
 }
 
 
@@ -74,7 +74,7 @@ resource "ibm_dns_resource_record" "test-pdns-resource-record-ptr" {
 
 
 
-variable "lb-int-hostname" {}
+variable "lb_int_hostname" {}
 variable "vpc_crn" {}
 variable "ocp_cluster_name" {}
 variable "ocp_cluster_domain" {}
