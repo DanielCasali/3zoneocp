@@ -34,22 +34,15 @@ resource "ibm_iam_access_group_members" "cos_public_access_group_members" {
   iam_service_ids = [ibm_iam_service_id.cos_service_id.id]
 }
 
-resource "ibm_iam_authorization_policy" "cos_policy" {
-  source_service_name         = "cloud-object-storage"
-  source_resource_instance_id = ibm_resource_instance.cos_instance.guid
-  target_service_name         = "cloud-object-storage"
-  target_resource_instance_id = ibm_resource_instance.cos_instance.guid
-  roles                       = ["Reader"]
+resource "ibm_iam_access_group_policy" "cos_policy" {
+  access_group_id = data.ibm_iam_access_group.public_access_group.groups[0].id
+  roles           = ["Object Reader"]
 
-  resource_attributes {
-    name     = "bucket"
-    value    = ibm_cos_bucket.cos_bucket.bucket_name
-    operator = "stringEquals"
-  }
-  resource_attributes {
-    name     = "serviceInstance"
-    value    = ibm_resource_instance.cos_instance.guid
-    operator = "stringEquals"
+  resources {
+    service              = "cloud-object-storage"
+    resource_instance_id = ibm_resource_instance.cos_instance.guid
+    resource_type        = "bucket"
+    resource             = ibm_cos_bucket.cos_bucket.bucket_name
   }
 }
 
