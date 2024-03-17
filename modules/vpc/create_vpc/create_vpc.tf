@@ -50,15 +50,17 @@ resource "ibm_is_subnet" "vpc_zone3_subnet" {
 }
 
 resource "ibm_is_public_gateway" "gw_zone_1" {
-  name = "gw-zone1"
-  vpc  = ibm_is_vpc.vpc.id
-  zone = var.vpc_zone_1
+  name           = "gw-zone1"
+  vpc            = ibm_is_vpc.vpc.id
+  zone           = var.vpc_zone_1
+  resource_group = var.ibm_resource_group_id
 }
 
 resource "ibm_is_public_gateway" "gw_zone_2" {
-  name = "gw-zone2"
-  vpc  = ibm_is_vpc.vpc.id
-  zone = var.vpc_zone_2
+  name           = "gw-zone2"
+  vpc            = ibm_is_vpc.vpc.id
+  zone           = var.vpc_zone_2
+  resource_group = var.ibm_resource_group_id
 }
 
 resource "ibm_is_subnet_public_gateway_attachment" "gw_zone_2_attach" {

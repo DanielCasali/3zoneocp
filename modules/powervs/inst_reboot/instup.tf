@@ -1,8 +1,8 @@
-resource "ibm_pi_instance_action" "halt" {
-  for_each = var.ocp_instance_mac.instance_list
+resource "ibm_pi_instance_action" "reboot" {
+  for_each = var.ocp_instance_mac.instance-list
   pi_cloud_instance_id  = var.this_workspace_id
   pi_instance_id        = each.key
-  pi_action             = "immediate-shutdown"
+  pi_action             = "hard-reboot"
 }
 
 variable "ocp_instance_mac" {

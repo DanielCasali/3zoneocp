@@ -28,29 +28,29 @@ module "sec_roles" {
 }
 
 module "create_inst1" {
-  depends_on = [module.create_vpc, module.sec_roles]
-  source     = "./create_inst"
-  ibmcloud_api_key = ""
-  instance_name = "infra1"
-  ssh_key_id = module.create_vpc.ssh_key_id
-  vpc_id = module.create_vpc.vpc_id
-  user_data =  var.vpc_infra_init_config
-  zone_name = var.vpc_zone_1
-  image_id = local.vpc_image_id
-  subnet_id = module.create_vpc.subnet1_vpc_id
+  depends_on            = [module.create_vpc, module.sec_roles]
+  source                = "./create_inst"
+  instance_name         = "infra1"
+  ssh_key_id            = module.create_vpc.ssh_key_id
+  vpc_id                = module.create_vpc.vpc_id
+  user_data             = var.vpc_infra_init_config
+  zone_name             = var.vpc_zone_1
+  image_id              = local.vpc_image_id
+  subnet_id             = module.create_vpc.subnet1_vpc_id
+  ibm_resource_group_id = var.ibm_resource_group_id
 }
 
 module "create_inst2" {
-  depends_on = [module.create_vpc, module.sec_roles]
-  source     = "./create_inst"
-  ibmcloud_api_key = ""
-  instance_name = "infra2"
-  ssh_key_id = module.create_vpc.ssh_key_id
-  vpc_id = module.create_vpc.vpc_id
-  user_data =  var.vpc_infra_init_config
-  zone_name = var.vpc_zone_2
-  image_id = local.vpc_image_id
-  subnet_id = module.create_vpc.subnet2_vpc_id
+  depends_on            = [module.create_vpc, module.sec_roles]
+  source                = "./create_inst"
+  instance_name         = "infra2"
+  ssh_key_id            = module.create_vpc.ssh_key_id
+  vpc_id                = module.create_vpc.vpc_id
+  user_data             = var.vpc_infra_init_config
+  zone_name             = var.vpc_zone_2
+  image_id              = local.vpc_image_id
+  subnet_id             = module.create_vpc.subnet2_vpc_id
+  ibm_resource_group_id = var.ibm_resource_group_id
 }
 
 
@@ -66,6 +66,7 @@ module "lb_vpc" {
   ocp_instances_zone1 = var.ocp_instances_zone1
   ocp_instances_zone2 = var.ocp_instances_zone2
   ocp_instances_zone3 = var.ocp_instances_zone3
+  ibm_resource_group_id = var.ibm_resource_group_id
 }
 
 

@@ -1,7 +1,8 @@
 resource "ibm_is_lb" "lb_int" {
-  name    = "internal-lb"
-  subnets = [var.subnet1_vpc_id,var.subnet2_vpc_id,var.subnet3_vpc_id]
-  type = "private"
+  name           = "internal-lb"
+  subnets        = [var.subnet1_vpc_id, var.subnet2_vpc_id, var.subnet3_vpc_id]
+  type           = "private"
+  resource_group = var.ibm_resource_group_id
 }
 
 
@@ -270,9 +271,10 @@ resource "ibm_is_lb_pool_member" "apps_worker3" {
 
 
 resource "ibm_is_lb" "lb_ext" {
-  name    = "external-lb"
-  subnets = [var.subnet1_vpc_id,var.subnet2_vpc_id,var.subnet3_vpc_id]
-  type = "public"
+  name           = "external-lb"
+  subnets        = [var.subnet1_vpc_id, var.subnet2_vpc_id, var.subnet3_vpc_id]
+  type           = "public"
+  resource_group = var.ibm_resource_group_id
 }
 
 
@@ -498,7 +500,7 @@ resource "ibm_is_lb_pool_member" "ext_apps_worker3" {
 }
 
 
-
+variable "ibm_resource_group_id" {}
 variable "ocp_instances_zone1" {}
 variable "ocp_instances_zone2" {}
 variable "ocp_instances_zone3" {}
