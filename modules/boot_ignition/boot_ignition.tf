@@ -51,7 +51,6 @@ resource "ibm_iam_authorization_policy" "cos_policy" {
     value    = ibm_resource_instance.cos_instance.guid
     operator = "stringEquals"
   }
-  account_management = false
 }
 
 variable "bootstrap_image" {}
