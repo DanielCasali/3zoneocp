@@ -21,6 +21,27 @@ resource "ibm_cos_bucket_object" "bootstrap" {
 }
 
 
+data "ibm_iam_access_group" "public_access_group" {
+  access_group_name = "Public Access"
+}
+
+resource "ibm_iam_service_id" "cos_service_id" {
+  name        = "cos-service-id"
+  description = "Service ID for COS public access"
+}
+resource "ibm_iam_access_group_members" "cos_public_access_group_members" {
+  access_group_id = data.ibm_iam_access_group.public_access_group.groups[0].id
+  iam_service_ids = [ibm_iam_service_id.cos_service_id.id]
+}
+
+resource "ibm_iam_authorization_policy" "cos_policy" {
+  target_service_name         = "cloud-object-storage"
+  target_resource_instance_id = ibm_resource_instance.cos_instance.guid
+  roles                       = ["Object Reader"]
+  resource             = ibm_cos_bucket.cos_bucket.bucket_name
+  account_management = false
+}
+
 variable "bootstrap_image" {}
 variable "ibm_resource_group_id" {}
 variable "provider_region" {}
