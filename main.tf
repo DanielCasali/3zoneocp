@@ -27,9 +27,9 @@ module "boot_ignition" {
   ocp_cluster_name      = var.ocp_config.ocp_cluster_name
   zone1_pvs_dc_cidr     = var.region_entries.zone1.pvs_dc_cidr
   zone1_vpc_zone_cidr   = var.region_entries.zone1.vpc_zone_cidr
-  zone2_pvs_dc_cidr     = var.region_entries.zone2.vpc_zone_cidr
+  zone2_pvs_dc_cidr     = var.region_entries.zone2.pvs_dc_cidr
   zone2_vpc_zone_cidr   = var.region_entries.zone2.vpc_zone_cidr
-  zone3_pvs_dc_cidr     = var.region_entries.zone3.vpc_zone_cidr
+  zone3_pvs_dc_cidr     = var.region_entries.zone3.pvs_dc_cidr
   zone3_vpc_zone_cidr   = var.region_entries.zone3.vpc_zone_cidr
 }
 
