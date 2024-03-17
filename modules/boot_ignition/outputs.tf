@@ -9,7 +9,7 @@ data "template_file" "bootstrap_init_config" {
   "ignition":{
     "version": "3.2.0",
     "config": {
-      "proxy" {
+      "proxy": {
         "httpProxy": "http://proxy.${var.ocp_cluster_name}.${var.ocp_cluster_domain}:8080",
         "httpsProxy": "http://proxy.${var.ocp_cluster_name}.${var.ocp_cluster_domain}:8080",
         "noProxy": [ ".apps.${var.ocp_cluster_name}.${var.ocp_cluster_domain}", "api.${var.ocp_cluster_name}.${var.ocp_cluster_domain}", "api-int.${var.ocp_cluster_name}.${var.ocp_cluster_domain}", "${var.zone1_vpc_zone_cidr}", "${var.zone2_vpc_zone_cidr}", "${var.zone3_vpc_zone_cidr}", "${var.zone1_pvs_dc_cidr}", "${var.zone2_pvs_dc_cidr}", "${var.zone3_pvs_dc_cidr}" ]
