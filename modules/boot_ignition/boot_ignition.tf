@@ -25,3 +25,11 @@ variable "bootstrap_image" {}
 variable "ibm_resource_group_id" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}
+variable "ocp_cluster_name" {}
+variable "ocp_cluster_domain" {}
+variable "zone1_vpc_zone_cidr" {}
+variable "zone2_vpc_zone_cidr" {}
+variable "zone3_vpc_zone_cidr" {}
+variable "zone1_pvs_dc_cidr" {}
+variable "zone2_pvs_dc_cidr" {}
+variable "zone3_pvs_dc_cidr" {}

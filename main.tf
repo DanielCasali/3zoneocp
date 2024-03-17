@@ -13,7 +13,7 @@ module "res-group" {
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
-module "boot_image" {
+module "boot_ignition" {
   depends_on = [module.res-group]
   source     = "./modules/boot_ignition"
   providers  = {
@@ -23,6 +23,14 @@ module "boot_image" {
   ibmcloud_api_key      = var.ibmcloud_api_key
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   bootstrap_image       = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
+  ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
+  ocp_cluster_name      = var.ocp_config.ocp_cluster_name
+  zone1_pvs_dc_cidr     = var.region_entries.zone1.pvs_dc_cidr
+  zone1_vpc_zone_cidr   = var.region_entries.zone1.vpc_zone_cidr
+  zone2_pvs_dc_cidr     = var.region_entries.zone2.vpc_zone_cidr
+  zone2_vpc_zone_cidr   = var.region_entries.zone2.vpc_zone_cidr
+  zone3_pvs_dc_cidr     = var.region_entries.zone3.vpc_zone_cidr
+  zone3_vpc_zone_cidr   = var.region_entries.zone3.vpc_zone_cidr
 }
 
 module "vpc" {
@@ -90,7 +98,7 @@ module "powervs1" {
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
-  bootstrap_image            = module.boot_image.bootstrap_init_file
+  bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name
 }
 
@@ -121,7 +129,7 @@ module "powervs2" {
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
-  bootstrap_image            = module.boot_image.bootstrap_init_file
+  bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone2.dc_name
 }
 
@@ -153,7 +161,7 @@ module "powervs3" {
   ibmcloud_api_key           = var.ibmcloud_api_key
   workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
-  bootstrap_image            = module.boot_image.bootstrap_init_file
+  bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone3.dc_name
 }
 
