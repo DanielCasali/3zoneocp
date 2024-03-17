@@ -38,7 +38,6 @@ resource "ibm_iam_authorization_policy" "cos_policy" {
   target_service_name         = "cloud-object-storage"
   target_resource_instance_id = ibm_resource_instance.cos_instance.guid
   roles                       = ["Object Reader"]
-  resource                    = ibm_cos_bucket.cos_bucket.bucket_name
 }
 
 variable "bootstrap_image" {}
