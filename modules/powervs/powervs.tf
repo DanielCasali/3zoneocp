@@ -55,18 +55,18 @@ module "network" {
 # Conditionally create either the Transit Gateway connection Directly or Cloud Connection
 resource "ibm_tg_connection" "test_ibm_tg_connection" {
   # Create only if this_pvs_dc is in the list
-  count = contains(var.per_datacenters, var.this_pvs_dc) ? 1 : 0
+  count = contains(var.per_datacenters, var.this_dc_name) ? 1 : 0
   gateway      = var.transit_gw_id
   network_type = "power_virtual_server"
-  name         = "${var.this_pvs_dc}-ocp-vpc"
+  name         = "${var.this_dc_name}-ocp-vpc"
   network_id   = module.workspace.workspace_crn
 }
 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
   # Create only if this_pvs_dc is not in the list
-  count                               = contains(var.per_datacenters, var.this_pvs_dc) ? 0 : 1
+  count                               = contains(var.per_datacenters, var.this_dc_name) ? 0 : 1
   pi_cloud_instance_id                = module.workspace.workspace_id
-  pi_cloud_connection_name            = "ocp-cloud-connection-${var.this_pvs_dc}"
+  pi_cloud_connection_name            = "ocp-cloud-connection-${var.this_dc_name}"
   pi_cloud_connection_speed           = 1000
   pi_cloud_connection_transit_enabled = true
 }
@@ -83,7 +83,7 @@ resource "ibm_pi_cloud_connection_network_attach" "example" {
 data "ibm_dl_gateway" "ocp_cloud_connection" {
   count        = length(ibm_pi_cloud_connection.cloud_connection)
   depends_on = [ibm_pi_cloud_connection.cloud_connection]
-  name = "ocp-cloud-connection-${var.this_pvs_dc}"
+  name = "ocp-cloud-connection-${var.this_dc_name}"
 }
 
 resource "ibm_tg_connection" "cloud_gw_tg_connection" {
@@ -92,7 +92,7 @@ resource "ibm_tg_connection" "cloud_gw_tg_connection" {
   count        = length(ibm_pi_cloud_connection.cloud_connection)
   gateway      = var.transit_gw_id
   network_type = "directlink"
-  name         = "${var.this_pvs_dc}-ocp-vpc"
+  name         = "${var.this_dc_name}-ocp-vpc"
   network_id   = data.ibm_dl_gateway.ocp_cloud_connection[count.index].crn
 }
 
