@@ -1,7 +1,7 @@
 resource "ibm_pi_instance_action" "reboot" {
   for_each = local.instance_list_transformed
   pi_cloud_instance_id  = var.this_workspace_id
-  pi_instance_id        = each.instance_id
+  pi_instance_id        = each.value.instance_id
   pi_action             = "hard-reboot"
 }
 
