@@ -107,4 +107,8 @@ variable "workspace_plan" {
   default = "public"
 }
 
+variable "per_datacenters" {
+  default = ["dal10", "dal12", "fra04", "fra05", "wdc06", "wdc07", "mad02", "mad04", "sao01", "sao04"]
+}
+
 

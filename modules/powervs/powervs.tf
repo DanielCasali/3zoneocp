@@ -52,7 +52,38 @@ module "network" {
 }
 
 
+# Conditionally create either the Transit Gateway connection Directly or Cloud Connection
 resource "ibm_tg_connection" "test_ibm_tg_connection" {
+  # Create only if this_pvs_dc is in the list
+  count = contains(var.per_datacenters, var.this_pvs_dc) ? 1 : 0
+  gateway      = var.transit_gw_id
+  network_type = "power_virtual_server"
+  name         = "${var.this_pvs_dc}ocp-vpc"
+  network_id   = module.workspace.workspace_crn
+}
+
+resource "ibm_pi_cloud_connection" "cloud_connection" {
+  # Create only if this_pvs_dc is not in the list
+  count                               = contains(var.per_datacenters, var.this_pvs_dc) ? 0 : 1
+  pi_cloud_instance_id                = module.workspace.workspace_id
+  pi_cloud_connection_name            = "test_cloud_connection"
+  pi_cloud_connection_speed           = 1000
+  pi_cloud_connection_transit_enabled = true
+}
+
+resource "ibm_pi_cloud_connection_network_attach" "example" {
+  # Depends on cloud_connection being created
+  depends_on             = [ibm_pi_cloud_connection.cloud_connection]
+  count                  = length(ibm_pi_cloud_connection.cloud_connection)
+  pi_cloud_instance_id   = module.workspace.workspace_id
+  pi_cloud_connection_id = ibm_pi_cloud_connection.cloud_connection[count.index].id
+  pi_network_id          = module.workspace.workspace_crn
+}
+
+resource "ibm_tg_connection" "cloud_gw_tg_connection" {
+  # Depends on cloud_connection being created
+  depends_on   = [ibm_pi_cloud_connection.cloud_connection]
+  count        = length(ibm_pi_cloud_connection.cloud_connection)
   gateway      = var.transit_gw_id
   network_type = "power_virtual_server"
   name         = "${var.this_pvs_dc}ocp-vpc"
@@ -132,19 +163,18 @@ module "lnx_instance" {
   this_pvs_dc           = var.this_pvs_dc
 }
 
-resource "time_sleep" "wait_5_minutes" {
-  depends_on = [module.lnx_instance]
-  create_duration = "5m"
-}
+#resource "time_sleep" "wait_5_minutes" {
+#  depends_on = [module.lnx_instance]
+#  create_duration = "5m"
+#}
 
-
-module "ocp_inst_reboot" {
-  source     = "./inst_reboot"
-  depends_on = [time_sleep.wait_5_minutes]
-  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
-  ibmcloud_api_key = var.ibmcloud_api_key
-  this_workspace_id = module.workspace.workspace_id
-}
+#module "ocp_inst_reboot" {
+#  source     = "./inst_reboot"
+#  depends_on = [time_sleep.wait_5_minutes]
+#  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
+#  ibmcloud_api_key = var.ibmcloud_api_key
+#  this_workspace_id = module.workspace.workspace_id
+#}
 
 variable "this_dc_name" {}
 variable "transit_gw_id" {}
@@ -193,6 +223,7 @@ variable "lnx_instances_zone" {
   type = map(any)
 }
 
+variable "per_datacenters" {}
 variable "ocp_pi_image" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}
