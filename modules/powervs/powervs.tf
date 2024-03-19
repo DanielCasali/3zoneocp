@@ -71,13 +71,13 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
   pi_cloud_connection_transit_enabled = true
 }
 
-resource "ibm_pi_cloud_connection_network_attach" "example" {
+resource "ibm_pi_cloud_connection_network_attach" "attachment" {
   # Depends on cloud_connection being created
   depends_on             = [ibm_pi_cloud_connection.cloud_connection]
   count                  = length(ibm_pi_cloud_connection.cloud_connection)
   pi_cloud_instance_id   = module.workspace.workspace_id
   pi_cloud_connection_id = ibm_pi_cloud_connection.cloud_connection[count.index].id
-  pi_network_id          = module.workspace.workspace_crn
+  pi_network_id          = module.network.this_network_id
 }
 
 data "ibm_dl_gateway" "ocp_cloud_connection" {
