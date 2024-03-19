@@ -76,7 +76,7 @@ resource "ibm_pi_cloud_connection_network_attach" "attachment" {
   depends_on             = [ibm_pi_cloud_connection.cloud_connection]
   count                  = length(ibm_pi_cloud_connection.cloud_connection)
   pi_cloud_instance_id   = module.workspace.workspace_id
-  pi_cloud_connection_id = ibm_pi_cloud_connection.cloud_connection[count.index].id
+  pi_cloud_connection_id = element(split("/", ibm_pi_cloud_connection.cloud_connection[count.index].id), 1)
   pi_network_id          = module.network.this_network_id
 }
 
