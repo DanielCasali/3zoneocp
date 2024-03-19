@@ -1,17 +1,20 @@
-resource "ibm_pi_instance_action" "reboot" {
-  for_each = local.instance_list_transformed
-  pi_cloud_instance_id  = var.this_workspace_id
-  pi_instance_id        = each.value.instance_id
-  pi_action             = "hard-reboot"
+
+data "ibm_pi_instances" "ds_instance" {
+  pi_cloud_instance_id = var.this_workspace_id
 }
 
-
-
 locals {
-  instance_list_transformed = {
-    for instance_key, instance in var.ocp_instance_mac.instance_list :
-    instance_key => merge(instance, { instance_id = instance_key })
-  }
+  instance_ids_to_reboot = toset([
+    for instance in data.ibm_pi_instances.ds_instance.pvm_instances :
+    instance.pvm_instance_id if contains(keys(var.ocp_instance_mac.instance_list), instance.id)
+  ])
+}
+
+resource "ibm_pi_instance_action" "reboot" {
+  for_each = local.instance_ids_to_reboot
+  pi_cloud_instance_id = var.this_workspace_id
+  pi_instance_id       = each.value
+  pi_action            = "hard-reboot"
 }
 
 

@@ -10,6 +10,7 @@ locals {
       for instance in data.ibm_pi_instances.ds_instance.pvm_instances : instance.pvm_instance_id => {
         ip_address    = instance.networks[0].ip
         mac_address   = instance.networks[0].macaddress
+        instance_id   = instance.pvm_instance_id
       }
     }
   }
