@@ -71,9 +71,15 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
   pi_cloud_connection_transit_enabled = true
 }
 
+resource "time_sleep" "wait_cloud_connection" {
+  count           = length(ibm_pi_cloud_connection.cloud_connection)
+  depends_on      = [ibm_pi_cloud_connection.cloud_connection]
+  create_duration = "2m"
+}
+
 resource "ibm_pi_cloud_connection_network_attach" "attachment" {
   # Depends on cloud_connection being created
-  depends_on             = [ibm_pi_cloud_connection.cloud_connection]
+  depends_on             = [time_sleep.wait_cloud_connection]
   count                  = length(ibm_pi_cloud_connection.cloud_connection)
   pi_cloud_instance_id   = module.workspace.workspace_id
   pi_cloud_connection_id = element(split("/", ibm_pi_cloud_connection.cloud_connection[count.index].id), 1)
@@ -81,14 +87,14 @@ resource "ibm_pi_cloud_connection_network_attach" "attachment" {
 }
 
 data "ibm_dl_gateway" "ocp_cloud_connection" {
-  count        = length(ibm_pi_cloud_connection.cloud_connection)
-  depends_on = [ibm_pi_cloud_connection.cloud_connection]
-  name = "ocp-cloud-connection-${var.this_dc_name}"
+  count      = length(ibm_pi_cloud_connection.cloud_connection)
+  depends_on = [time_sleep.wait_cloud_connection]
+  name       = "ocp-cloud-connection-${var.this_dc_name}"
 }
 
 resource "ibm_tg_connection" "cloud_gw_tg_connection" {
   # Depends on cloud_connection being created
-  depends_on   = [ibm_pi_cloud_connection.cloud_connection]
+  depends_on   = [time_sleep.wait_cloud_connection]
   count        = length(ibm_pi_cloud_connection.cloud_connection)
   gateway      = var.transit_gw_id
   network_type = "directlink"
