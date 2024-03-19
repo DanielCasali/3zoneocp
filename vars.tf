@@ -81,6 +81,7 @@ variable "instance_sizes" {
         pi_health_status = "WARNING",
       },
       worker = {
+        number           = 3,
         pi_memory        = "16",
         pi_processors    = "0.25",
         pi_proc_type     = "shared",

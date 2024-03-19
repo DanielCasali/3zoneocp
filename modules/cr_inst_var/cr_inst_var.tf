@@ -1,6 +1,14 @@
 variable "instance_sizes" {}
 variable "region_entries" {}
 
+locals {
+  num_workers_per_zone = floor(var.instance_sizes.size.worker.number / 3)
+  remaining_workers = var.instance_sizes.size.worker.number % 3
+  num_workers_zone1 = local.num_workers_per_zone + (remaining_workers >= 1 ? 1 : 0)
+  num_workers_zone2 = local.num_workers_per_zone + (remaining_workers >= 2 ? 1 : 0)
+  num_workers_zone3 = local.num_workers_per_zone
+}
+
 
 locals {
   pvs_zone1 = {
