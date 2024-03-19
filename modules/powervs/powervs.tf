@@ -93,7 +93,7 @@ resource "ibm_tg_connection" "cloud_gw_tg_connection" {
   gateway      = var.transit_gw_id
   network_type = "directlink"
   name         = "${var.this_pvs_dc}-ocp-vpc"
-  network_id   = data.ibm_dl_gateway.ocp_cloud_connection.crn
+  network_id   = data.ibm_dl_gateway.ocp_cloud_connection[count.index].crn
 }
 
 
