@@ -24,7 +24,7 @@ locals {
   worker_instances_zone1 = {
     for i in range(1, local.num_workers_zone1 + 1 ) :
     format("worker%d", (i - 1) * 3 + 1) => {
-      pi_instance_name = format("worker%d", ( i - 1 ) * 3 + 1 )
+      pi_instance_name = format("worker%d", (i - 1) * 3 + 1 )
       pi_memory        = var.instance_sizes.size.worker.pi_memory
       pi_processors    = var.instance_sizes.size.worker.pi_processors
       pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type
@@ -38,7 +38,7 @@ locals {
   worker_instances_zone2 = {
     for i in range(1, local.num_workers_zone2 + 1 ) :
     format("worker%d", (i - 1) * 3 + 2) => {
-      pi_instance_name = format("worker%d", ( i - 1 ) * 3 + 2)
+      pi_instance_name = format("worker%d", (i - 1) * 3 + 2)
       pi_memory        = var.instance_sizes.size.worker.pi_memory
       pi_processors    = var.instance_sizes.size.worker.pi_processors
       pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type
@@ -52,7 +52,7 @@ locals {
   worker_instances_zone3 = {
     for i in range(1, local.num_workers_zone3 + 1 ) :
     format("worker%d", (i - 1) * 3 + 3) => {
-      pi_instance_name = format("worker%d", ( i - 1 ) * 3 + 3)
+      pi_instance_name = format("worker%d", (i - 1) * 3 + 3)
       pi_memory        = var.instance_sizes.size.worker.pi_memory
       pi_processors    = var.instance_sizes.size.worker.pi_processors
       pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type
