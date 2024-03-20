@@ -134,6 +134,7 @@ module "get_ocp_inst" {
   depends_on        = [module.ocp_instance]
   this_workspace_id = module.workspace.workspace_id
   ibmcloud_api_key  = var.ibmcloud_api_key
+  ocp_instances_zone = var.ocp_instances_zone
 }
 
 module "build_dhcp" {
