@@ -1,6 +1,20 @@
 variable "instance_sizes" {}
 variable "region_entries" {}
 
+output "worker_distribution" {
+  value = {
+    total_workers         = var.instance_sizes.size.worker.number
+    num_workers_per_zone  = local.num_workers_per_zone
+    remaining_workers     = local.remaining_workers
+    num_workers_zone1     = local.num_workers_zone1
+    num_workers_zone2     = local.num_workers_zone2
+    num_workers_zone3     = local.num_workers_zone3
+    worker_instances_zone1 = local.worker_instances_zone1
+    worker_instances_zone2 = local.worker_instances_zone2
+    worker_instances_zone3 = local.worker_instances_zone3
+  }
+}
+
 locals {
   num_workers_per_zone = floor(var.instance_sizes.size.worker.number / 3)
   remaining_workers = (var.instance_sizes.size.worker.number % 3)
