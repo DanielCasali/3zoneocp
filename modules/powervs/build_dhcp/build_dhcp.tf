@@ -32,9 +32,9 @@ EOF
       ["      }"],
       flatten([
         for instance_name, instance in var.ocp_instance_mac.instance_list : [
-          "      host ${instance.instance_id} {",
+          "      host ${instance_name} {",
           [for k, v in instance : "      ${k == "mac_address" ? "hardware ethernet" : k == "ip_address" ? "fixed-address" : k } ${v};" if k != "instance_id"],
-          ["      option host-name \"${instance.instance_id}.${var.ocp_cluster_name}.${var.ocp_cluster_domain}\";"],
+          ["      option host-name \"${instance_name}.${var.ocp_cluster_name}.${var.ocp_cluster_domain}\";"],
           ["      }"]
         ]
       ])

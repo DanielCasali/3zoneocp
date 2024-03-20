@@ -176,18 +176,18 @@ module "lnx_instance" {
   this_pvs_dc           = var.this_pvs_dc
 }
 
-#resource "time_sleep" "wait_5_minutes" {
-#  depends_on = [module.lnx_instance]
-#  create_duration = "5m"
-#}
+resource "time_sleep" "wait_5_minutes" {
+  depends_on = [module.lnx_instance]
+  create_duration = "5m"
+}
 
-#module "ocp_inst_reboot" {
-#  source     = "./inst_reboot"
-#  depends_on = [time_sleep.wait_5_minutes]
-#  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
-#  ibmcloud_api_key = var.ibmcloud_api_key
-#  this_workspace_id = module.workspace.workspace_id
-#}
+module "ocp_inst_reboot" {
+  source     = "./inst_reboot"
+  depends_on = [time_sleep.wait_5_minutes]
+  ocp_instance_mac = module.get_ocp_inst.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.workspace.workspace_id
+}
 
 variable "this_dc_name" {}
 variable "transit_gw_id" {}

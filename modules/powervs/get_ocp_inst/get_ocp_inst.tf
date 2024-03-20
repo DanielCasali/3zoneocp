@@ -6,7 +6,6 @@ locals {
         ip_address    = data.ibm_pi_instance.ds_instance[key].networks[0].ip
         mac_address   = data.ibm_pi_instance.ds_instance[key].networks[0].macaddress
         instance_id   = data.ibm_pi_instance.ds_instance[key].id
-        instance_name = key
       }
     }
   }
