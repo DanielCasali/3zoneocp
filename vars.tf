@@ -65,6 +65,7 @@ variable "instance_sizes" {
   default = {
     size = {
       bootstrap = {
+        #There will be only one bootstrap, this server is not needed after install
         pi_memory        = "16",
         pi_processors    = "0.25",
         pi_proc_type     = "shared",
@@ -73,6 +74,7 @@ variable "instance_sizes" {
         pi_health_status = "WARNING",
       },
       master = {
+        #There will be 3 masters one each zone number is not configurable.
         pi_memory        = "16",
         pi_processors    = "0.25",
         pi_proc_type     = "shared",
@@ -81,6 +83,7 @@ variable "instance_sizes" {
         pi_health_status = "WARNING",
       },
       worker = {
+        #Choose the number of workers here:
         number           = 3,
         pi_memory        = "16",
         pi_processors    = "0.25",
