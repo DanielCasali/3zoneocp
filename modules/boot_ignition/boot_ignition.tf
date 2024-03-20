@@ -29,10 +29,11 @@ resource "ibm_iam_service_id" "cos_service_id" {
   name        = "cos-service-id"
   description = "Service ID for COS public access"
 }
-resource "ibm_iam_access_group_members" "cos_public_access_group_members" {
-  access_group_id = data.ibm_iam_access_group.public_access_group.groups[0].id
-  iam_service_ids = [ibm_iam_service_id.cos_service_id.id]
-}
+
+#resource "ibm_iam_access_group_members" "cos_public_access_group_members" {
+#  access_group_id = data.ibm_iam_access_group.public_access_group.groups[0].id
+#  iam_service_ids = [ibm_iam_service_id.cos_service_id.id]
+#}
 
 resource "ibm_iam_access_group_policy" "cos_policy" {
   access_group_id = data.ibm_iam_access_group.public_access_group.groups[0].id

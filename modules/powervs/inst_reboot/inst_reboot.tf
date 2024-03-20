@@ -3,6 +3,7 @@ resource "ibm_pi_instance_action" "reboot" {
   pi_cloud_instance_id = var.this_workspace_id
   pi_instance_id       = each.value.instance_id
   pi_action            = "hard-reboot"
+  pi_health_status     = "WARNING"
 }
 
 variable "ocp_instance_mac" {
