@@ -99,6 +99,7 @@ module "powervs1" {
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name
+  per_datacenters            = var.per_datacenters
 }
 
 module "powervs2" {
@@ -129,6 +130,7 @@ module "powervs2" {
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone2.dc_name
+  per_datacenters            = var.per_datacenters
 }
 
 
@@ -160,6 +162,11 @@ module "powervs3" {
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone3.dc_name
+  per_datacenters            = var.per_datacenters
 }
 
 
+###Defining here the datacenters that have Power Edge Router, please do not edit unless you really know this list has changed.
+variable "per_datacenters" {
+  default = ["dal10", "dal12", "fra04", "fra05", "wdc06", "wdc07", "mad02", "mad04", "sao01", "sao04"]
+}
