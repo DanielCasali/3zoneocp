@@ -22,7 +22,7 @@ module "boot_ignition" {
   provider_region       = var.region_entries.region
   ibmcloud_api_key      = var.ibmcloud_api_key
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
-  bootstrap_image       = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
+  bootstrap_ignition       = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
   ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
   ocp_cluster_name      = var.ocp_config.ocp_cluster_name
   zone1_pvs_dc_cidr     = var.region_entries.zone1.pvs_dc_cidr

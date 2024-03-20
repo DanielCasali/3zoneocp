@@ -17,7 +17,7 @@ resource "ibm_cos_bucket_object" "bootstrap" {
   bucket_crn      = ibm_cos_bucket.cos_bucket.crn
   bucket_location = ibm_cos_bucket.cos_bucket.region_location
   key             = "bootstrap.ign"
-  content_base64 = var.bootstrap_image
+  content_base64 = var.bootstrap_ignition
 }
 
 
@@ -47,7 +47,7 @@ resource "ibm_iam_access_group_policy" "cos_policy" {
   }
 }
 
-variable "bootstrap_image" {}
+variable "bootstrap_ignition" {}
 variable "ibm_resource_group_id" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}
