@@ -109,3 +109,11 @@ variable "workspace_plan" {
 }
 
 
+
+
+###Defifinig here the datacenters that have Power Edge Router, please do not edit unless you really know this list has changed.
+variable "per_datacenters" {
+  default = ["dal10", "dal12", "fra04", "fra05", "wdc06", "wdc07", "mad02", "mad04", "sao01", "sao04"]
+}
+
+
