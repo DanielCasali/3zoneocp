@@ -99,7 +99,6 @@ module "powervs1" {
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name
-  per_datacenters            = var.per_datacenters
 }
 
 module "powervs2" {
@@ -130,7 +129,6 @@ module "powervs2" {
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone2.dc_name
-  per_datacenters            = var.per_datacenters
 }
 
 
@@ -162,7 +160,6 @@ module "powervs3" {
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone3.dc_name
-  per_datacenters            = var.per_datacenters
 }
 
 
