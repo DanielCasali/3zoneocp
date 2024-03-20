@@ -12,8 +12,18 @@ variable "ocp_config" {
   default = {
     ocp_cluster_name   = "ocp"
     ocp_cluster_domain = "example.com"
-    #maintain this format for ocp_image_version, it is used on the buckets.
-    ocp_image_version  = "rhcos-412"
+    #Maintain this format for ocp_version, we will download the latest stable install for the version
+    ocp_version  = "4.12"
+    networking = {
+      clusterNetwork = [
+        {
+          cidr        = "10.128.0.0/14"
+          hostPrefix  = 23
+        }
+      ]
+      networkType    = "OpenShiftSDN"
+      serviceNetwork = ["172.30.0.0/16"]
+    }
   }
 }
 
@@ -24,7 +34,7 @@ variable "ocp_config" {
 #  httpsProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
 #  noProxy: .apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${region_entries.zone1.vpc_zone_cidr},${region_entries.zone2.vpc_zone_cidr},${region_entries.zone3.vpc_zone_cidr},${region_entries.zone1.pvs_dc_cidr},${region_entries.zone2.pvs_dc_cidr},${region_entries.zone3.pvs_dc_cidr}
 #
-#Here is an example (the DNS will be created automatically for you):
+#Here is an example (the private DNS will be created automatically for you - you may or not add a public DNS or use your enterprise DNS - feel free to choose):
 #
 #proxy:
 #  httpProxy: http://proxy.ocp.example.com:8080
@@ -106,17 +116,9 @@ variable "instance_sizes" {
 
 
 
-variable "workspace_plan" {
-  type = string
-  default = "public"
-}
-
-
-
-
-###Defifinig here the datacenters that have Power Edge Router, please do not edit unless you really know this list has changed.
-variable "per_datacenters" {
-  default = ["dal10", "dal12", "fra04", "fra05", "wdc06", "wdc07", "mad02", "mad04", "sao01", "sao04"]
-}
+###Defining here the datacenters that have Power Edge Router, please do not edit unless you really know this list has changed.
+#variable "per_datacenters" {
+#  default = ["dal10", "dal12", "fra04", "fra05", "wdc06", "wdc07", "mad02", "mad04", "sao01", "sao04"]
+#}
 
 

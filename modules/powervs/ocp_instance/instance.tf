@@ -19,7 +19,6 @@ resource "ibm_pi_instance" "instance" {
 variable "this_pvs_dc" {}
 variable "this_ip_address" {}
 variable "this_pi_instance_name" {}
-variable "this_pi_image_name" {}
 variable "ssh_key_id" {}
 variable "this_workspace_id" {}
 variable "this_pi_memory"{}

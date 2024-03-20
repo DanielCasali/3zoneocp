@@ -22,7 +22,7 @@ module "boot_ignition" {
   provider_region       = var.region_entries.region
   ibmcloud_api_key      = var.ibmcloud_api_key
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
-  bootstrap_ignition       = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
+  bootstrap_ignition    = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
   ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
   ocp_cluster_name      = var.ocp_config.ocp_cluster_name
   zone1_pvs_dc_cidr     = var.region_entries.zone1.pvs_dc_cidr
@@ -93,10 +93,9 @@ module "powervs1" {
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
-  ocp_pi_image               = var.ocp_config.ocp_image_version
+  ocp_pi_image               = var.ocp_config.ocp_version
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
-  workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone1.dc_name
@@ -125,10 +124,9 @@ module "powervs2" {
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
-  ocp_pi_image               = var.ocp_config.ocp_image_version
+  ocp_pi_image               = var.ocp_config.ocp_version
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
-  workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone2.dc_name
@@ -158,10 +156,9 @@ module "powervs3" {
   internal_vpc_dns1          = module.vpc.vpc_instance1_ip
   internal_vpc_dns2          = module.vpc.vpc_instance2_ip
   pi_ssh_key                 = var.pi_ssh_key
-  ocp_pi_image               = var.ocp_config.ocp_image_version
+  ocp_pi_image               = var.ocp_config.ocp_version
   provider_region            = var.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
-  workspace_plan             = var.workspace_plan
   transit_gw_id              = module.transit-gw.transit_gw_id
   bootstrap_image            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = var.region_entries.zone3.dc_name

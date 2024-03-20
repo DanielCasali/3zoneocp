@@ -4,7 +4,6 @@ module "workspace" {
   ibm_resource_group_id      = var.ibm_resource_group_id
   this_service_instance_name = var.this_service_instance_name
   this_pvs_dc                = var.this_pvs_dc
-  workspace_plan             = var.workspace_plan
   provider_region            = var.provider_region
   ibmcloud_api_key           = var.ibmcloud_api_key
 }
@@ -55,7 +54,8 @@ module "network" {
 # Conditionally create either the Transit Gateway connection Directly or Cloud Connection
 resource "ibm_tg_connection" "test_ibm_tg_connection" {
   # Create only if this_pvs_dc is in the list
-  count = contains(var.per_datacenters, var.this_dc_name) ? 1 : 0
+  count = data.ibm_pi_workspace.this_workspace[0].pi_workspace_capabilities.cloud-connections == true ? 0 : 1
+  #count = contains(var.per_datacenters, var.this_dc_name) ? 1 : 0
   gateway      = var.transit_gw_id
   network_type = "power_virtual_server"
   name         = "${var.this_dc_name}-ocp-vpc"
@@ -64,7 +64,8 @@ resource "ibm_tg_connection" "test_ibm_tg_connection" {
 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
   # Create only if this_pvs_dc is not in the list
-  count                               = contains(var.per_datacenters, var.this_dc_name) ? 0 : 1
+  count = data.ibm_pi_workspace.this_workspace[0].pi_workspace_capabilities.cloud-connections == true ? 1 : 0
+  #count                               = contains(var.per_datacenters, var.this_dc_name) ? 0 : 1
   pi_cloud_instance_id                = module.workspace.workspace_id
   pi_cloud_connection_name            = "ocp-cloud-connection-${var.this_dc_name}"
   pi_cloud_connection_speed           = 1000
@@ -115,7 +116,6 @@ module "ocp_instance" {
   this_pi_pin_policy    = each.value.pi_pin_policy
   this_pi_health_status = each.value.pi_health_status
   this_ip_address       = each.value.ip_address
-  this_pi_image_name    = var.ocp_pi_image
   this_ocp_image_id     = module.ocp_image.this_ocp_image_id
   this_pi_user_data     = each.value.pi_user_data
   this_workspace_id     = module.workspace.workspace_id
@@ -189,6 +189,12 @@ module "ocp_inst_reboot" {
   this_workspace_id = module.workspace.workspace_id
 }
 
+
+data "ibm_pi_workspace" "this_workspace" {
+  pi_cloud_instance_id = module.workspace.workspace_id
+}
+
+
 variable "this_dc_name" {}
 variable "transit_gw_id" {}
 
@@ -236,7 +242,7 @@ variable "lnx_instances_zone" {
   type = map(any)
 }
 
-variable "per_datacenters" {}
+#variable "per_datacenters" {}
 variable "ocp_pi_image" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}
@@ -245,4 +251,3 @@ variable "ocp_cluster_domain" {}
 variable "this_network_addr" {}
 variable "this_network_mask" {}
 variable "bootstrap_image" {}
-variable "workspace_plan" {}

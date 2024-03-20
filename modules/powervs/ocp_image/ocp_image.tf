@@ -9,15 +9,19 @@ resource "ibm_pi_image" "openshift"{
 }
 
 
+
+
 data "http" "bucket_contents" {
   url = "https://s3.${var.provider_region}.cloud-object-storage.appdomain.cloud/rhcos-powervs-images-${var.provider_region}/"
 }
 
 locals {
+  rhcos_version = join("-", ["rhcos", replace(var.ocp_pi_image, ".", "")])
+
   bucket_xml = data.http.bucket_contents.response_body
 
   rhcos_images = [
-    for key in distinct(regexall("<Key>(${var.ocp_pi_image}[^<]*)</Key>", local.bucket_xml)) :
+    for key in distinct(regexall("<Key>(${local.rhcos_version}[^<]*)</Key>", local.bucket_xml)) :
     {
       key = key[0]
     }
