@@ -1,3 +1,12 @@
+###Defifinig here the datacenters
+variable "per_datacenters" {
+  default = ["dal10", "dal12", "fra04", "fra05", "wdc06", "wdc07", "mad02", "mad04", "sao01", "sao04"]
+}
+
+
+
+
+
 variable "instance_sizes" {}
 variable "region_entries" {}
 
@@ -29,7 +38,7 @@ locals {
         pi_sys_type      = var.instance_sizes.size.bootstrap.pi_sys_type,
         pi_pin_policy    = var.instance_sizes.size.bootstrap.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.bootstrap.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 8),
+        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, -2),
         pi_user_data     = base64encode(file("${path.module}/../../bootstrap.ign")),
       }
       master = {
@@ -42,18 +51,21 @@ locals {
         pi_health_status = var.instance_sizes.size.master.pi_health_status,
         ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 6),
         pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+      },
+      dynamic "worker" {
+      for_each = { for i in range(1, local.num_workers_zone1 + 1) : format("worker%d", i * 3 + 1) => i }
+      content {
+      pi_instance_name = worker.key
+      pi_memory        = var.instance_sizes.size.worker.pi_memory
+      pi_processors    = var.instance_sizes.size.worker.pi_processors
+      pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type
+      pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type
+      pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy
+      pi_health_status = var.instance_sizes.size.worker.pi_health_status
+      ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 7 + worker.value)
+      pi_user_data     = base64encode(file("${path.module}/../../worker.ign"))
       }
-      worker = {
-        pi_instance_name = "worker1",
-        pi_memory        = var.instance_sizes.size.worker.pi_memory,
-        pi_processors    = var.instance_sizes.size.worker.pi_processors,
-        pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
-        pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
-        pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
-        pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 7),
-        pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
-      }
+
     }
   }
   lnx_instances_zone1 = {
@@ -92,16 +104,19 @@ locals {
         ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 6),
         pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
       }
-      worker = {
-        pi_instance_name = "worker2",
-        pi_memory        = var.instance_sizes.size.worker.pi_memory,
-        pi_processors    = var.instance_sizes.size.worker.pi_processors,
-        pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
-        pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
-        pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
-        pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 7),
-        pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+      dynamic "worker" {
+      for_each = { for i in range(1, local.num_workers_zone2 + 1) : format("worker%d", i * 3 + 2) => i }
+      content {
+      pi_instance_name = worker.key
+      pi_memory        = var.instance_sizes.size.worker.pi_memory
+      pi_processors    = var.instance_sizes.size.worker.pi_processors
+      pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type
+      pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type
+      pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy
+      pi_health_status = var.instance_sizes.size.worker.pi_health_status
+      ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 7 + worker.value)
+      pi_user_data     = base64encode(file("${path.module}/../../worker.ign"))
+      }
       }
     }
   }
@@ -141,16 +156,19 @@ locals {
         ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 6),
         pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
       }
-      worker = {
-        pi_instance_name = "worker3",
-        pi_memory        = var.instance_sizes.size.worker.pi_memory,
-        pi_processors    = var.instance_sizes.size.worker.pi_processors,
-        pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type,
-        pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type,
-        pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy,
-        pi_health_status = var.instance_sizes.size.worker.pi_health_status,
-        ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 7),
-        pi_user_data     = base64encode(file("${path.module}/../../worker.ign")),
+      dynamic "worker" {
+      for_each = { for i in range(1, local.num_workers_zone3 + 1) : format("worker%d", i * 3 + 3) => i }
+      content {
+      pi_instance_name = worker.key
+      pi_memory        = var.instance_sizes.size.worker.pi_memory
+      pi_processors    = var.instance_sizes.size.worker.pi_processors
+      pi_proc_type     = var.instance_sizes.size.worker.pi_proc_type
+      pi_sys_type      = var.instance_sizes.size.worker.pi_sys_type
+      pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy
+      pi_health_status = var.instance_sizes.size.worker.pi_health_status
+      ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 7 + worker.value)
+      pi_user_data     = base64encode(file("${path.module}/../../worker.ign"))
+      }
       }
     }
   }
