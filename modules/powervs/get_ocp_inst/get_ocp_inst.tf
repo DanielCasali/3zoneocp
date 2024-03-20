@@ -3,8 +3,8 @@ locals {
   instances = {
     instance_list = {
       for key, value in var.ocp_instances_zone.ocp_instances : key => {
-        ip_address    = data.ibm_pi_instance.ds_instance[key].addresses[0].ip
-        mac_address   = data.ibm_pi_instance.ds_instance[key].addresses[0].macaddress
+        ip_address    = data.ibm_pi_instance.ds_instance[key].networks[0].ip
+        mac_address   = data.ibm_pi_instance.ds_instance[key].networks[0].macaddress
         instance_id   = data.ibm_pi_instance.ds_instance[key].id
         instance_name = key
       }
