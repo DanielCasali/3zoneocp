@@ -194,10 +194,10 @@ data "template_file" "vpc_infra_init_config" {
 write_files:
   - path: /etc/chrony.conf
     content: |
-      server 0.centos.pool.ntp.org.iburst
-      server 1.centos.pool.ntp.org.iburst
-      server 2.centos.pool.ntp.org.iburst
-      server 3.centos.pool.ntp.org.iburst
+      server 0.centos.pool.ntp.org iburst
+      server 1.centos.pool.ntp.org iburst
+      server 2.centos.pool.ntp.org iburst
+      server 3.centos.pool.ntp.org iburst
       driftfile /var/lib/chrony/drift
       makestep 1.0 3
       rtcsync
