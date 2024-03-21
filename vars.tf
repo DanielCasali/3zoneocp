@@ -14,16 +14,6 @@ variable "ocp_config" {
     ocp_cluster_domain = "example.com"
     #Maintain this format for ocp_version, we will download the latest ova for the version
     ocp_version  = "4.12"
-    networking = {
-      clusterNetwork = [
-        {
-          cidr        = "10.128.0.0/14"
-          hostPrefix  = 23
-        }
-      ]
-      networkType    = "OpenShiftSDN"
-      serviceNetwork = ["172.30.0.0/16"]
-    }
   }
 }
 
