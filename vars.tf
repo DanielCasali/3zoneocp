@@ -12,7 +12,7 @@ variable "ocp_config" {
   default = {
     ocp_cluster_name   = "ocp"
     ocp_cluster_domain = "example.com"
-    #Maintain this format for ocp_version, we will download the latest stable install for the version
+    #Maintain this format for ocp_version, we will download the latest ova for the version
     ocp_version  = "4.12"
     networking = {
       clusterNetwork = [
@@ -32,7 +32,7 @@ variable "ocp_config" {
 #proxy:
 #  httpProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
 #  httpsProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
-#  noProxy: .apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${region_entries.zone1.vpc_zone_cidr},${region_entries.zone2.vpc_zone_cidr},${region_entries.zone3.vpc_zone_cidr},${region_entries.zone1.pvs_dc_cidr},${region_entries.zone2.pvs_dc_cidr},${region_entries.zone3.pvs_dc_cidr}
+#  noProxy: ".apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${var.region_entries.zone1.vpc_zone_cidr},${var.region_entries.zone2.vpc_zone_cidr},${var.region_entries.zone3.vpc_zone_cidr},${var.region_entries.zone1.pvs_dc_cidr},${var.region_entries.zone2.pvs_dc_cidr},${var.region_entries.zone3.pvs_dc_cidr}"
 #
 #Here is an example (the private DNS will be created automatically for you - you may or not add a public DNS or use your enterprise DNS - feel free to choose):
 #

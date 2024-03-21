@@ -6,6 +6,8 @@ variable "ssh_public_key_file" {
   default = "id_rsa.pub"
 }
 
+
+
 locals {
   pull_secret = file(var.pull_secret_file)
   ssh_public_key = file("${path.module}/${var.ssh_public_key_file}")

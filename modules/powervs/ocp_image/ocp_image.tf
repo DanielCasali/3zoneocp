@@ -1,5 +1,5 @@
 resource "ibm_pi_image" "openshift"{
-  pi_image_name       = var.ocp_pi_image
+  pi_image_name       = local.rhcos_version
   pi_cloud_instance_id = var.this_workspace_id
   pi_image_bucket_name = "rhcos-powervs-images-${var.provider_region}"
   pi_image_bucket_access = "public"
