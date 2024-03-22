@@ -17,7 +17,7 @@ resource "ibm_cos_bucket_object" "bootstrap" {
   bucket_crn      = ibm_cos_bucket.cos_bucket.crn
   bucket_location = ibm_cos_bucket.cos_bucket.region_location
   key             = "bootstrap.ign"
-  content_base64 = local.base64_bootstrap_ignition_updated
+  content_base64 =  base64encode(file("${path.module}/../../bootstrap.ign"))
 }
 
 
@@ -49,41 +49,6 @@ resource "ibm_iam_access_group_policy" "cos_policy" {
 
 
 
-
-locals {
-  bootstrap_ignition = file("${path.module}/../../bootstrap.ign")
-  chrony_config = <<-EOF
-    server ${var.internal_vpc_dns1} iburst
-    server ${var.internal_vpc_dns2} iburst
-
-    driftfile /var/lib/chrony/drift
-    makestep 1.0 3
-    rtcsync
-
-    logdir /var/log/chrony
-  EOF
-  chrony_config_base64 = base64encode(local.chrony_config)
-  chrony_file = [
-    {
-      path     = "/etc/chrony.conf"
-      mode     = 420
-      contents = {
-        source = "data:text/plain;charset=utf-8;base64,${local.chrony_config_base64}"
-      }
-    }
-  ]
-  bootstrap_ignition_decoded = jsondecode(local.bootstrap_ignition)
-  bootstrap_ignition_updated = merge(local.bootstrap_ignition_decoded, {
-    storage = {
-      files = concat(local.bootstrap_ignition_decoded.storage.files, local.chrony_file)
-    }
-  })
-  base64_bootstrap_ignition_updated = base64encode(jsonencode(local.bootstrap_ignition_updated))
-}
-
-variable "internal_vpc_dns1" {}
-variable "internal_vpc_dns2" {}
-variable "bootstrap_ignition" {}
 variable "ibm_resource_group_id" {}
 variable "provider_region" {}
 variable "ibmcloud_api_key" {}

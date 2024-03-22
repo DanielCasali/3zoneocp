@@ -45,7 +45,7 @@ module "vpc" {
 }
 
 module "boot_ignition" {
-  depends_on = [module.res-group,module.cr_inst_var,module.vpc]
+  depends_on = [module.res-group,module.cr_inst_var]
   source     = "./modules/boot_ignition"
   providers  = {
     ibm = ibm
@@ -53,7 +53,6 @@ module "boot_ignition" {
   provider_region       = local.region_entries.region
   ibmcloud_api_key      = var.ibmcloud_api_key
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
-  bootstrap_ignition    = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
   ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
   ocp_cluster_name      = var.ocp_config.ocp_cluster_name
   zone1_pvs_dc_cidr     = local.region_entries.zone1.pvs_dc_cidr
@@ -62,8 +61,6 @@ module "boot_ignition" {
   zone2_vpc_zone_cidr   = local.region_entries.zone2.vpc_zone_cidr
   zone3_pvs_dc_cidr     = local.region_entries.zone3.pvs_dc_cidr
   zone3_vpc_zone_cidr   = local.region_entries.zone3.vpc_zone_cidr
-  internal_vpc_dns1 = module.vpc.vpc_instance1_ip
-  internal_vpc_dns2 = module.vpc.vpc_instance2_ip
 }
 
 module "transit-gw" {

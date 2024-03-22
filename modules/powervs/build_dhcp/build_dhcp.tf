@@ -29,6 +29,7 @@ EOF
       ["              option subnet-mask ${var.this_network_mask}; "],
       ["              option domain-search \"${var.ocp_cluster_name}.${var.ocp_cluster_domain}\";"],
       ["              option domain-name-servers ${var.internal_vpc_dns1}, ${var.internal_vpc_dns2}; "],
+      ["              option ntp-servers ${var.internal_vpc_dns1}, ${var.internal_vpc_dns2}; "],
       ["      }"],
       flatten([
         for instance_name, instance in var.ocp_instance_mac.instance_list : [
@@ -41,6 +42,7 @@ EOF
     ))
   }
 }
+
 
 
 variable "internal_vpc_dns1" {
