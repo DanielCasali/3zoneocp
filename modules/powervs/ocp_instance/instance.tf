@@ -9,44 +9,13 @@ resource "ibm_pi_instance" "instance" {
   pi_cloud_instance_id = var.this_workspace_id
   pi_pin_policy        = var.this_pi_pin_policy
   pi_health_status     = var.this_pi_health_status
-  pi_user_data         = var.this_pi_instance_name == "bootstrap" ? var.bootstrap_init : local.base64_ignition_updated
+  pi_user_data         = var.this_pi_instance_name == "bootstrap" ? var.bootstrap_init : var.this_pi_user_data
   pi_network {
     network_id = var.this_network_id
     ip_address = var.this_ip_address
   }
 }
 
-
-locals {
-  original_ignition_decoded = jsondecode(var.this_pi_user_data)
-  chrony_config = <<-EOF
-    server ${var.internal_vpc_dns1} iburst
-    server ${var.internal_vpc_dns2} iburst
-
-    driftfile /var/lib/chrony/drift
-    makestep 1.0 3
-    rtcsync
-
-    logdir /var/log/chrony
-  EOF
-  chrony_config_base64 = base64encode(local.chrony_config)
-  chrony_file = [
-    {
-      path     = "/etc/chrony.conf"
-      mode     = 420
-      contents = {
-        source = "data:text/plain;charset=utf-8;base64,${local.chrony_config_base64}"
-      }
-    }
-  ]
-
-  ignition_updated = merge(local.original_ignition_decoded, {
-    storage = {
-      files = concat(local.original_ignition_decoded.storage.files, local.chrony_file)
-    }
-  })
-  base64_ignition_updated = base64encode(jsonencode(local.ignition_updated))
-}
 
 variable "internal_vpc_dns1" {}
 variable "internal_vpc_dns2" {}
