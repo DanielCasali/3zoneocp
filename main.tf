@@ -233,3 +233,29 @@ variable "region_specific_values" {
     }
   }
 }
+
+provider ibm {
+  region = local.region_entries.region
+  ibmcloud_api_key = var.ibmcloud_api_key
+}
+
+provider ibm {
+  alias = "powervs1"
+  region = local.region_entries.region
+  zone = local.region_entries.zone1.ws_zone_name
+  ibmcloud_api_key = var.ibmcloud_api_key
+}
+
+provider ibm {
+  alias = "powervs2"
+  region = local.region_entries.region
+  zone = local.region_entries.zone2.ws_zone_name
+  ibmcloud_api_key = var.ibmcloud_api_key
+}
+
+provider ibm {
+  alias = "powervs3"
+  region = local.region_entries.region
+  zone = local.region_entries.zone3.ws_zone_name
+  ibmcloud_api_key = var.ibmcloud_api_key
+}
