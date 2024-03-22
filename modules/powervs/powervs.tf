@@ -178,7 +178,7 @@ module "lnx_instance" {
 
 resource "time_sleep" "wait_5_minutes" {
   depends_on = [module.lnx_instance]
-  create_duration = "5m"
+  create_duration = "2m"
 }
 
 module "ocp_inst_reboot" {
