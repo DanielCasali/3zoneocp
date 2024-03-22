@@ -45,7 +45,7 @@ locals {
       files = local.chrony_file
     }
   })
-  base64_ignition_updated = base64encode(ignition_updated)
+  base64_ignition_updated = base64encode(local.ignition_updated)
 }
 
 variable "internal_vpc_dns1" {}
