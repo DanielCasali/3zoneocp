@@ -72,12 +72,13 @@ locals {
       }
     }
   ]
-  bootstrap_ignition_updated = merge(local.bootstrap_ignition, {
+  bootstrap_ignition_decoded = jsondecode(local.bootstrap_ignition)
+  bootstrap_ignition_updated = merge(local.bootstrap_ignition_decoded, {
     storage = {
-      files = local.chrony_file
+      files = concat(local.bootstrap_ignition_decoded.storage.files, local.chrony_file)
     }
   })
-  base64_bootstrap_ignition_updated = base64encode(local.bootstrap_ignition_updated)
+  base64_bootstrap_ignition_updated = base64encode(jsonencode(local.bootstrap_ignition_updated))
 }
 
 variable "internal_vpc_dns1" {}
