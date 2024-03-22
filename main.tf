@@ -2,8 +2,6 @@ module "cr_inst_var" {
   source = "./modules/cr_inst_var"
   instance_sizes = var.instance_sizes
   region_entries = local.region_entries
-  internal_vpc_dns1 = module.vpc.vpc_instance1_ip
-  internal_vpc_dns2 = module.vpc.vpc_instance2_ip
 }
 
 module "res-group" {
@@ -16,25 +14,7 @@ module "res-group" {
   ibmcloud_api_key = var.ibmcloud_api_key
 }
 
-module "boot_ignition" {
-  depends_on = [module.res-group]
-  source     = "./modules/boot_ignition"
-  providers  = {
-    ibm = ibm
-  }
-  provider_region       = local.region_entries.region
-  ibmcloud_api_key      = var.ibmcloud_api_key
-  ibm_resource_group_id = module.res-group.ibm_resource_group_id
-  bootstrap_ignition    = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
-  ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
-  ocp_cluster_name      = var.ocp_config.ocp_cluster_name
-  zone1_pvs_dc_cidr     = local.region_entries.zone1.pvs_dc_cidr
-  zone1_vpc_zone_cidr   = local.region_entries.zone1.vpc_zone_cidr
-  zone2_pvs_dc_cidr     = local.region_entries.zone2.pvs_dc_cidr
-  zone2_vpc_zone_cidr   = local.region_entries.zone2.vpc_zone_cidr
-  zone3_pvs_dc_cidr     = local.region_entries.zone3.pvs_dc_cidr
-  zone3_vpc_zone_cidr   = local.region_entries.zone3.vpc_zone_cidr
-}
+
 
 module "vpc" {
   depends_on = [module.res-group,module.cr_inst_var]
@@ -62,6 +42,28 @@ module "vpc" {
   ocp_instances_zone2   = module.cr_inst_var.ocp_instances_zone2
   ocp_instances_zone3   = module.cr_inst_var.ocp_instances_zone3
   vpc_infra_init_config = module.cr_inst_var.vpc_infra_init_config
+}
+
+module "boot_ignition" {
+  depends_on = [module.res-group,module.cr_inst_var,module.vpc]
+  source     = "./modules/boot_ignition"
+  providers  = {
+    ibm = ibm
+  }
+  provider_region       = local.region_entries.region
+  ibmcloud_api_key      = var.ibmcloud_api_key
+  ibm_resource_group_id = module.res-group.ibm_resource_group_id
+  bootstrap_ignition    = module.cr_inst_var.ocp_instances_zone1.ocp_instances.bootstrap.pi_user_data
+  ocp_cluster_domain    = var.ocp_config.ocp_cluster_domain
+  ocp_cluster_name      = var.ocp_config.ocp_cluster_name
+  zone1_pvs_dc_cidr     = local.region_entries.zone1.pvs_dc_cidr
+  zone1_vpc_zone_cidr   = local.region_entries.zone1.vpc_zone_cidr
+  zone2_pvs_dc_cidr     = local.region_entries.zone2.pvs_dc_cidr
+  zone2_vpc_zone_cidr   = local.region_entries.zone2.vpc_zone_cidr
+  zone3_pvs_dc_cidr     = local.region_entries.zone3.pvs_dc_cidr
+  zone3_vpc_zone_cidr   = local.region_entries.zone3.vpc_zone_cidr
+  internal_vpc_dns1 = module.vpc.vpc_instance1_ip
+  internal_vpc_dns2 = module.vpc.vpc_instance2_ip
 }
 
 module "transit-gw" {
@@ -100,7 +102,7 @@ module "powervs1" {
   provider_region            = local.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   transit_gw_id              = module.transit-gw.transit_gw_id
-  bootstrap_image            = module.boot_ignition.bootstrap_init_file
+  bootstrap_init            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = local.region_entries.zone1.dc_name
   per_datacenters            = var.per_datacenters
 }
@@ -131,7 +133,7 @@ module "powervs2" {
   provider_region            = local.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   transit_gw_id              = module.transit-gw.transit_gw_id
-  bootstrap_image            = module.boot_ignition.bootstrap_init_file
+  bootstrap_init            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = local.region_entries.zone2.dc_name
   per_datacenters            = var.per_datacenters
 }
@@ -163,7 +165,7 @@ module "powervs3" {
   provider_region            = local.region_entries.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   transit_gw_id              = module.transit-gw.transit_gw_id
-  bootstrap_image            = module.boot_ignition.bootstrap_init_file
+  bootstrap_init            = module.boot_ignition.bootstrap_init_file
   this_dc_name               = local.region_entries.zone3.dc_name
   per_datacenters            = var.per_datacenters
 }

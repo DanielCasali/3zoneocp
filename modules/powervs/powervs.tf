@@ -124,8 +124,10 @@ module "ocp_instance" {
   this_image_id         = module.ocp_image.this_ocp_image_id
   provider_region       = var.provider_region
   ibmcloud_api_key      = var.ibmcloud_api_key
-  bootstrap_image       = var.bootstrap_image
+  bootstrap_init       = var.bootstrap_init
   this_pvs_dc           = var.this_pvs_dc
+  internal_vpc_dns1     = var.internal_vpc_dns1
+  internal_vpc_dns2     = var.internal_vpc_dns2
 }
 
 
@@ -251,4 +253,4 @@ variable "ocp_cluster_name" {}
 variable "ocp_cluster_domain" {}
 variable "this_network_addr" {}
 variable "this_network_mask" {}
-variable "bootstrap_image" {}
+variable "bootstrap_init" {}
