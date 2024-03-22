@@ -18,7 +18,7 @@ resource "ibm_pi_instance" "instance" {
 
 
 locals {
-  original_ignition = var.this_pi_user_data
+  original_ignition_decoded = jsondecode(var.this_pi_user_data)
   chrony_config = <<-EOF
     server ${var.internal_vpc_dns1} iburst
     server ${var.internal_vpc_dns2} iburst
@@ -40,12 +40,12 @@ locals {
     }
   ]
 
-  ignition_updated = merge(local.original_ignition, {
+  ignition_updated = merge(local.original_ignition_decoded, {
     storage = {
-      files = local.chrony_file
+      files = concat(local.original_ignition_decoded.storage.files, local.chrony_file)
     }
   })
-  base64_ignition_updated = base64encode(local.ignition_updated)
+  base64_ignition_updated = base64encode(jsonencode(local.ignition_updated))
 }
 
 variable "internal_vpc_dns1" {}
