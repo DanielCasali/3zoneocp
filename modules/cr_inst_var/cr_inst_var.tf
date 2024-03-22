@@ -1,19 +1,21 @@
 variable "instance_sizes" {}
 variable "region_entries" {}
+variable "internal_vpc_dns1" {}
+variable "internal_vpc_dns2" {}
 
-output "worker_distribution" {
-  value = {
-    total_workers         = var.instance_sizes.size.worker.number
-    num_workers_per_zone  = local.num_workers_per_zone
-    remaining_workers     = local.remaining_workers
-    num_workers_zone1     = local.num_workers_zone1
-    num_workers_zone2     = local.num_workers_zone2
-    num_workers_zone3     = local.num_workers_zone3
-    worker_instances_zone1 = local.worker_instances_zone1
-    worker_instances_zone2 = local.worker_instances_zone2
-    worker_instances_zone3 = local.worker_instances_zone3
-  }
-}
+#output "worker_distribution" {
+#  value = {
+#    total_workers         = var.instance_sizes.size.worker.number
+#    num_workers_per_zone  = local.num_workers_per_zone
+#    remaining_workers     = local.remaining_workers
+#    num_workers_zone1     = local.num_workers_zone1
+#    num_workers_zone2     = local.num_workers_zone2
+#    num_workers_zone3     = local.num_workers_zone3
+#    worker_instances_zone1 = local.worker_instances_zone1
+#    worker_instances_zone2 = local.worker_instances_zone2
+#    worker_instances_zone3 = local.worker_instances_zone3
+#  }
+#}
 
 locals {
   num_workers_per_zone = floor(var.instance_sizes.size.worker.number / 3)
@@ -32,7 +34,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy
       pi_health_status = var.instance_sizes.size.worker.pi_health_status
       ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 7 + i)
-      pi_user_data     = base64encode(file("${path.module}/../../worker.ign"))
+      pi_user_data     = base64encode(local.worker_ignition_updated),
     }
   }
   worker_instances_zone2 = {
@@ -46,7 +48,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy
       pi_health_status = var.instance_sizes.size.worker.pi_health_status
       ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 7 + i)
-      pi_user_data     = base64encode(file("${path.module}/../../worker.ign"))
+      pi_user_data     = base64encode(local.worker_ignition_updated),
     }
   }
   worker_instances_zone3 = {
@@ -60,7 +62,7 @@ locals {
       pi_pin_policy    = var.instance_sizes.size.worker.pi_pin_policy
       pi_health_status = var.instance_sizes.size.worker.pi_health_status
       ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 7 + i)
-      pi_user_data     = base64encode(file("${path.module}/../../worker.ign"))
+      pi_user_data     = base64encode(local.worker_ignition_updated),
     }
   }
   pvs_zone1 = {
@@ -83,7 +85,7 @@ locals {
         pi_pin_policy    = var.instance_sizes.size.bootstrap.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.bootstrap.pi_health_status,
         ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, -2),
-        pi_user_data     = base64encode(file("${path.module}/../../bootstrap.ign")),
+        pi_user_data     = base64encode(local.bootstrap_ignition_updated),
       }
       master1 = {
         pi_instance_name = "master1",
@@ -94,7 +96,7 @@ locals {
         pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.master.pi_health_status,
         ip_address       = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 6),
-        pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+        pi_user_data     = base64encode(local.master_ignition_updated),
       }
     }, local.worker_instances_zone1)
   }
@@ -132,7 +134,7 @@ locals {
         pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.master.pi_health_status,
         ip_address       = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 6),
-        pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+        pi_user_data     = base64encode(local.master_ignition_updated),
       }
     }, local.worker_instances_zone2)
   }
@@ -170,7 +172,7 @@ locals {
         pi_pin_policy    = var.instance_sizes.size.master.pi_pin_policy,
         pi_health_status = var.instance_sizes.size.master.pi_health_status,
         ip_address       = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 6),
-        pi_user_data     = base64encode(file("${path.module}/../../master.ign")),
+        pi_user_data     = base64encode(local.master_ignition_updated),
       }
     }, local.worker_instances_zone3)
   }
@@ -188,6 +190,56 @@ locals {
       }
     }
   }
+}
+
+
+
+
+
+
+
+locals {
+  bootstrap_ignition = file("${path.module}/../../bootstrap.ign")
+  master_ignition = file("${path.module}/../../master.ign")
+  worker_ignition = file("${path.module}/../../worker.ign")
+  chrony_config = <<-EOF
+    server ${var.internal_vpc_dns1} iburst
+    server ${var.internal_vpc_dns2} iburst
+
+    driftfile /var/lib/chrony/drift
+    makestep 1.0 3
+    rtcsync
+
+    logdir /var/log/chrony
+  EOF
+  chrony_config_base64 = base64encode(local.chrony_config)
+  chrony_file = [
+    {
+      path     = "/etc/chrony.conf"
+      mode     = 420
+      contents = {
+        source = "data:text/plain;charset=utf-8;base64,${local.chrony_config_base64}"
+      }
+    }
+  ]
+
+  bootstrap_ignition_updated = merge(local.bootstrap_ignition, {
+    storage = {
+      files = local.chrony_file
+    }
+  })
+
+  worker_ignition_updated = merge(local.worker_ignition, {
+    storage = {
+      files = local.chrony_file
+    }
+  })
+
+  master_ignition_updated = merge(local.master_ignition, {
+    storage = {
+      files = local.chrony_file
+    }
+  })
 }
 
 
