@@ -64,6 +64,7 @@ locals {
     }
   }
   pvs_zone1 = {
+    name         = var.region_entries.zone1.pvs_workspace1_name
     network_cidr = var.region_entries.zone1.pvs_dc_cidr
     network_addr = cidrhost(var.region_entries.zone1.pvs_dc_cidr, 0)
     network_mask = cidrnetmask(var.region_entries.zone1.pvs_dc_cidr)
@@ -112,6 +113,7 @@ locals {
     }
   }
   pvs_zone2 = {
+    name         = var.region_entries.zone2.pvs_workspace2_name
     network_cidr = var.region_entries.zone2.pvs_dc_cidr
     network_addr = cidrhost(var.region_entries.zone2.pvs_dc_cidr, 0)
     network_mask = cidrnetmask(var.region_entries.zone1.pvs_dc_cidr)
@@ -149,6 +151,7 @@ locals {
     }
   }
   pvs_zone3 = {
+    name         = var.region_entries.zone3.pvs_workspace3_name
     network_cidr = var.region_entries.zone3.pvs_dc_cidr
     network_addr = cidrhost(var.region_entries.zone3.pvs_dc_cidr, 0)
     network_mask = cidrnetmask(var.region_entries.zone1.pvs_dc_cidr)

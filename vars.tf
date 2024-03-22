@@ -32,30 +32,25 @@ variable "ocp_config" {
 #  noProxy: .ocp.example.com,api.ocp.example.com,api-int.ocp.example.com,10.0.101.0/24,10.0.102.0/24,10.0.103.0/24,192.168.101.0/24,192.168.102.0/24,192.168.103.0/24
 
 
-variable "region_entries" {
+variable "region_definition" {
   default = {
-    region = "us-south"
-    vpc_name = "ocp-vpc"
+    region              = "us-south"
+    vpc_name            = "ocp-vpc"
+    resource_group_name = "three-site-ocp"
     zone1 = {
-      dc_name = "dal10"
-      ws_zone_name = "dal10"
-      vpc_zone_name = "us-south-1"
-      pvs_dc_cidr = "192.168.101.0/24"
-      vpc_zone_cidr = "10.0.101.0/24"
+      pvs_workspace1_name = "powervs1"
+      pvs_dc_cidr         = "192.168.101.0/24"
+      vpc_zone_cidr       = "10.0.101.0/24"
     }
     zone2 = {
-      dc_name = "dal12"
-      ws_zone_name = "dal12"
-      vpc_zone_name = "us-south-2"
-      pvs_dc_cidr = "192.168.102.0/24"
-      vpc_zone_cidr = "10.0.102.0/24"
+      pvs_workspace2_name = "powervs2"
+      pvs_dc_cidr         = "192.168.102.0/24"
+      vpc_zone_cidr       = "10.0.102.0/24"
     }
     zone3 = {
-      dc_name = "dal13"
-      ws_zone_name = "us-south"
-      vpc_zone_name = "us-south-3"
-      pvs_dc_cidr = "192.168.103.0/24"
-      vpc_zone_cidr = "10.0.103.0/24"
+      pvs_workspace3_name = "powervs3"
+      pvs_dc_cidr         = "192.168.103.0/24"
+      vpc_zone_cidr       = "10.0.103.0/24"
     }
   }
 }
