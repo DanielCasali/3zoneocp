@@ -179,8 +179,6 @@ variable "per_datacenters" {
 }
 
 ####This is choosing the datacenters for each region
-region_entries = local.region_entries
-
 locals {
   region_entries = {
     for k, v in var.region_definition : k => merge(v, lookup(var.region_specific_values[var.region_definition.region], k, {}))
