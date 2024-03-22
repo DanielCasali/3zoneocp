@@ -181,13 +181,14 @@ variable "per_datacenters" {
 ####This is choosing the datacenters for each region
 
 locals {
-  region_entries = {
-    for k, v in var.region_definition : k => merge(v, lookup(var.region_specific_values[var.region_definition.region], k, {
-      dc_name       = ""
-      ws_zone_name  = ""
-      vpc_zone_name = ""
-    }))
-  }
+  region_entries = merge(
+    var.region_definition,
+    {
+      for k, v in var.region_specific_values[var.region_definition.region] :
+      k => merge(lookup(var.region_definition, k, {}), v)
+      if startswith(k, "zone")
+    }
+  )
 }
 
 
