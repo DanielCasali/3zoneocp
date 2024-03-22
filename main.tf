@@ -2,6 +2,8 @@ module "cr_inst_var" {
   source = "./modules/cr_inst_var"
   instance_sizes = var.instance_sizes
   region_entries = local.region_entries
+  internal_vpc_dns1 = module.vpc.vpc_instance1_ip
+  internal_vpc_dns2 = module.vpc.vpc_instance2_ip
 }
 
 module "res-group" {
