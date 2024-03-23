@@ -174,8 +174,8 @@ resource "time_sleep" "wait_2_minutes" {
   create_duration = "2m"
 }
 
-module "ocp_inst_reboot_powervs1" {
-  source     = "./modules/inst_reboot"
+module "ocp_inst_reboot_powervs1_ctr" {
+  source     = "./modules/inst_reboot_ctr_plane"
   depends_on = [time_sleep.wait_2_minutes]
   providers             = {
     ibm = ibm.powervs1
@@ -186,8 +186,8 @@ module "ocp_inst_reboot_powervs1" {
 }
 
 
-module "ocp_inst_reboot_powervs2" {
-  source     = "./modules/inst_reboot"
+module "ocp_inst_reboot_powervs2_ctr" {
+  source     = "./modules/inst_reboot_ctr_plane"
   depends_on = [time_sleep.wait_2_minutes]
   providers             = {
     ibm = ibm.powervs2
@@ -197,8 +197,8 @@ module "ocp_inst_reboot_powervs2" {
   this_workspace_id = module.powervs2.ibm_workspace_id
 }
 
-module "ocp_inst_reboot_powervs3" {
-  source     = "./modules/inst_reboot"
+module "ocp_inst_reboot_powervs3_ctr" {
+  source     = "./modules/inst_reboot_ctr_plane"
   depends_on = [time_sleep.wait_2_minutes]
   providers             = {
     ibm = ibm.powervs3
@@ -208,6 +208,45 @@ module "ocp_inst_reboot_powervs3" {
   this_workspace_id = module.powervs3.ibm_workspace_id
 }
 
+resource "time_sleep" "wait_5_minutes" {
+  depends_on = [module.ocp_inst_reboot_powervs1_ctr, module.ocp_inst_reboot_powervs2_ctr, module.ocp_inst_reboot_powervs3_ctr]
+  create_duration = "5m"
+}
+
+
+module "ocp_inst_reboot_powervs1_comp" {
+  source     = "./modules/inst_reboot_comp_plane"
+  depends_on = [time_sleep.wait_5_minutes]
+  providers             = {
+    ibm = ibm.powervs1
+  }
+  ocp_instance_mac = module.powervs1.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.powervs1.ibm_workspace_id
+}
+
+
+module "ocp_inst_reboot_powervs2_ctr" {
+  source     = "./modules/inst_reboot_comp_plane"
+  depends_on = [time_sleep.wait_5_minutes]
+  providers             = {
+    ibm = ibm.powervs2
+  }
+  ocp_instance_mac = module.powervs2.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.powervs2.ibm_workspace_id
+}
+
+module "ocp_inst_reboot_powervs3_ctr" {
+  source     = "./modules/inst_reboot_comp_plane"
+  depends_on = [time_sleep.wait_5_minutes]
+  providers             = {
+    ibm = ibm.powervs3
+  }
+  ocp_instance_mac = module.powervs3.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.powervs3.ibm_workspace_id
+}
 
 
 
