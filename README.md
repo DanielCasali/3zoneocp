@@ -67,5 +67,5 @@ Remove everything that we use for the bootstrap. the ignition will be automatica
 ```
 terraform destroy --target module.boot_ignition.ibm_iam_access_group_policy.cos_policy
 terraform destroy --target module.boot_ignition.ibm_cos_bucket_object.bootstrap
-terra
+terraform state rm module.powervs1.module.ocp_instance\[\"bootstrap\"\].ibm_pi_instance.instance
 ```
