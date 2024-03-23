@@ -105,7 +105,7 @@ module "powervs1" {
 }
 
 module "powervs2" {
-  depends_on            = [module.res-group, module.vpc]
+  depends_on            = [module.res-group, module.vpc, module.transit-gw]
   source                = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers             = {
@@ -137,7 +137,7 @@ module "powervs2" {
 
 
 module "powervs3" {
-  depends_on            = [module.res-group, module.vpc]
+  depends_on            = [module.res-group, module.vpc, module.transit-gw]
   source                = "./modules/powervs"
   ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers             = {
