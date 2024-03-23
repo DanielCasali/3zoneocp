@@ -1,1 +1,1 @@
-../../../version.tf
+../../version.tf
