@@ -4,10 +4,6 @@ resource "ibm_resource_instance" "cos_instance" {
   plan              = "lite"
   location          = "global"
   name              = "ocp-cos"
-
-  lifecycle {
-    ephemeral = true # or create_and_destroy=true
-  }
 }
 
 resource "ibm_cos_bucket" "cos_bucket" {
@@ -16,11 +12,11 @@ resource "ibm_cos_bucket" "cos_bucket" {
   region_location       = var.provider_region
   storage_class         = "standard"
   force_delete          = true
-
-  lifecycle {
-    ephemeral = true # or create_and_destroy=true
+  expire_rule {
+    rule_id = "a-bucket-expire-rule"
+    enable  = true
+    days    = 1
   }
-
 }
 
 resource "ibm_cos_bucket_object" "bootstrap" {
@@ -29,9 +25,6 @@ resource "ibm_cos_bucket_object" "bootstrap" {
   key             = "bootstrap.ign"
   content_base64 =  base64encode(file("${path.module}/../../bootstrap.ign"))
 
-  lifecycle {
-    ephemeral = true # or create_and_destroy=true
-  }
 }
 
 
@@ -42,9 +35,6 @@ data "ibm_iam_access_group" "public_access_group" {
 resource "ibm_iam_service_id" "cos_service_id" {
   name        = "cos-service-id"
   description = "Service ID for COS public access"
-  lifecycle {
-    ephemeral = true # or create_and_destroy=true
-  }
 }
 
 
@@ -57,9 +47,6 @@ resource "ibm_iam_access_group_policy" "cos_policy" {
     resource_instance_id = ibm_resource_instance.cos_instance.guid
     resource_type        = "bucket"
     resource             = ibm_cos_bucket.cos_bucket.bucket_name
-  }
-  lifecycle {
-    ephemeral = true # or create_and_destroy=true
   }
 }
 
