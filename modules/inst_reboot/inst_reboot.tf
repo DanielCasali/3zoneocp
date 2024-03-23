@@ -6,11 +6,8 @@ resource "ibm_pi_instance_action" "reboot" {
   pi_health_status     = "WARNING"
 }
 
-variable "ocp_instance_mac" {
-
-}
+variable "ocp_instance_mac" {}
 variable "ibmcloud_api_key" {}
-
 variable "this_workspace_id" {
   type = string
 }

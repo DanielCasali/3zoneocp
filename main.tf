@@ -177,7 +177,6 @@ resource "time_sleep" "wait_2_minutes" {
 module "ocp_inst_reboot_powervs1" {
   source     = "./modules/inst_reboot"
   depends_on = [time_sleep.wait_2_minutes]
-  ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers             = {
     ibm = ibm.powervs1
   }
@@ -190,7 +189,6 @@ module "ocp_inst_reboot_powervs1" {
 module "ocp_inst_reboot_powervs2" {
   source     = "./modules/inst_reboot"
   depends_on = [time_sleep.wait_2_minutes]
-  ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers             = {
     ibm = ibm.powervs2
   }
@@ -202,7 +200,6 @@ module "ocp_inst_reboot_powervs2" {
 module "ocp_inst_reboot_powervs3" {
   source     = "./modules/inst_reboot"
   depends_on = [time_sleep.wait_2_minutes]
-  ibm_resource_group_id = module.res-group.ibm_resource_group_id
   providers             = {
     ibm = ibm.powervs3
   }
