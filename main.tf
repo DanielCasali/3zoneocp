@@ -230,7 +230,7 @@ module "ocp_inst_reboot_powervs1_comp" {
 }
 
 
-module "ocp_inst_reboot_powervs2_ctr" {
+module "ocp_inst_reboot_powervs2_comp" {
   source     = "./modules/inst_reboot_comp_plane"
   depends_on = [time_sleep.wait_5_minutes]
   providers             = {
@@ -241,7 +241,7 @@ module "ocp_inst_reboot_powervs2_ctr" {
   this_workspace_id = module.powervs2.ibm_workspace_id
 }
 
-module "ocp_inst_reboot_powervs3_ctr" {
+module "ocp_inst_reboot_powervs3_comp" {
   source     = "./modules/inst_reboot_comp_plane"
   depends_on = [time_sleep.wait_5_minutes]
   providers             = {
