@@ -34,7 +34,7 @@ variable "ocp_config" {
 
 variable "region_definition" {
   default = {
-    region              = "us-south"
+    region              = "us-south"  #Valid values today are "us-south" or "us-east" - there are no other 3 zone regions. Other regions will fail
     vpc_name            = "ocp-vpc"
     resource_group_name = "three-site-ocp"
     zone1 = {

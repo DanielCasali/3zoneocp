@@ -1,5 +1,7 @@
 variable "instance_sizes" {}
 variable "region_entries" {}
+variable "ibm_resource_group_id" {}
+variable "ocp_config" {}
 
 #output "worker_distribution" {
 #  value = {

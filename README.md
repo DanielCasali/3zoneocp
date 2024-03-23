@@ -57,5 +57,15 @@ You only need to change the vars.tf file and, additionally if you prefer, you ca
 
 You can change all CIDRs for the VPCs and PowerVS network, you can change the OpenShift version for the OVA image to be automatically downloaded into your PowerVS boot images. You can change the cluster name and domain for your cluster and as if it were on-premisses it does not need to be a valid domain to install to work, so it is also safe for PoCs, you just need to make sure the name resolution of the client accessing the cluster points correctly to the CNAMEs of the load balancers the client has access to. If you want a publicly available cluster you do need to use a domain you own and point the CNAME for the external load balancer after the install finishes.
 
+## To install
+You can run `terraform init` and then `terraform apply`. The installation takes about 2h to finish. You will need to approve the Certificate signing requests just like any other UPI installs, if you don't know how to do it look here: https://docs.openshift.com/container-platform/4.15/installing/installing_ibm_power/installing-ibm-power.html#installation-approve-csrs_installing-ibm-power
 
-As of now the automation has the resource-group and workspace names fixed but if this automation becomes popular I hope people can start actively contributing to it or forked into more than a side project of mine.
+If you have issues on the first run just do it once more. If it fails anyway destroy all with `terraform destroy` and retry the `terraform apply`
+
+## After you install
+Remove everything that we use for the bootstrap. the ignition will be automatically deleted in one day. but I do advise you to destroy these targets by the end of the install:
+```
+terraform destroy --target module.boot_ignition.ibm_iam_access_group_policy.cos_policy
+terraform destroy --target module.boot_ignition.ibm_cos_bucket_object.bootstrap
+terra
+```
