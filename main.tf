@@ -169,6 +169,48 @@ module "powervs3" {
 
 
 
+resource "time_sleep" "wait_2_minutes" {
+  depends_on = [module.powervs1, module.powervs2, module.powervs3]
+  create_duration = "2m"
+}
+
+module "ocp_inst_reboot_powervs1" {
+  source     = "./modules/inst_reboot"
+  depends_on = [time_sleep.wait_2_minutes]
+  ibm_resource_group_id = module.res-group.ibm_resource_group_id
+  providers             = {
+    ibm = ibm.powervs1
+  }
+  ocp_instance_mac = module.powervs1.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.powervs1.ibm_workspace_id
+}
+
+
+module "ocp_inst_reboot_powervs2" {
+  source     = "./modules/inst_reboot"
+  depends_on = [time_sleep.wait_2_minutes]
+  ibm_resource_group_id = module.res-group.ibm_resource_group_id
+  providers             = {
+    ibm = ibm.powervs2
+  }
+  ocp_instance_mac = module.powervs2.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.powervs2.ibm_workspace_id
+}
+
+module "ocp_inst_reboot_powervs3" {
+  source     = "./modules/inst_reboot"
+  depends_on = [time_sleep.wait_2_minutes]
+  ibm_resource_group_id = module.res-group.ibm_resource_group_id
+  providers             = {
+    ibm = ibm.powervs3
+  }
+  ocp_instance_mac = module.powervs3.ocp_instance_mac
+  ibmcloud_api_key = var.ibmcloud_api_key
+  this_workspace_id = module.powervs3.ibm_workspace_id
+}
+
 
 
 
