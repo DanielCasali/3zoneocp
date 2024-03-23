@@ -11,6 +11,13 @@ resource "ibm_cos_bucket" "cos_bucket" {
   resource_instance_id  = ibm_resource_instance.cos_instance.id
   region_location       = var.provider_region
   storage_class         = "standard"
+  force_delete          = true
+  expire_rule {
+    rule_id = "delete"
+    enable  = true
+    hours    = 1
+  }
+
 }
 
 resource "ibm_cos_bucket_object" "bootstrap" {
