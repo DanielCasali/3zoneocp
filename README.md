@@ -70,6 +70,7 @@ If you have issues on the first run just do it once more. If it fails anyway des
 ## After you install
 Remove everything that we use for the bootstrap. The ignition will be automatically deleted in one day. But I do advise you to destroy these targets by the end of the installation:
 ```
+terraform state rm module.ocp_inst_reboot_powervs1_ctr.ibm_pi_instance_action.reboot_non_worker\[\"bootstrap\"\]
 terraform state rm module.powervs1.module.ocp_instance\[\"bootstrap\"\].ibm_pi_instance.instance
 terraform destroy --target module.boot_ignition
 ```
