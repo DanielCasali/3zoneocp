@@ -70,7 +70,7 @@ If you have issues on the first run just do it once more. If it fails anyway des
 ## After you install
 Remove everything that we use for the bootstrap. The ignition will be automatically deleted in one day. but I do advise you to destroy these targets by the end of the install:
 ```
-terraform destroy --target module.boot_ignition
 terraform state rm module.powervs1.module.ocp_instance\[\"bootstrap\"\].ibm_pi_instance.instance
+terraform destroy --target module.boot_ignition
 ```
 After this you removed the cloud object storage and authorizations needed to download the bootstrap ignition and removed the bootstrap server from the state. You can get to the Cloud GUI and just Delete the Bootstrao server so you reduce your cost.
