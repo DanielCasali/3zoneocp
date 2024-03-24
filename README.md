@@ -11,7 +11,7 @@ Before beginning the installation process, ensure that you have the following pr
 1) An active IBM Cloud account with access to PowerVS.
 2) Sufficient resource quotas and permissions to create resource groups, authorizations, VPCs, load balancers, pDNS, PowerVS instances and network resources for this to work I would advise you to use an Admin account API key that can be destroyed right after deployment.
 3) OpenShift installation files and tools, including the OpenShift installer and command-line interface (CLI).
-4) We do use proxy for this install so be aware to add the proxy lines to your install-config.yaml file, make sure to bypass proxy with noProxy adding all the internal CIDRs and also add your internal network as appropriate. The proxy will be hardcoded as `http://proxy.<ClusterName>.<ClusterDomain>:8080` because we automated the creation of two proxies in two different zones, the load balancer for it, and the DNS entries needed so the installation occurs automatically. bellow an example of the install-config.yaml file for this setup with the default values existing in the vars.tf
+4) We do use proxy for this install so be aware to add the proxy lines to your install-config.yaml file, make sure to bypass proxy with noProxy adding all the internal CIDRs and also add your internal network as appropriate. The proxy will be hardcoded as `http://proxy.<ClusterName>.<ClusterDomain>:8080` because we automated the creation of two proxies in two different zones, the load balancer for it, and the DNS entries needed so the installation occurs automatically. Bellow an example of the install-config.yaml file for this setup with the default values existing in the vars.tf
 
 ```
 apiVersion: v1
