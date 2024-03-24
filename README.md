@@ -60,6 +60,11 @@ You can change all CIDRs for the VPCs and PowerVS network, you can change the Op
 ## To install
 You can run `terraform init` and then `terraform apply`. The installation takes about 2h to finish. You will need to approve the Certificate signing requests just like any other UPI installs, if you don't know how to do it look here: https://docs.openshift.com/container-platform/4.15/installing/installing_ibm_power/installing-ibm-power.html#installation-approve-csrs_installing-ibm-power
 
+To approve the changes one can use (assuming you have the oc client on your path):
+```
+oc get csr |grep Pending |awk '{print $1}' |xargs oc adm certificate approve
+```
+
 If you have issues on the first run just do it once more. If it fails anyway destroy all with `terraform destroy` and retry the `terraform apply`
 
 ## After you install
