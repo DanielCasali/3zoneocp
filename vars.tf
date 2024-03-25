@@ -12,7 +12,7 @@ variable "pi_ssh_key" {
 variable "oper_system" {
   description = "The target operating system for file download and decompression"
   type        = string
-  default     = "linux" #Valid Operating systems are linux, mac and windows
+  default     = "mac" #Valid Operating systems are linux and mac, OCP does not support windows ignition creation.
 }
 
 variable "architecture" {
