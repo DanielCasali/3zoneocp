@@ -8,6 +8,21 @@ variable "pi_ssh_key" {
   description = "On the safe side, create a terraform.tfvars file with the content with the ibmcloud_api_key"
 }
 
+##This is the Operating system and architecture of the device you are using to run terraform:
+variable "oper_system" {
+  description = "The target operating system for file download and decompression"
+  type        = string
+  default     = "linux" #Valid Operating systems are linux, mac and windows
+}
+
+variable "architecture" {
+  description = "The target architecture for file download and decompression"
+  type        = string
+  default     = "amd64" #Valid Architectures are amd64, arm64 and ppc64le
+}
+
+
+
 variable "ocp_config" {
   default = {
     ocp_cluster_name   = "ocp"
