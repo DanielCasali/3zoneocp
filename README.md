@@ -11,6 +11,10 @@ You do not need to own a Power Server beforehand you create the cluster, the ins
 
 1) An active IBM Cloud account with access to PowerVS.
 2) Sufficient resource quotas and permissions to create resource groups, authorizations, VPCs, load balancers, pDNS, PowerVS instances and network resources for this to work I would advise you to use an Admin account API key that can be destroyed right after deployment.
+### If you are doing it with automatically the pre3zoneocp:
+3) Clone the helper project on the parent directory together with 3zoneocp
+4) Fix the variables (more on it on the next topic).
+5) Run `terraform init` and then `terraform apply` on the pre3zoneocp.
 
 ### If you are doing it manually:
 3) OpenShift's installation files and tools, including the OpenShift installer and command-line interface (CLI). Make sure you download it from the ppc64le mirror, even if installing from a windows or mac: https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp/stable-4.12/
@@ -53,10 +57,6 @@ sshKey: 'ssh-ed25519 AAAA...'
 
 If you don't know how to download it, look here: https://docs.openshift.com/container-platform/4.15/installing/installing_ibm_power/installing-ibm-power.html#installation-obtaining-installer_installing-ibm-power
 
-### If you are doing it with automatically the pre3zoneocp:
-3) Clone the helper project on the parent directory together with 3zoneocp
-4) Fix the variables (more on it on the next topic).
-5) Run `terraform init` and then `terraform apply` on the pre3zoneocp.
 
 
 ## What do I need to change:
