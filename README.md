@@ -56,7 +56,7 @@ If you don't know how to download it, look here: https://docs.openshift.com/cont
 
 ### If you are doing it with the pre3zoneocp:
 3) Clone the helper project on the parent directory together with 3zoneocp
-4) Fix the variables (more on it on the next topic)
+4) Fix the variables (more on it on the next topic).
 5) Run `terraform init` and then `terraform apply` on the pre3zoneocp.
 
 
