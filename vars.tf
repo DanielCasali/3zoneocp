@@ -42,20 +42,6 @@ variable "ocp_config" {
   }
 }
 
-#
-#The configuration uses proxy for security, no public IP will be exposed into your PowerVS Subnet, make sure to add these lines into install-config.yaml when generating the ignitions
-#proxy:
-#  httpProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
-#  httpsProxy: http://proxy.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain}:8080
-#  noProxy: ".apps.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},api-int.${var.ocp_config.ocp_cluster_name}.${var.ocp_config.ocp_cluster_domain},${var.region_definition.zone1.vpc_zone_cidr},${var.region_definition.zone2.vpc_zone_cidr},${var.region_definition.zone3.vpc_zone_cidr},${var.region_definition.zone1.pvs_dc_cidr},${var.region_definition.zone2.pvs_dc_cidr},${var.region_definition.zone3.pvs_dc_cidr}"
-#
-#Here is an example (the private DNS will be created automatically for you - you may or not add a public DNS or use your enterprise DNS - feel free to choose):
-#
-#proxy:
-#  httpProxy: http://proxy.ocp.example.com:8080
-#  httpsProxy: http://proxy.ocp.example.com:8080
-#  noProxy: .ocp.example.com,api.ocp.example.com,api-int.ocp.example.com,10.0.101.0/24,10.0.102.0/24,10.0.103.0/24,192.168.101.0/24,192.168.102.0/24,192.168.103.0/24
-
 
 variable "region_definition" {
   default = {

@@ -7,12 +7,11 @@ The Automation creates everything redundant on at least two zones, so you can be
 
 ## Prerequisites:
 Before beginning the installation process, ensure that you have the following prerequisites:
-You do not need to own a Power Server beforehand you create the cluster, the installation program and the terraform binaries will run on Linux, Mac, Windows on amd64 or arm64, besides the Linux on Power option. All tests were made on an amd64 Mac.
+You do not need to own a Power Server beforehand you create the cluster, the installation program and the terraform binaries will run on Linux, Mac on amd64 or arm64, besides the Linux on Power option. All tests were made on an amd64 Mac.
 
 1) An active IBM Cloud account with access to PowerVS.
 2) Sufficient resource quotas and permissions to create resource groups, authorizations, VPCs, load balancers, pDNS, PowerVS instances and network resources for this to work I would advise you to use an Admin account API key that can be destroyed right after deployment.
 
-## Pre-requisites that can be accomplished manually or using the pre3zoneocp project
 ### If you are doing it manually:
 3) OpenShift's installation files and tools, including the OpenShift installer and command-line interface (CLI). Make sure you download it from the ppc64le mirror, even if installing from a windows or mac: https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp/stable-4.12/
 4) We do use proxy for this installation so be aware to add the proxy lines to your install-config.yaml file, make sure to bypass proxy with noProxy adding all the internal CIDRs and also add your internal network as appropriate. The proxy will be hardcoded as `http://proxy.<ClusterName>.<ClusterDomain>:8080` because we automated the creation of two proxies in two different zones, the load balancer for it, and the DNS entries needed so the installation occurs automatically. Bellow an example of the install-config.yaml file for this setup that matches with the default values existing in the vars.tf.
@@ -49,12 +48,12 @@ fips: false
 pullSecret: '{"auths": ...}' 
 sshKey: 'ssh-ed25519 AAAA...' 
 ```
-5)Create the ignition files using "openshift-install" tool more info on this here:
+5) Create the ignition files using "openshift-install" tool more info on this here:
    https://docs.openshift.com/container-platform/4.15/installing/installing_ibm_power/installing-ibm-power.html#installation-user-infra-generate-k8s-manifest-ignition_installing-ibm-power
 
 If you don't know how to download it, look here: https://docs.openshift.com/container-platform/4.15/installing/installing_ibm_power/installing-ibm-power.html#installation-obtaining-installer_installing-ibm-power
 
-### If you are doing it with the pre3zoneocp:
+### If you are doing it with automatically the pre3zoneocp:
 3) Clone the helper project on the parent directory together with 3zoneocp
 4) Fix the variables (more on it on the next topic).
 5) Run `terraform init` and then `terraform apply` on the pre3zoneocp.
