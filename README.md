@@ -17,7 +17,7 @@ You do not need to own a Power Server beforehand you create the cluster, the ins
 5) Run `terraform init` and then `terraform apply` on the pre3zoneocp.
 
 ### If you are doing it manually:
-3) OpenShift's installation files and tools, including the OpenShift installer and command-line interface (CLI). Make sure you download it from the ppc64le mirror, even if installing from a windows or mac: https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp/stable-4.12/
+3) OpenShift's installation files and tools, including the OpenShift installer and command-line interface (CLI). Make sure you download it from the ppc64le mirror, even if installing from a mac: https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp/stable-4.12/
 4) We do use proxy for this installation so be aware to add the proxy lines to your install-config.yaml file, make sure to bypass proxy with noProxy adding all the internal CIDRs and also add your internal network as appropriate. The proxy will be hardcoded as `http://proxy.<ClusterName>.<ClusterDomain>:8080` because we automated the creation of two proxies in two different zones, the load balancer for it, and the DNS entries needed so the installation occurs automatically. Bellow an example of the install-config.yaml file for this setup that matches with the default values existing in the vars.tf.
 
 ```
