@@ -111,7 +111,7 @@ locals {
   vpc_image = [
     for image in data.ibm_is_images.vpc.images:
     image
-    if image.os == "centos-stream-9-amd64"
+    if image.os == "centos-stream-8-amd64"
   ][0]
   vpc_image_id = local.vpc_image.id
 }
